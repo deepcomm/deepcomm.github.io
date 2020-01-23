@@ -1,9 +1,11 @@
 ---
 layout: page
-title: About Pixyll
+title: About Author
 permalink: /about/
 tags: about
 ---
+
+This website is under construction with <3 by [Hyeji Kim](https://sites.google.com/view/hyejikim/home)
 
 This Jekyll theme was crafted with <3 by [John Otander](http://johnotander.com)
 ([@4lpine](https://twitter.com/4lpine)).
