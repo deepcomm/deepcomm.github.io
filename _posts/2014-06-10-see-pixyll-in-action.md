@@ -10,21 +10,19 @@ categories: jekyll pixyll
 
 Channel coding and decoding are basic building blocks of communication systems. An encoder maps a message to a codeword, where the codeword has some redundancy. A decoder maps noisy codeword to estimate of an message. 
 
+### Convolutional code 
 
+![desk](https://deepcomm.github.io/images/convcode.png)
 
-![desk](https://deepcomm.github.io/images/me.jpeg)
+### Recurrent Neural Network
 
+![desk](https://deepcomm.github.io/images/RNN.png)
 
+### Sequential code
 
+![desk](https://deepcomm.github.io/images/seqcode.png)
 
-
-
-
-
-
-### Convolutional codes 
-
-
+### 
 
 
 
