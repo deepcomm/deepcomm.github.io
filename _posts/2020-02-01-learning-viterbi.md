@@ -10,6 +10,12 @@ categories: jekyll pixyll
 
 Channel coding and decoding are basic building blocks of communication systems. An encoder maps a message to a codeword, where the codeword has some redundancy. A decoder maps noisy codeword to estimate of an message. 
 
+
+
+We fix the encoder as one of the standard encoders and learn the decoder for practical channels. When we fix the encoder, there’re many possible choices - and we choose sequential codes, such as convolutional codes and turbo codes. There are many reasons to it. 
+
+
+
 ### Convolutional code 
 
 ![desk](https://hyejikim1.github.io/images/convcode.png)
