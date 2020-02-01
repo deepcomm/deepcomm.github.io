@@ -4,6 +4,7 @@ title:      Decoding convolutional codes
 date:       2020-02-01 12:31:19
 summary:    Learning Viterbi decoder.
 categories: jekyll pixyll
+comments:   true
 ---
 
 
