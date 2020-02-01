@@ -15,7 +15,7 @@ Channel coding and decoding are basic building blocks of communication systems. 
 
 ### Channel encoding and decoding 
 
-![desk](https://hyejikim1.github.io/images/commsystem.png)
+![desk](https://deepcomm.github.io/images/commsystem.png)
 
 
 
@@ -29,13 +29,13 @@ First of all, these codes are practical. These codes are actually used for mobil
 
 I’m gonna show you an illusration of sequential code that maps a message sequence b to a codeword sequence c. We first take the first bit b1, and update the state s1, and the generate coded bits c1 by looking at the state. Depending the rate of your code, c1 can be of length 2 if it’s rate 1/2 or length 3 if it’s rate 1/3. And then you take the second bit b2, then you update your state based on s1 and b2, and then geenrate coded bits c2. And you do this recurrently, until you map the last bit bK to the coded bit cK. 
 
-![desk](https://hyejikim1.github.io/images/seqcode.png)
+![desk](https://deepcomm.github.io/images/seqcode.png)
 
 ### Convolutional code 
 
 Convolutional code is an example of sequential codes. Here’s an example for a rate 1/2 convolutional code. Which maps bk to ck1 and ck2. The state is bk, bk-1, bk-2. Then the coded bits are convolution (or mod 2 sum) of the state bits. 
 
-![desk](https://hyejikim1.github.io/images/convcode.png)
+![desk](https://deepcomm.github.io/images/convcode.png)
 
 
 
@@ -55,7 +55,7 @@ So the RNN is a very natural fit to the sequential encoders.
 
 
 
-![desk](https://hyejikim1.github.io/images/RNN.png)
+![desk](https://deepcomm.github.io/images/RNN.png)
 
 ### Viterbi decoder
 
@@ -65,7 +65,7 @@ Now when it comes to decoding, for these sequential codes, there are well known 
 
 The first thing to do is to model the decoder as a neural network. We model the decoder as a bi-directional RNN because the encoder is sequential. We model the decoder as a Bi-directional RNN (which has forward pass and baackward pass) because we’d like the decoder to look at the whole received sequence to estimate a certain bit. 
 
-![desk](https://hyejikim1.github.io/images/twolayerbiGRUDec.png)
+![desk](https://deepcomm.github.io/images/twolayerbiGRUDec.png)
 
 
 
@@ -169,7 +169,7 @@ this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your pag
 */
 (function() { // DON'T EDIT BELOW THIS LINE
 var d = document, s = d.createElement('script');
-s.src = 'https://hyejikim1-github-io.disqus.com/embed.js';
+s.src = 'https://deepcomm-comments.disqus.com/embed.js';
 s.setAttribute('data-timestamp', +new Date());
 (d.head || d.body).appendChild(s);
 })();
@@ -183,7 +183,7 @@ s.setAttribute('data-timestamp', +new Date());
 There is a significant amount of subtle, yet precisely calibrated, styling to ensure
 that your content is emphasized while still looking aesthetically pleasing.
 
-All links are easy to [locate and discern](https://hyejikim1.github.io/), yet don't detract from the [harmony
+All links are easy to [locate and discern](https://deepcomm.github.io/), yet don't detract from the [harmony
 of a paragraph](#). The _same_ goes for italics and __bold__ elements. Even the the strikeout
 works if <del>for some reason you need to update your post</del>. For consistency's sake,
 <ins>The same goes for insertions</ins>, of course.
