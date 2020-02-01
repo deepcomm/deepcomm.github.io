@@ -66,7 +66,7 @@ The first thing to do is to model the decoder as a neural network. We model the 
 
 
 
-
+![desk](https://hyejikim1.github.io/images/twolayerbiGRUDec.png)
 
 
 
