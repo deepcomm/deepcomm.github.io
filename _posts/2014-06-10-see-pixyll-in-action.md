@@ -1,20 +1,44 @@
 ---
 layout:     post
-title:      Pixyll in Action
+title:      Decoding convolutional codes
 date:       2014-06-10 12:31:19
-summary:    See what the different elements looks like. Your markdown has never looked better. I promise.
+summary:    Learning Viterbi decoder.
 categories: jekyll pixyll
 ---
+
+
+
+Channel coding and decoding are basic building blocks of communication systems. An encoder maps a message to a codeword, where the codeword has some redundancy. A decoder maps noisy codeword to estimate of an message. 
+
+
+
+![desk](https://deepcomm.github.io/images/me.jpeg)
+
+
+
+
+
+
+
+
+
+### Convolutional codes 
+
+
+
+
 
 There is a significant amount of subtle, yet precisely calibrated, styling to ensure
 that your content is emphasized while still looking aesthetically pleasing.
 
-All links are easy to [locate and discern](#), yet don't detract from the [harmony
+All links are easy to [locate and discern](https://hyejikim1.github.io/), yet don't detract from the [harmony
 of a paragraph](#). The _same_ goes for italics and __bold__ elements. Even the the strikeout
 works if <del>for some reason you need to update your post</del>. For consistency's sake,
 <ins>The same goes for insertions</ins>, of course.
 
 ### Code, with syntax highlighting
+
+
 
 Here's an example of some ruby code with line anchors.
 
