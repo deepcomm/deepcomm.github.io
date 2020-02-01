@@ -12,27 +12,61 @@ Channel coding and decoding are basic building blocks of communication systems. 
 
 
 
-We fix the encoder as one of the standard encoders and learn the decoder for practical channels. When we fix the encoder, there’re many possible choices - and we choose sequential codes, such as convolutional codes and turbo codes. There are many reasons to it. 
-
 ### Channel encoding and decoding 
 
 ![desk](https://hyejikim1.github.io/images/commsystem.png)
 
 
 
-### Convolutional code 
+We fix the encoder as one of the standard encoders and learn the decoder for practical channels. When we fix the encoder, there’re many possible choices - and we choose sequential codes, such as convolutional codes and turbo codes. There are many reasons to it.
 
-![desk](https://hyejikim1.github.io/images/convcode.png)
 
-### Recurrent Neural Network
 
-![desk](https://hyejikim1.github.io/images/RNN.png)
+First of all, these codes are practical. These codes are actually used for mobile communications as in 4G LTE, and satellite communications. Secondly, these codes achieve performance close to the fundamental limit, which is a very strong property. Lastly, the recurrent nature of sequential encoding process aligns very well with the recurrent neural network structure. Let me elaborate on this. 
 
 ### Sequential code
 
+I’m gonna show you an illusration of sequential code that maps a message sequence b to a codeword sequence c. We first take the first bit b1, and update the state s1, and the generate coded bits c1 by looking at the state. Depending the rate of your code, c1 can be of length 2 if it’s rate 1/2 or length 3 if it’s rate 1/3. And then you take the second bit b2, then you update your state based on s1 and b2, and then geenrate coded bits c2. And you do this recurrently, until you map the last bit bK to the coded bit cK. 
+
 ![desk](https://hyejikim1.github.io/images/seqcode.png)
 
-### 
+### Convolutional code 
+
+Convolutional code is an example of sequential codes. Here’s an example for a rate 1/2 convolutional code. Which maps bk to ck1 and ck2. The state is bk, bk-1, bk-2. Then the coded bits are convolution (or mod 2 sum) of the state bits. 
+
+![desk](https://hyejikim1.github.io/images/convcode.png)
+
+
+
+
+
+### Recurrent Neural Network
+
+
+
+Okay now let’s look at the Reccurent Neural Network architecture — (RNN in short) is a good neural architecture for sequential mappings with memory. 
+
+The way it works is there is a hidden state h evolving through time. The hidden state keeps some information about the current and all the past inputs. The hidden state is updated as a function of previous hidden state and the input at the time. Then the output is another function of the hidden state at time i. 
+
+In RNN, these f and g are some parametric functions. Depending on what parameteric functions you choose, the RNN can be a vanilla RNN, or LSTM, or GRU. And once you choose the parametric function, we then learn a good parameter through training.
+
+So the RNN is a very natural fit to the sequential encoders. 
+
+
+
+![desk](https://hyejikim1.github.io/images/RNN.png)
+
+### Viterbi decoder
+
+Now when it comes to decoding, for these sequential codes, there are well known decoders under AWGN settings - such as Viterbi and BCJR decoders … 
+
+### RNN decoder 
+
+The first thing to do is to model the decoder as a neural network. We model the decoder as a bi-directional RNN because the encoder is sequential. We model the decoder as a Bi-directional RNN (which has forward pass and baackward pass) because we’d like the decoder to look at the whole received sequence to estimate a certain bit. 
+
+
+
+
 
 
 
