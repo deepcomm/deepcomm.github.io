@@ -60,15 +60,101 @@ So the RNN is a very natural fit to the sequential encoders.
 
 Now when it comes to decoding, for these sequential codes, there are well known decoders under AWGN settings - such as Viterbi and BCJR decoders … 
 
-### RNN decoder 
+### Modelling an RNN decoder 
 
 The first thing to do is to model the decoder as a neural network. We model the decoder as a bi-directional RNN because the encoder is sequential. We model the decoder as a Bi-directional RNN (which has forward pass and baackward pass) because we’d like the decoder to look at the whole received sequence to estimate a certain bit. 
-
-
 
 ![desk](https://hyejikim1.github.io/images/twolayerbiGRUDec.png)
 
 
+
+{% highlight python %}
+
+from keras import backend as K
+
+import tensorflow as tf
+
+from keras.layers import LSTM, GRU, SimpleRNN
+
+
+
+block_length = 100 # Length of input message sequence  
+
+code_rate = 2 # Two coded bits per one message bit
+
+num_rx_layer = 2
+
+num_hunit_rnn_rx = 50
+
+noisy_codeword = Input(shape=(step_of_history, code_rate)) # size is (100, 2) - notation! 
+
+x = noisy_codeword
+
+for layer in range(num_rx_layer):
+
+   x = Bidirectional(GRU(units=num_hunit_rnn_rx, 
+
+​          activation='tanh',
+
+​          return_sequences=True))(x)
+
+   x = BatchNormalization()(x)
+
+x = TimeDistributed(Dense(1, activation='sigmoid'))(x)
+
+Predictions = x
+
+model = Model(inputs=noisy_codeword, outputs=predictions)
+
+{% endhighlight %}
+
+
+
+### Defining optimizer, loss, and evaluation metrics 
+
+
+
+{% highlight python %}
+
+optimizer= keras.optimizers.adam(lr=learning_rate,clipnorm=1.)
+
+
+
+def errors(y_true, y_pred):
+
+​    myOtherTensor = K.not_equal(K.round(y_true), K.round(y_pred))
+
+​    return K.mean(tf.cast(myOtherTensor, tf.float32))
+
+
+
+model.compile(optimizer=optimizer,loss='mean_squared_error', metrics=[errors])
+
+print(model.summary())
+
+{% endhighlight %}
+
+
+
+### Training 
+
+{% highlight python %}
+
+model.fit(x=train_tx, y=X_train, batch_size=train_batch_size,
+
+​          callbacks=[change_lr]
+
+​          epochs=num_epoch, validation_split=0.1)  # starts training
+
+{% endhighlight %}
+
+
+
+### Results 
+
+
+
+<!---
 
 There is a significant amount of subtle, yet precisely calibrated, styling to ensure
 that your content is emphasized while still looking aesthetically pleasing.
@@ -238,3 +324,7 @@ Happy writing.
 [^1]: Important information that may distract from the main text can go in footnotes.
 
 [^2]: Footnotes will work in tables since they're just links.
+
+
+
+-->
