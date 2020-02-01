@@ -14,6 +14,10 @@ Channel coding and decoding are basic building blocks of communication systems. 
 
 We fix the encoder as one of the standard encoders and learn the decoder for practical channels. When we fix the encoder, there’re many possible choices - and we choose sequential codes, such as convolutional codes and turbo codes. There are many reasons to it. 
 
+### Channel encoding and decoding 
+
+![desk](https://hyejikim1.github.io/images/commsystem.png)
+
 
 
 ### Convolutional code 
