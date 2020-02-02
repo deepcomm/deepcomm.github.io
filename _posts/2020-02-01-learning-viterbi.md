@@ -10,27 +10,21 @@ comments:   true
 
 
 
-The first series of posts will cover applications of deep learning to channel coding, which is a basic building block of communication systems. An encoder maps messages (e.g., bit sequence) to codewords, typically of longer lengths. A decoder maps noisy codewords to the estimate of messages, as illustrated in a simplified figure below 
+The first series of posts will cover applications of deep learning to channel coding - a basic building block of communication systems. An encoder maps messages (e.g., bit sequences) to codewords, typically of longer lengths. A decoder maps noisy codewords to the estimate of messages, as illustrated in a simplified figure below. 
 
 ![desk](https://hyejikim1.github.io/images/commsystem.png)
 
-The design of channel codes is directly related to the reliability of communication systems; practical value of better codes is enormous. The design of codes is also theoretically challenging and interesting; it has been a major area of study in information theory and coding theory for several decades since Shannon's 1948 seminal paper. 
+The design of channel codes is directly related to the reliability of communication systems; a practical value of reliable codes is enormous. The design of codes is also theoretically challenging and interesting; it has been a major area of study in information theory and coding theory for several decades since Shannon's 1948 seminal paper. 
 
 
 
-As a first step towards revolutionizing channel coding via deep learning, we ask the very first natural question. **Can we learn optimal decoders solely from data?**
+As a first step towards revolutionizing channel coding via deep learning (e.g., learning a novel pair of encoder-decoder), we ask the very first natural question: **Can we learn an optimal decoder for a fixed encoder from data?** Learning decoder only for a fixed encoder should be easier then learning both the encoder and decoder. 
 
-
-
-### Learning channel decoders
-
-
-
-We fix the encoder as one of the standard encoders and learn the decoder for practical channels. When we fix the encoder, there’re many possible choices - and we choose sequential codes, such as convolutional codes and turbo codes. There are many reasons to it. First of all, these codes are practical. These codes are actually used for mobile communications as in 4G LTE, and satellite communications. Secondly, these codes achieve performance close to the fundamental limit, which is a very strong property. Lastly, the recurrent nature of sequential encoding process aligns very well with the recurrent neural network structure. Let me elaborate on this. 
+To answer this question, we fix the encoder as one of the standard encoders, model the decoder as a neural network, and train the decoder in a supervised manner. 
 
 ![desk](https://deepcomm.github.io/images/learndec.png)
 
-
+When we fix the encoder, there’re many possible choices - and we choose sequential codes, such as convolutional codes and turbo codes. There are many reasons to it. First of all, these codes are practical. These codes are actually used for mobile communications as in 4G LTE, and satellite communications. Secondly, these codes achieve performance close to the fundamental limit, which is a very strong property. Lastly, the recurrent nature of sequential encoding process aligns very well with the recurrent neural network structure. Let me elaborate on this. 
 
 ### Sequential code
 
