@@ -1,43 +1,54 @@
 ---
+
 layout:     post
-title:      Decoding convolutional codes
+title:      Channel decoding via deep learning (1)
 date:       2020-02-01 12:31:19
-summary:    Learning Viterbi decoder.
+summary:    Learning Viterbi Maximum Likelihood decoders for convolutional codes
 categories: jekyll pixyll
 comments:   true
 ---
 
 
 
-Channel coding and decoding are basic building blocks of communication systems. An encoder maps a message to a codeword, where the codeword has some redundancy. A decoder maps noisy codeword to estimate of an message. 
+The first series of posts will cover applications of deep learning to channel coding, which is a basic building block of communication systems. An encoder maps messages (e.g., bit sequence) to codewords, typically of longer lengths. A decoder maps noisy codewords to the estimate of messages, as illustrated in a simplified figure below 
+
+![desk](https://hyejikim1.github.io/images/commsystem.png)
+
+The design of channel codes is directly related to the reliability of communication systems; practical value of better codes is enormous. The design of codes is also theoretically challenging and interesting; it has been a major area of study in information theory and coding theory for several decades since Shannon's 1948 seminal paper. 
 
 
 
-### Channel encoding and decoding 
-
-![desk](https://deepcomm.github.io/images/commsystem.png)
+As a first step towards revolutionizing channel coding via deep learning, we ask the very first natural question. **Can we learn optimal decoders solely from data?**
 
 
 
-We fix the encoder as one of the standard encoders and learn the decoder for practical channels. When we fix the encoder, there’re many possible choices - and we choose sequential codes, such as convolutional codes and turbo codes. There are many reasons to it.
+### Learning channel decoders
 
 
 
-First of all, these codes are practical. These codes are actually used for mobile communications as in 4G LTE, and satellite communications. Secondly, these codes achieve performance close to the fundamental limit, which is a very strong property. Lastly, the recurrent nature of sequential encoding process aligns very well with the recurrent neural network structure. Let me elaborate on this. 
+We fix the encoder as one of the standard encoders and learn the decoder for practical channels. When we fix the encoder, there’re many possible choices - and we choose sequential codes, such as convolutional codes and turbo codes. There are many reasons to it. First of all, these codes are practical. These codes are actually used for mobile communications as in 4G LTE, and satellite communications. Secondly, these codes achieve performance close to the fundamental limit, which is a very strong property. Lastly, the recurrent nature of sequential encoding process aligns very well with the recurrent neural network structure. Let me elaborate on this. 
+
+![desk](https://deepcomm.github.io/images/learndec.png)
+
+
 
 ### Sequential code
 
-I’m gonna show you an illusration of sequential code that maps a message sequence b to a codeword sequence c. We first take the first bit b1, and update the state s1, and the generate coded bits c1 by looking at the state. Depending the rate of your code, c1 can be of length 2 if it’s rate 1/2 or length 3 if it’s rate 1/3. And then you take the second bit b2, then you update your state based on s1 and b2, and then geenrate coded bits c2. And you do this recurrently, until you map the last bit bK to the coded bit cK. 
+We're going to show you an illusration of sequential code that maps a message sequence b to a codeword sequence c. We first take the first bit b<sub>1</sub>, and update the state s<sub>1</sub>, and the generate coded bits c<sub>1</sub> by looking at the state. Depending the rate of your code, c<sub>1</sub> can be of length 2 if it’s rate 1/2 or length 3 if it’s rate 1/3. And then you take the second bit b<sub>2</sub>, then you update your state s<sub>2</sub> based on s<sub>1</sub> and b<sub>2</sub>, and then geenrate coded bits c<sub>2</sub>. And you do this recurrently, until you map the last bit b<sub>K</sub> to the coded bit c<sub>K</sub>. 
 
-![desk](https://deepcomm.github.io/images/seqcode.png)
+
+
+<center><img src="https://hyejikim1.github.io/images/seqcode.png"></center>
+
+
 
 ### Convolutional code 
 
 Convolutional code is an example of sequential codes. Here’s an example for a rate 1/2 convolutional code. Which maps bk to ck1 and ck2. The state is bk, bk-1, bk-2. Then the coded bits are convolution (or mod 2 sum) of the state bits. 
 
-![desk](https://deepcomm.github.io/images/convcode.png)
 
 
+<center><img src="https://hyejikim1.github.io/images/convcode.png"></center>
 
 
 
@@ -53,9 +64,7 @@ In RNN, these f and g are some parametric functions. Depending on what parameter
 
 So the RNN is a very natural fit to the sequential encoders. 
 
-
-
-![desk](https://deepcomm.github.io/images/RNN.png)
+<center><img src="https://hyejikim1.github.io/images/RNN.png"></center>
 
 ### Viterbi decoder
 
@@ -65,7 +74,9 @@ Now when it comes to decoding, for these sequential codes, there are well known 
 
 The first thing to do is to model the decoder as a neural network. We model the decoder as a bi-directional RNN because the encoder is sequential. We model the decoder as a Bi-directional RNN (which has forward pass and baackward pass) because we’d like the decoder to look at the whole received sequence to estimate a certain bit. 
 
-![desk](https://deepcomm.github.io/images/twolayerbiGRUDec.png)
+
+
+<center><img src="https://hyejikim1.github.io/images/twolayerbiGRUDec.png"></center>
 
 
 
@@ -155,6 +166,18 @@ model.fit(x=train_tx, y=X_train, batch_size=train_batch_size,
 
 
 
+GRAPH 
+
+
+
+### References 
+
+[Communication Algorithms via Deep Learning](https://openreview.net/pdf?id=ryazCMbR-), Hyeji Kim, Yihan Jiang, Ranvir Rana, Sreeram Kannan, Sewoong Oh, Pramod Viswanath. ICLR 2018 
+
+
+
+
+
 <div id="disqus_thread"></div>
 <script>
 
@@ -169,7 +192,7 @@ this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your pag
 */
 (function() { // DON'T EDIT BELOW THIS LINE
 var d = document, s = d.createElement('script');
-s.src = 'https://deepcomm-comments.disqus.com/embed.js';
+s.src = 'https://hyejikim1-github-io.disqus.com/embed.js';
 s.setAttribute('data-timestamp', +new Date());
 (d.head || d.body).appendChild(s);
 })();
@@ -183,7 +206,7 @@ s.setAttribute('data-timestamp', +new Date());
 There is a significant amount of subtle, yet precisely calibrated, styling to ensure
 that your content is emphasized while still looking aesthetically pleasing.
 
-All links are easy to [locate and discern](https://deepcomm.github.io/), yet don't detract from the [harmony
+All links are easy to [locate and discern](https://hyejikim1.github.io/), yet don't detract from the [harmony
 of a paragraph](#). The _same_ goes for italics and __bold__ elements. Even the the strikeout
 works if <del>for some reason you need to update your post</del>. For consistency's sake,
 <ins>The same goes for insertions</ins>, of course.
