@@ -12,25 +12,29 @@ comments:   true
 
 The first series of posts will cover applications of deep learning to channel coding - a basic building block of communication systems. An encoder maps messages (e.g., bit sequences) to codewords, typically of longer lengths. A decoder maps noisy codewords to the estimate of messages, as illustrated in a simplified figure below. 
 
-![desk](https://hyejikim1.github.io/images/commsystem.png)
+
+
+
+
+<center><img src="https://deepcomm.github.io/images/commsystem.png" width="700"/></center>
 
 The design of channel codes is directly related to the reliability of communication systems; a practical value of reliable codes is enormous. The design of codes is also theoretically challenging and interesting; it has been a major area of study in information theory and coding theory for several decades since Shannon's 1948 seminal paper. 
 
 
 
-As a first step towards revolutionizing channel coding via deep learning (e.g., learning a novel pair of encoder-decoder), we ask the very first natural question: **Can we learn an optimal decoder for a fixed encoder from data?** Learning decoder only for a fixed encoder should be easier then learning both the encoder and decoder. 
+As a first step towards revolutionizing channel coding via deep learning (e.g., learning a novel pair of encoder-decoder), we ask the very first natural question: **Can we learn an optimal decoder for a fixed encoder from data?**  To answer this question, we fix the encoder as one of the standard encoders, model the decoder as a neural network, and train the decoder in a supervised manner. 
 
-To answer this question, we fix the encoder as one of the standard encoders, model the decoder as a neural network, and train the decoder in a supervised manner. 
-
-![desk](https://deepcomm.github.io/images/learndec.png)
-
-When we fix the encoder, there’re many possible choices - and we choose sequential codes, such as convolutional codes and turbo codes. There are many reasons to it. First of all, these codes are practical. These codes are actually used for mobile communications as in 4G LTE, and satellite communications. Secondly, these codes achieve performance close to the fundamental limit, which is a very strong property. Lastly, the recurrent nature of sequential encoding process aligns very well with the recurrent neural network structure. Let me elaborate on this. 
+<center><img src="https://deepcomm.github.io/images/learndec.png" width="700"/></center>
 
 ### Sequential code
 
-We're going to show you an illusration of sequential code that maps a message sequence b to a codeword sequence c. We first take the first bit b<sub>1</sub>, and update the state s<sub>1</sub>, and the generate coded bits c<sub>1</sub> by looking at the state. Depending the rate of your code, c<sub>1</sub> can be of length 2 if it’s rate 1/2 or length 3 if it’s rate 1/3. And then you take the second bit b<sub>2</sub>, then you update your state s<sub>2</sub> based on s<sub>1</sub> and b<sub>2</sub>, and then geenrate coded bits c<sub>2</sub>. And you do this recurrently, until you map the last bit b<sub>K</sub> to the coded bit c<sub>K</sub>. 
+When we fix the encoder, among many standard codes, we choose sequential codes such as convolutional codes and turbo codes for the following reasons:
 
+* These codes are practical. They are used for mobile communications (e.g., 4G LTE) and satellite communications. 
+* These codes achieve performance close to the fundamental limit.
+* The recurrent nature of sequential encoding aligns very well with the recurrent neural network structure. Let us elaborate on this. 
 
+Here is an illusration of a sequential code that <em>sequentially</em> maps a message bit sequence **b** of length K to a codeword sequence **c**. The encoder first takes the first bit b<sub>1</sub>, update the state s<sub>1</sub>, and the generate coded bits **c<sub>1</sub>** based on the state s<sub>1</sub>. The encoder then takes the second bit b<sub>2</sub>, generate state s<sub>2</sub> based on (s<sub>1</sub>, b<sub>2</sub>), and then generate coded bits **c<sub>2</sub>**. These mappings occur recurrently until the last coded bits **c_k** are generated. Each coded bits **c_k** (k=1, ... K) is of length r when code rate is 1/r. For example, for code rate 1/2, **c<sub>1</sub>** is of length 2.  
 
 <center><img src="https://hyejikim1.github.io/images/seqcode.png"></center>
 
@@ -38,7 +42,7 @@ We're going to show you an illusration of sequential code that maps a message se
 
 ### Convolutional code 
 
-Convolutional code is an example of sequential codes. Here’s an example for a rate 1/2 convolutional code. Which maps bk to ck1 and ck2. The state is bk, bk-1, bk-2. Then the coded bits are convolution (or mod 2 sum) of the state bits. 
+Here is an example for a rate 1/2 convolutional code, which is one of sequential codes. This code maps  b<sub>k</sub> to  (c<sub>k1</sub>, c<sub>k2</sub>), where the state is  (b<sub>k</sub>,  b<sub>k-1</sub>,  b<sub>k-2</sub>), and coded bits (c<sub>k1</sub>, c<sub>k2</sub>) are convolution (i.e., mod 2 sum) of the state bits.  
 
 
 
@@ -46,11 +50,19 @@ Convolutional code is an example of sequential codes. Here’s an example for a 
 
 
 
+
+
+learnconvdec
+
+
+
+We've seen why 
+
 ### Recurrent Neural Network
 
 
 
-Okay now let’s look at the Reccurent Neural Network architecture — (RNN in short) is a good neural architecture for sequential mappings with memory. 
+Now let's look at the <em>Reccurent Neural Network</em> (RNN) architecture. RNN is a neural architecture that's well suited for sequential mappings with memory. 
 
 The way it works is there is a hidden state h evolving through time. The hidden state keeps some information about the current and all the past inputs. The hidden state is updated as a function of previous hidden state and the input at the time. Then the output is another function of the hidden state at time i. 
 
@@ -64,7 +76,7 @@ So the RNN is a very natural fit to the sequential encoders.
 
 Now when it comes to decoding, for these sequential codes, there are well known decoders under AWGN settings - such as Viterbi and BCJR decoders … 
 
-### Modelling an RNN decoder 
+### Modelling a decoder as RNN
 
 The first thing to do is to model the decoder as a neural network. We model the decoder as a bi-directional RNN because the encoder is sequential. We model the decoder as a Bi-directional RNN (which has forward pass and baackward pass) because we’d like the decoder to look at the whole received sequence to estimate a certain bit. 
 
