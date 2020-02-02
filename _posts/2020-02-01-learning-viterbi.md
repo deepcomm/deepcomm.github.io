@@ -1,7 +1,7 @@
 ---
 
 layout:     post
-title:      Channel decoding via deep learning (1)
+title:      Channel decoding via deep learning I
 date:       2020-02-01 12:31:19
 summary:    Learning Viterbi Maximum Likelihood decoders for convolutional codes
 categories: jekyll pixyll
@@ -16,7 +16,7 @@ The first series of posts will cover applications of deep learning to channel co
 
 
 
-<center><img src="https://deepcomm.github.io/images/commsystem.png" width="700"/></center>
+<center><img src="https://deepcomm.github.io/images/commsystem.png" width="750"/></center>
 
 The design of channel codes is directly related to the reliability of communication systems; a practical value of reliable codes is enormous. The design of codes is also theoretically challenging and interesting; it has been a major area of study in information theory and coding theory for several decades since Shannon's 1948 seminal paper. 
 
@@ -24,20 +24,43 @@ The design of channel codes is directly related to the reliability of communicat
 
 As a first step towards revolutionizing channel coding via deep learning (e.g., learning a novel pair of encoder-decoder), we ask the very first natural question: **Can we learn an optimal decoder for a fixed encoder from data?**  To answer this question, we fix the encoder as one of the standard encoders, model the decoder as a neural network, and train the decoder in a supervised manner. 
 
-<center><img src="https://deepcomm.github.io/images/learndec.png" width="700"/></center>
+<center><img src="https://deepcomm.github.io/images/learndec.png" width="750"/></center>
 
 ### Sequential code
 
 When we fix the encoder, among many standard codes, we choose sequential codes such as *convolutional codes* and *turbo codes* for the following reasons:
 
 * These codes are practical. They are used for mobile communications (e.g., 4G LTE) and satellite communications. 
+  
 * These codes achieve performance close to the fundamental limit.
-* The recurrent nature of sequential encoding aligns very well with the recurrent neural network structure. Let us elaborate on this. 
+  
+* The recurrent nature of sequential encoding aligns very well with the Recurrent Neural Network (RNN) structure. 
+  
 * Well-known decoders exist for these codes. For convolutional codes, maximum likelihood decoder on AWGN channels is Viterbi decoder, which is a dynamic programming. For turbo codes, a belief propagation decoder on AWGN channels works extremely well. Hence, learning a decoder for sequential codes poses the challenge in *learning an algorithm.*
 
-Here is an illusration of a sequential code that <em>sequentially</em> maps a message bit sequence **b** of length K to a codeword sequence **c**. The encoder first takes the first bit b<sub>1</sub>, update the state s<sub>1</sub>, and the generate coded bits **c<sub>1</sub>** based on the state s<sub>1</sub>. The encoder then takes the second bit b<sub>2</sub>, generate state s<sub>2</sub> based on (s<sub>1</sub>, b<sub>2</sub>), and then generate coded bits **c<sub>2</sub>**. These mappings occur recurrently until the last coded bits **c<sub>k</sub>** are generated. Each coded bits **c<sub>k</sub>** (k=1, ... K) is of length r when code rate is 1/r. For example, for code rate 1/2, **c<sub>1</sub>** is of length 2.  
+
+
+### Connection between sequential codes and RNNs
+
+Let us elaborate on the connection between sequential codes and RNNs. See below for an illustration of a *sequential* code that maps a message bit sequence **b** of length K to a codeword sequence **c**. The encoder first takes the first bit b<sub>1</sub>, update the state s<sub>1</sub>, and the generate coded bits **c<sub>1</sub>** based on the state s<sub>1</sub>. The encoder then takes the second bit b<sub>2</sub>, generate state s<sub>2</sub> based on (s<sub>1</sub>, b<sub>2</sub>), and then generate coded bits **c<sub>2</sub>**. These mappings occur recurrently until the last coded bits **c<sub>k</sub>** are generated. Each coded bits **c<sub>k</sub>** (k=1, ... K) is of length r when code rate is 1/r. For example, for code rate 1/2, **c<sub>1</sub>** is of length 2.  
+
+
 
 <center><img src="https://hyejikim1.github.io/images/seqcode.png"></center>
+
+
+
+#### Recurrent Neural Network
+
+RNN is a neural architecture that's well suited for sequential mappings with memory. 
+
+The way it works is there is a hidden state h evolving through time. The hidden state keeps some information about the current and all the past inputs. The hidden state is updated as a function of previous hidden state and the input at the time. Then the output is another function of the hidden state at time i. 
+
+In RNN, these f and g are some parametric functions. Depending on what parameteric functions you choose, the RNN can be a vanilla RNN, or LSTM, or GRU. And once you choose the parametric function, we then learn a good parameter through training.
+
+So the RNN is a very natural fit to the sequential encoders. 
+
+<center><img src="https://deepcomm.github.io/images/RNN.png" width=750/></center>
 
 
 
@@ -45,13 +68,11 @@ Here is an illusration of a sequential code that <em>sequentially</em> maps a me
 
 We start with fixing the encoder as a convolutional code. Turbo code is an extension of convolutional codes, which will be covered in the next post. An example for a rate 1/2 convolutional code is shown below. This code maps  b<sub>k</sub> to  (c<sub>k1</sub>, c<sub>k2</sub>), where the state is  (b<sub>k</sub>,  b<sub>k-1</sub>,  b<sub>k-2</sub>), and coded bits (c<sub>k1</sub>, c<sub>k2</sub>) are convolution (i.e., mod 2 sum) of the state bits.  
 
-
-
 <center><img src="https://hyejikim1.github.io/images/convcode.png"></center>
 
 
 
-
+Well-known decoders exist for these codes. For convolutional codes, maximum likelihood decoder on AWGN channels is Viterbi decoder, which is a dynamic programming. For turbo codes, a belief propagation decoder on AWGN channels works extremely well. Hence, learning a decoder for sequential codes poses the challenge in *learning an algorithm.*
 
 ### Viterbi decoder
 
@@ -62,20 +83,6 @@ Now when it comes to decoding, for these sequential codes, there are well known 
 So we ask can we learn an optimal decoder for this convolutional code on AWGN channels? We will now walk you through with example codes. Full code can be downloaded [here](https://github.com/deepcomm/RNNViterbi). 
 
 
-
-### Recurrent Neural Network
-
-
-
-Now let's look at the <em>Reccurent Neural Network</em> (RNN) architecture. RNN is a neural architecture that's well suited for sequential mappings with memory. 
-
-The way it works is there is a hidden state h evolving through time. The hidden state keeps some information about the current and all the past inputs. The hidden state is updated as a function of previous hidden state and the input at the time. Then the output is another function of the hidden state at time i. 
-
-In RNN, these f and g are some parametric functions. Depending on what parameteric functions you choose, the RNN can be a vanilla RNN, or LSTM, or GRU. And once you choose the parametric function, we then learn a good parameter through training.
-
-So the RNN is a very natural fit to the sequential encoders. 
-
-<center><img src="https://deepcomm.github.io/images/RNN.png"></center>
 
 
 
