@@ -23,7 +23,8 @@ Demonstrating that deep learning can reproduce the optimal decoder for existing 
 Next, we might want to impose additional constraints on the decoder, such as low latency. 
 Deep learning provides such flexibility  which Viterbi algorithm is not equipped with. 
 
-A communication system has an encoder that maps messages (e.g., bit sequences) to codewords, typically of longer lengths, 
+Consider communicating a message over a noisy channel.  
+This communication system has an encoder that maps messages (e.g., bit sequences) to codewords, typically of longer lengths, 
 and a decoder that maps noisy codewords to the estimate of messages. This is illustrated below. 
 
 <center><img src="https://deepcomm.github.io/images/commsystem.png" width="750"/></center>
