@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      <h1>{{ Introduction and Mission Statement }}</h1>
+title:      <h1> Introduction and Mission Statement </h1>
 date:       2020-02-01 01:21:29
 summary:    Introduction and mission statement 
 comments:   true
