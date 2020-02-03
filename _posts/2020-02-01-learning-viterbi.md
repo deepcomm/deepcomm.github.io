@@ -8,7 +8,10 @@ categories: jekyll pixyll
 comments:   true
 ---
 
-
+Viterbi algorithm exactly computes the maximum likelihood estimate of the transmitted codeword, 
+by efficiently running a dynamic programming. 
+Although statistically it cannot be improved upon, 
+we train a deep neural network to re-discover an *algorithm* that recovers the performance of Viterbi algorithm.
 
 
 
