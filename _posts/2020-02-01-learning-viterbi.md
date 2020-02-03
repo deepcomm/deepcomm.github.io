@@ -328,7 +328,7 @@ for idx in range(0,SNR_points):
 
 
 
-We provide a [MATLAB code](https://github.com/deepcomm/RNNViterbi/blob/master/viterbi_comparison.m) that implements Viterbi decoding for convolutional codes for readers who would like to run Viterbi on their own. For SNRs 0 to 6, the Bit Error Rate (BER) and the Block Error Rate (BLER) of the learnt decoder and Viterbi decoder are comparable. Note that we trained the decoder at SNR 0dB, but it has learned to do an optimal decoding for SNR 0 to 6dB. We also look at generalization across different code lengths; we see that for arbitrary lenght of messages, the error probability of neural decoder is indistinguishable from the one of Viterbi decoder. 
+We provide a [MATLAB code](https://github.com/deepcomm/RNNViterbi/blob/master/viterbi_comparison.m) that implements Viterbi decoding for convolutional codes for readers who would like to run Viterbi on their own. For SNRs 0 to 6, the Bit Error Rate (BER) and the Block Error Rate (BLER) of the learnt decoder and Viterbi decoder are comparable. Note that we trained the decoder at SNR 0dB, but it has learned to do an optimal decoding for SNR 0 to 6dB. We also look at generalization across different code lengths; we see that for arbitrary lenght of messages, the error probability of neural decoder is comparable with the one of Viterbi decoder. 
 
 <center><img src="https://deepcomm.github.io/images/BER.png"></center>
 
