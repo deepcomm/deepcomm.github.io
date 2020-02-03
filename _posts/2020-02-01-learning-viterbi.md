@@ -163,7 +163,7 @@ Recurrent Neural Network (RNN) is a neural architecture that's well suited for s
 
 ## Learning an RNN decoder for convolutional codes
 
-Learning a decoder is very simple. It is done in four steps. 
+We explain a simple four step process for training a decoder. 
 
 * Step 1. Create a neural network model 
   
