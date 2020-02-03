@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      <span font-size:"6"> Introduction and Mission Statement </span>
+title:      <font size="6"> Introduction and Mission Statement </font size> 
 date:       2020-02-01 01:21:29
 summary:    Introduction and mission statement
 comments:   true
