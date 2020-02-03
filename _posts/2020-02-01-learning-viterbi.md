@@ -25,11 +25,8 @@ Deep learning provides such flexibility  which Viterbi algorithm is not equipped
 A communication system has an encoder that maps messages (e.g., bit sequences) to codewords, typically of longer lengths, 
 and a decoder that maps noisy codewords to the estimate of messages. This is illustrated below. 
 
-
-
-
-
 <center><img src="https://deepcomm.github.io/images/commsystem.png" width="750"/></center>
+
 
 The design of channel codes is directly related to the reliability of communication systems; a practical value of reliable codes is enormous. The design of codes is also theoretically challenging and interesting; it has been a major area of study in information theory and coding theory for several decades since Shannon's 1948 seminal paper. 
 
