@@ -23,7 +23,7 @@ Next, we might want to impose additional constraints on the decoder, such as low
 Deep learning provides such flexibility  which Viterbi algorithm is not equipped with. 
 
 A communication system has an encoder that maps messages (e.g., bit sequences) to codewords, typically of longer lengths, 
-and a decoder that maps noisy codewords to the estimate of messages, as illustrated below. 
+and a decoder that maps noisy codewords to the estimate of messages. This is illustrated below. 
 
 
 
