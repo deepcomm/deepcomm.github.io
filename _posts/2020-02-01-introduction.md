@@ -7,7 +7,7 @@ comments:   true
 ---
 
 
-<font size=14px>
+<font size="3">
 --[*Pramod Viswanath*](https://pramodv.ece.illinois.edu)
 
 
