@@ -7,6 +7,8 @@ categories: jekyll pixyll
 comments:   true
 ---
 
+--[*Hyeji Kim*](http://sites.utexas.edu/hkim/) and [*Sewoong Oh*](https://homes.cs.washington.edu/~sewoong/)
+
 Viterbi algorithm exactly computes the Maximum Likelihood (ML) estimate of the transmitted codeword, 
 by efficiently running a dynamic programming. 
 Although statistically this cannot be improved upon, 
