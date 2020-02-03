@@ -1,11 +1,11 @@
 ---
 layout: page
-title: About Author
+title: Creators
 permalink: /about/
 tags: about
 ---
 
-Creators: 
+
 
 * [Hyeji Kim](http://sites.utexas.edu/hkim/)
 * [Sewoong Oh](https://homes.cs.washington.edu/~sewoong/)
