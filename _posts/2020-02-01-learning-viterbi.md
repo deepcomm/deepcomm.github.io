@@ -63,7 +63,7 @@ When we fix the encoder, among many standard codes, we choose sequential codes s
 ### Convolutional codes
 
 Convolutional codes are introduced in 1955 by [Peter Elias](https://en.wikipedia.org/wiki/Peter_Elias). 
-It uses a short memory and connvolution operator to sequentially create coded bits. 
+It uses a short memory and connvolution operators to sequentially create coded bits. 
 An example for a rate 1/2 convolutional code is shown below. This code maps  b<sub>k</sub> to  (c<sub>k1</sub>, c<sub>k2</sub>), where the state is  (b<sub>k</sub>,  b<sub>k-1</sub>,  b<sub>k-2</sub>), and coded bits (c<sub>k1</sub>, c<sub>k2</sub>) are convolution (i.e., mod 2 sum) of the state bits.  
 
 <center><img src="https://hyejikim1.github.io/images/convcode.png"></center>
@@ -74,9 +74,9 @@ An example for a rate 1/2 convolutional code is shown below. This code maps  b<s
 
 ### Viterbi decoding
 
-Around a decade after convolutional codes were introduced, in 1967, Andrew Viterbi came up with Viterbi algorithm, which is a dynamic programming algorithm for finding the most likely sequence of hidden states given an observed sequence in hidden Markov Models (HMM)s. Viterbi algorithm can find maximum likelihood message bit sequence **b**  given the received signal **y** = **c** + **n**,  in a computationally efficient manner. We give an overview of Viterbi decoding. For a detailed walkthrough, nice tutorials can be found [here](https://web.stanford.edu/~jurafsky/slp3/A.pdf) and [here](https://www.researchgate.net/publication/31595950_Asynchronous_Viterbi_Decoder_in_Action_Systems). 
+Around a decade after convolutional codes were introduced, in 1967, Andrew Viterbi came up with Viterbi algorithm, which is a dynamic programming algorithm for finding the most likely sequence of hidden states given an observed sequence in hidden Markov Models (HMM)s. Viterbi algorithm can find the maximum likelihood message bit sequence **b**  given the received signal **y** = **c** + **n**,  in a computationally efficient manner. We give an overview of Viterbi decoding. For a detailed walkthrough, nice tutorials can be found [here](https://web.stanford.edu/~jurafsky/slp3/A.pdf) and [here](https://www.researchgate.net/publication/31595950_Asynchronous_Viterbi_Decoder_in_Action_Systems). 
 
-Convolutional codes can be seen as a state-transition diagram. The state diagram of the rate 1/2 convolutional code introduced above is as follows ([figure credit](https://www.researchgate.net/publication/31595950_Asynchronous_Viterbi_Decoder_in_Action_Systems)). States are depicted as nodes. An arrow with (bk/ck) from sk to sk+1 represents a transition caused by bk on sk; coded bits ck are generated and next state is sk+1. 
+Convolutional codes can be seen as a state-transition diagram. The state diagram of the rate 1/2 convolutional code introduced above is as follows ([figure credit](https://www.researchgate.net/publication/31595950_Asynchronous_Viterbi_Decoder_in_Action_Systems)). States are depicted as nodes. An arrow with (b<sub>k</sub>/c<sub>k</sub>) from s<sub>k</sub> to s<sub>k+1</sub> represents a transition caused by b<sub>k</sub> on s<sub>k</sub>; coded bits ck are generated and next state is s<sub>k+1</sub>. 
 
 
 
