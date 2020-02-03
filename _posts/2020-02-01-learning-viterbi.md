@@ -1,7 +1,7 @@
 ---
 
 layout:     post
-title:      Channel decoding via deep learning I
+title:      Decoding convolutional codes 
 date:       2020-02-01 12:31:19
 summary:    Learning Viterbi Maximum Likelihood decoders for convolutional codes
 categories: jekyll pixyll
@@ -10,7 +10,16 @@ comments:   true
 
 
 
-The first series of posts will cover applications of deep learning to channel coding - a basic building block of communication systems. An encoder maps messages (e.g., bit sequences) to codewords, typically of longer lengths. A decoder maps noisy codewords to the estimate of messages, as illustrated in a simplified figure below. 
+
+
+learning an algorithm for dynamic programming
+
+
+it is algorithm : should generalize
+
+
+
+An encoder maps messages (e.g., bit sequences) to codewords, typically of longer lengths. A decoder maps noisy codewords to the estimate of messages, as illustrated below. 
 
 
 
