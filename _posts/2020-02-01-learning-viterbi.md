@@ -55,12 +55,14 @@ When we fix the encoder, among many standard codes, we choose sequential codes s
 -->
 
 
-## Convolutional code and Viterbi decoding
 
-Convolutional code and turbo codes are examples of sequential codes. Convolutional codes are introduced in 1955 by [Peter Elias](https://en.wikipedia.org/wiki/Peter_Elias). Turbo code is an extension of convolutional codes developed in 1991 by [Claude Berrou](https://en.wikipedia.org/wiki/Claude_Berrou). In this post, we focus on decoding of convolutional codes; we will look into turbo codes in the next post. 
 
-### Convolutional coding
+<!--Turbo code is an extension of convolutional codes developed in 1991 by [Claude Berrou](https://en.wikipedia.org/wiki/Claude_Berrou). In this post, we focus on decoding of convolutional codes; we will look into turbo codes in the next post. 
+-->
 
+### Convolutional codes
+
+Convolutional codes are introduced in 1955 by [Peter Elias](https://en.wikipedia.org/wiki/Peter_Elias). 
 An example for a rate 1/2 convolutional code is shown below. This code maps  b<sub>k</sub> to  (c<sub>k1</sub>, c<sub>k2</sub>), where the state is  (b<sub>k</sub>,  b<sub>k-1</sub>,  b<sub>k-2</sub>), and coded bits (c<sub>k1</sub>, c<sub>k2</sub>) are convolution (i.e., mod 2 sum) of the state bits.  
 
 <center><img src="https://hyejikim1.github.io/images/convcode.png"></center>
