@@ -233,7 +233,7 @@ model = Model(inputs=noisy_codeword, outputs=predictions)
 
 ### Step 2. Supervised training -  optimizer, loss, and evaluation metrics 
 
-So now we have an RNN based decoder model, which is nothing but a parametric function. We learn the parameters in a supervised matter, with examples of (noisy codeword **y**, message **b**), via backpropagation. The goal of training is to learn a set of hyperparameters so that the decoder model generates an estimate of **b** from **y** that is closest to the ground truth **b**.  Before we do the training, we have to choose [optimizer](https://keras.io/optimizers/) , [loss function](https://keras.io/losses/), and [evaluation metrics](https://keras.io/metrics/). Once we choose them, training a model is very simple. Summary of a model will show you how many parameters are in the decoder.
+Given a choice of RNN-based decoder model, which is a parametric function. We learn the parameters in a supervised matter, with examples of (noisy codeword **y**, message **b**), via backpropagation. The goal of training is to learn a set of hyperparameters so that the decoder model generates an estimate of **b** from **y** that is closest to the ground truth **b**.  Before we do the training, we choose [optimizer](https://keras.io/optimizers/) , [loss function](https://keras.io/losses/), and [evaluation metrics](https://keras.io/metrics/). Once chosen, training is straightforward. Summary of a model will show you how many parameters are in the decoder.
 
 <!--- Training requires two step. 
 
