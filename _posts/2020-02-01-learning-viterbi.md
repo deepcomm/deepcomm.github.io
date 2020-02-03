@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      Decoding convolutional codes 
+title:      <font size="15"> Decoding convolutional codes </font>
 date:       2020-02-01 12:31:19
 summary:    Learning Viterbi Maximum Likelihood decoders for convolutional codes
 categories: jekyll pixyll
