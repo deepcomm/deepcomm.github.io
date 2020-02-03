@@ -98,7 +98,13 @@ The first thing to do is to model the decoder as a neural network. We model the 
 
 <center><img src="https://hyejikim1.github.io/images/twolayerbiGRUDec.png"></center>
 
-Here is an excerpt of python code that defines the decoder neural network. 
+Here is an excerpt of python code that defines the decoder neural network. In this post, we introduce codes built on Keras library, which is arguably one of the easiest deep learning libraries, as a gentle introduction to deep learning programming for channel coding. 
+
+
+
+For installation, do this and that. 
+
+
 
 {% highlight python %}
 
@@ -144,7 +150,7 @@ model = Model(inputs=noisy_codeword, outputs=predictions)
 
 ### Defining optimizer, loss, and evaluation metrics 
 
-
+Will do 5: add more descriptions 
 
 {% highlight python %}
 
@@ -186,7 +192,7 @@ model.fit(x=train_tx, y=X_train, batch_size=train_batch_size,
 
 
 
-Will do 4: GRAPH 
+Will do 6: GRAPH 
 
 
 
