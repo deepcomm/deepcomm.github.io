@@ -16,5 +16,4 @@ Creators:
 
 List of contributors:
 
-- John Do
 - Please [reach us](https://hyejikim1.github.io/contact) to contribute a post on our website. 
