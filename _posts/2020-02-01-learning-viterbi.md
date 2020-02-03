@@ -18,7 +18,7 @@ We do not consider a trained decoder that only works for a fixed block length as
 
 The purpose of this exercise is twofold. 
 First, our ultimate goal is the discovery of new codes (encoder and decoder). 
-Deomnstrating that deep learning can reproduce the optimal decoder for existing codes is a necessary intermediate step. 
+Demonstrating that deep learning can reproduce the optimal decoder for existing codes is a necessary intermediate step. 
 Next, we want to impose additional constraints on the decoder, such as low latency. 
 Deep learning provides such flexibilitym which Viterbi algorithm is not equipped with. 
 
