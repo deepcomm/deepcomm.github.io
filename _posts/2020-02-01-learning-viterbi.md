@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      <font size="15"> Decoding convolutional codes </font>
+title:       Decoding convolutional codes 
 date:       2020-02-01 12:31:19
 summary:    Learning Viterbi Maximum Likelihood decoders for convolutional codes
 categories: jekyll pixyll
@@ -63,6 +63,7 @@ When we fix the encoder, among many standard codes, we choose sequential codes s
 ### Convolutional codes
 
 Convolutional codes are introduced in 1955 by [Peter Elias](https://en.wikipedia.org/wiki/Peter_Elias). 
+It uses a short memory and connvolution operator to sequentially create coded bits. 
 An example for a rate 1/2 convolutional code is shown below. This code maps  b<sub>k</sub> to  (c<sub>k1</sub>, c<sub>k2</sub>), where the state is  (b<sub>k</sub>,  b<sub>k-1</sub>,  b<sub>k-2</sub>), and coded bits (c<sub>k1</sub>, c<sub>k2</sub>) are convolution (i.e., mod 2 sum) of the state bits.  
 
 <center><img src="https://hyejikim1.github.io/images/convcode.png"></center>
