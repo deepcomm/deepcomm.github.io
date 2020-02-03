@@ -1,8 +1,8 @@
 ---
 layout:     post
-title:       Decoding convolutional codes 
+title:       <font size="6"> Decoding convolutional codes </font>
 date:       2020-02-01 12:31:19
-summary:    Learning Viterbi Maximum Likelihood decoders for convolutional codes
+summary:    Learning dynamic programming algorithms
 categories: jekyll pixyll
 comments:   true
 ---
@@ -175,9 +175,9 @@ We explain a simple four step process for training a decoder.
 
 
 
-### Step 1. Modelling the decoder as an RNN
+### Step 1. Modelling the decoder as a RNN
 
-The first thing to do is to model the decoder as a neural network. We model the decoder as a Bi-directional RNN that has a forward pass and a backward pass. This is because we would like the decoder to estimate each bit based on the whole received sequence. In particular, we use GRU; empirically, we see GRU and LSTM have similar performance. We also use two layers of Bi-GRU because The input to each 1st layer GRU cell is received coded bits, i.e., noise sequence **n<sub>k</sub>**  added to the k-th coded bits **c<sub>k</sub>**. The output of each 2nd layer GRU cell is the estimate of b<sub>k</sub>. 
+We model the decoder as a Bi-directional RNN that has a forward pass and a backward pass. this allows the decoder to estimate each bit based on the whole received sequence, instead of just the past ones. In particular, we use GRU; empirically, we see GRU and LSTM have similar performance. We also use two layers of Bi-GRU because The input to each 1st layer GRU cell is received coded bits, i.e., noise sequence **n<sub>k</sub>**  added to the k-th coded bits **c<sub>k</sub>**. The output of each 2nd layer GRU cell is the estimate of b<sub>k</sub>. 
 
 
 
