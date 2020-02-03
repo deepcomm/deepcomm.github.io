@@ -11,12 +11,12 @@ Viterbi algorithm exactly computes the Maximum Likelihood (ML) estimate of the t
 by efficiently running a dynamic programming. 
 Although statistically this cannot be improved upon, 
 we train a deep neural network to re-discover a Viterbi-like *algorithm* that matches the ML performance. 
-Here the emphasis is on "algorithm"; we are only interested in an outcome of the machine learning process 
+Here the emphasis is on "algorithm"; we want to learn a decoder 
 that can be readily applied as is to any block lengths, beyond what it was trained on. 
-We do not consider a trained decoder that only works for a fixed block length as an algorithm.
+In particular, a trained decoder is not considered an algorithm, if it only works for a fixed block length.
 
 The purpose of this exercise is twofold. 
-First, our ultimate goal is the discovery of new codes (encoder and decoder). 
+First, our ultimate goal is the discovery of new codes (encoders and decoders). 
 Demonstrating that deep learning can reproduce the optimal decoder for existing codes is a necessary intermediate step. 
 Next, we might want to impose additional constraints on the decoder, such as low latency. 
 Deep learning provides such flexibility  which Viterbi algorithm is not equipped with. 
