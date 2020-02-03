@@ -27,6 +27,19 @@ Consider communicating a message over a noisy channel.  This communication syste
 
 <center><img src="https://deepcomm.github.io/images/commsystem.png" width="750"/></center>
 
+Among the existing codes developed with human ingenuity, we take a simple family of codes 
+known as covolutional codes. Several properties make them ideal for 
+
+* These codes are practical. They are used for mobile communications (e.g., 4G LTE) and satellite communications. 
+  
+* These codes achieve performance close to the fundamental limit.
+  
+* The recurrent nature of sequential encoding aligns very well with the Recurrent Neural Network (RNN) structure. 
+  
+* Well-known decoders exist for these codes. For convolutional codes, maximum likelihood decoder on AWGN channels is Viterbi decoder, which is a dynamic programming. For turbo codes, a belief propagation decoder on AWGN channels achieve performance close to the theoretical (Shannon) limit. Hence, learning a decoder for sequential codes poses the challenge of *learning an algorithm.*
+
+
+<!--
 ## Sequential code
 
 When we fix the encoder, among many standard codes, we choose sequential codes such as *convolutional codes* and *turbo codes* for the following reasons:
@@ -38,7 +51,7 @@ When we fix the encoder, among many standard codes, we choose sequential codes s
 * The recurrent nature of sequential encoding aligns very well with the Recurrent Neural Network (RNN) structure. 
   
 * Well-known decoders exist for these codes. For convolutional codes, maximum likelihood decoder on AWGN channels is Viterbi decoder, which is a dynamic programming. For turbo codes, a belief propagation decoder on AWGN channels achieve performance close to the theoretical (Shannon) limit. Hence, learning a decoder for sequential codes poses the challenge of *learning an algorithm.*
-
+-->
 
 
 ## Convolutional code and Viterbi decoding
