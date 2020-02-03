@@ -26,7 +26,7 @@ As a first step towards revolutionizing channel coding via deep learning (e.g., 
 
 <center><img src="https://deepcomm.github.io/images/learndec.png" width="750"/></center>
 
-### Sequential code
+## Sequential code
 
 When we fix the encoder, among many standard codes, we choose sequential codes such as *convolutional codes* and *turbo codes* for the following reasons:
 
@@ -40,61 +40,65 @@ When we fix the encoder, among many standard codes, we choose sequential codes s
 
 
 
-### Connection between sequential codes and RNNs
+## Connection between sequential codes and RNNs
 
-Let us elaborate on the connection between sequential codes and RNNs. See below for an illustration of a *sequential* code that maps a message bit sequence **b** of length K to a codeword sequence **c**. The encoder first takes the first bit b<sub>1</sub>, update the state s<sub>1</sub>, and the generate coded bits **c<sub>1</sub>** based on the state s<sub>1</sub>. The encoder then takes the second bit b<sub>2</sub>, generate state s<sub>2</sub> based on (s<sub>1</sub>, b<sub>2</sub>), and then generate coded bits **c<sub>2</sub>**. These mappings occur recurrently until the last coded bits **c<sub>k</sub>** are generated. Each coded bits **c<sub>k</sub>** (k=1, ... K) is of length r when code rate is 1/r. For example, for code rate 1/2, **c<sub>1</sub>** is of length 2.  
-
-
-
-<center><img src="https://hyejikim1.github.io/images/seqcode.png"></center>
+Below is an illustration of a *sequential* code that maps a message bit sequence **b** of length K to a codeword sequence **c**. The encoder first takes the first bit b<sub>1</sub>, update the state s<sub>1</sub>, and the generate coded bits **c<sub>1</sub>** based on the state s<sub>1</sub>. The encoder then takes the second bit b<sub>2</sub>, generate state s<sub>2</sub> based on (s<sub>1</sub>, b<sub>2</sub>), and then generate coded bits **c<sub>2</sub>**. These mappings occur recurrently until the last coded bits **c<sub>k</sub>** are generated. Each coded bits **c<sub>k</sub>** (k=1, ... K) is of length r when code rate is 1/r. For example, for code rate 1/2, **c<sub>1</sub>** is of length 2. 
 
 
 
-#### Recurrent Neural Network
-
-RNN is a neural architecture that's well suited for sequential mappings with memory. 
-
-The way it works is there is a hidden state h evolving through time. The hidden state keeps some information about the current and all the past inputs. The hidden state is updated as a function of previous hidden state and the input at the time. Then the output is another function of the hidden state at time i. 
-
-In RNN, these f and g are some parametric functions. Depending on what parameteric functions you choose, the RNN can be a vanilla RNN, or LSTM, or GRU. And once you choose the parametric function, we then learn a good parameter through training.
-
-So the RNN is a very natural fit to the sequential encoders. 
-
-<center><img src="https://deepcomm.github.io/images/RNN.png" width=750/></center>
+<center><img src="https://deepcomm.github.io/images/seqcode.png"></center>
 
 
 
-### Convolutional code 
 
-We start with fixing the encoder as a convolutional code. Turbo code is an extension of convolutional codes, which will be covered in the next post. An example for a rate 1/2 convolutional code is shown below. This code maps  b<sub>k</sub> to  (c<sub>k1</sub>, c<sub>k2</sub>), where the state is  (b<sub>k</sub>,  b<sub>k-1</sub>,  b<sub>k-2</sub>), and coded bits (c<sub>k1</sub>, c<sub>k2</sub>) are convolution (i.e., mod 2 sum) of the state bits.  
+
+
+
+Recurrent Neural Network (RNN) is a neural architecture that's well suited for sequential mappings with memory. There is a hidden state h evolving through time. The hidden state keeps information on the current and all the past inputs. The hidden state is updated as a function (f) of previous hidden state and the input at each time. The output then is another function (g) of the hidden state at time k. In RNN, these f and g are parametric functions. Depending on what parametric functions you choose, the RNN can be a vanilla RNN, or LSTM, or GRU. See [here](http://dprogrammer.org/rnn-lstm-gru) for a detailed description. And once you choose the parametric function, we then learn a good parameter through training. So the RNN is a very natural fit to the sequential encoders. 
+
+<center><img src="https://deepcomm.github.io/images/RNN.png"></center>
+
+
+
+## Convolutional code and Viterbi decoding
+
+Convolutional code and turbo codes are examples of sequential codes. Convolutional code is proposed by ... Turbo code is an extension of convolutional codes ... proposed by ... In this post, we focus on convolutional codes and learning the decoder for them; we will look into turbo codes in the next post. 
+
+### Convolutional coding
+
+An example for a rate 1/2 convolutional code is shown below. This code maps  b<sub>k</sub> to  (c<sub>k1</sub>, c<sub>k2</sub>), where the state is  (b<sub>k</sub>,  b<sub>k-1</sub>,  b<sub>k-2</sub>), and coded bits (c<sub>k1</sub>, c<sub>k2</sub>) are convolution (i.e., mod 2 sum) of the state bits.  
 
 <center><img src="https://hyejikim1.github.io/images/convcode.png"></center>
 
 
 
-Well-known decoders exist for these codes. For convolutional codes, maximum likelihood decoder on AWGN channels is Viterbi decoder, which is a dynamic programming. For turbo codes, a belief propagation decoder on AWGN channels works extremely well. Hence, learning a decoder for sequential codes poses the challenge in *learning an algorithm.*
-
-### Viterbi decoder
-
-Now when it comes to decoding, for these sequential codes, there are well known decoders under AWGN settings - such as Viterbi and BCJR decoders … 
 
 
+### Viterbi decoding
 
-So we ask can we learn an optimal decoder for this convolutional code on AWGN channels? We will now walk you through with example codes. Full code can be downloaded [here](https://github.com/deepcomm/RNNViterbi). 
+Well-known decoders exist for these codes. For convolutional codes, maximum likelihood decoder on AWGN channels is Viterbi decoder, which is a dynamic programming. Viterbi decoder is propsoed by Andrew Viterbi in 19xx yy years after convolutional codes are proposed.  Hence, learning a decoder for convolutional codes poses the challenge in *learning an algorithm.*
 
 
 
+will add1: Three-line summary of viterbi decoding - dynamic programming 
+
+will add2: Reference to a good tutorial on Viterbi decoding 
+
+Can we learn an optimal decoder for this convolutional code on AWGN channels? We will now walk you through with example codes. Full code can be accessed [here](https://github.com/deepcomm/RNNViterbi). 
 
 
-### Modelling a decoder as RNN
 
-The first thing to do is to model the decoder as a neural network. We model the decoder as a bi-directional RNN because the encoder is sequential. We model the decoder as a Bi-directional RNN (which has forward pass and baackward pass) because we’d like the decoder to look at the whole received sequence to estimate a certain bit. 
+## Learning an RNN decoder for convolutional codes
+
+### Defining an RNN decoder
+
+The first thing to do is to model the decoder as a neural network. We model the decoder as a Bi-directional RNN that has a forward pass and a backward pass. This is because we would like the decoder to estimate each bit based on the whole received sequence. In particular, we use GRU; empirically, we see GRU and LSTM have similar performance. The input to each 1st layer GRU cell is received coded bits, i.e., noise sequence **n<sub>k</sub>**  added to the k-th coded bits **c<sub>k</sub>**. The output of each 2nd layer GRU cell is the estimate of b<sub>k</sub>. 
 
 
 
 <center><img src="https://hyejikim1.github.io/images/twolayerbiGRUDec.png"></center>
 
-
+Here is an excerpt of python code that defines the decoder neural network. 
 
 {% highlight python %}
 
@@ -114,7 +118,7 @@ num_rx_layer = 2
 
 num_hunit_rnn_rx = 50
 
-noisy_codeword = Input(shape=(step_of_history, code_rate)) # size is (100, 2) - notation! 
+noisy_codeword = Input(shape=(step_of_history, code_rate)) # size is (100, 2) 
 
 x = noisy_codeword
 
@@ -182,7 +186,7 @@ model.fit(x=train_tx, y=X_train, batch_size=train_batch_size,
 
 
 
-GRAPH 
+Will do 4: GRAPH 
 
 
 
