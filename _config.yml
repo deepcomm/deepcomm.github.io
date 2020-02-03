@@ -1,8 +1,8 @@
 # Site settings
-title:       Deep learning for wireless
+title:       Inventing Communication Algorithms via Machine Learning
 email:       hkim1505@gmail.com
 author:      Hyeji Kim
-description: "Lectures for deep learning for channel coding and other wireless problems."
+description: "Lectures for Inventing Communication Algorithms via Machine Learning."
 baseurl:     ""
 url:         "https://deepcomm.github.io"
 date_format: "%b %-d, %Y"
