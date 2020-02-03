@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      Introduction and Mission Statement
+title:       <font size="1"> Introduction and Mission Statement </font>
 date:       2020-02-01 01:21:29
 summary:    Introduction and mission statement 
 comments:   true
