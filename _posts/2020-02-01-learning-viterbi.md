@@ -8,19 +8,17 @@ categories: jekyll pixyll
 comments:   true
 ---
 
-Viterbi algorithm exactly computes the maximum likelihood estimate of the transmitted codeword, 
+Viterbi algorithm exactly computes the Maximum Likelihood (ML) estimate of the transmitted codeword, 
 by efficiently running a dynamic programming. 
-Although statistically it cannot be improved upon, 
-we train a deep neural network to re-discover an *algorithm* that recovers the performance of Viterbi algorithm.
-
-
-
-learning an algorithm for dynamic programming
-
-
-it is algorithm : should generalize
-
-
+Although statistically this cannot be improved upon, 
+we train a deep neural network to re-discover a Viterbi-like *algorithm* that matches the ML performance. 
+Here the emphasis is on algorithm; we are only interested in an outcome of the machine learning process 
+that can be readily applied as is to any block lengths, beyond what it was trained on. 
+The purpose of this exercise is two fold. 
+First, our eventural goal is the discovery of new codes (encoder and decoder). 
+Deomnstrating that deep learning can reproduce the optimal decoder for existing codes is a necessary intermediate step. 
+Next, we want to impose additional constraints on the decoder, such as low latency. 
+Deep learning provides such flexibilitym which Viterbi algorithm is not equipped with. 
 
 An encoder maps messages (e.g., bit sequences) to codewords, typically of longer lengths. A decoder maps noisy codewords to the estimate of messages, as illustrated below. 
 
