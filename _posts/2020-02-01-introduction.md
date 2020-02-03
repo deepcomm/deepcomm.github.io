@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      Introduction to deep learning for channel coding
+title:      Introduction and Mission Statement
 date:       2020-02-01 01:21:29
 summary:    Introduction and mission statement 
 comments:   true
