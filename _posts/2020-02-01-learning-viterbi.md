@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:       <font size="6"> Decoding convolutional codes </font>
+title:      Decoding convolutional codes
 date:       2020-02-01 12:31:19
 summary:    Learning dynamic programming algorithms
 categories: jekyll pixyll
