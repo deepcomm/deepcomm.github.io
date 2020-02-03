@@ -65,7 +65,7 @@ Below is an illustration of a *sequential* code that maps a message bit sequence
 
 
 
-Recurrent Neural Network (RNN) is a neural architecture that's well suited for sequential mappings with memory. There is a hidden state h evolving through time. The hidden state keeps information on the current and all the past inputs. The hidden state is updated as a function (f) of previous hidden state and the input at each time. The output then is another function (g) of the hidden state at time k. In RNN, these f and g are parametric functions. Depending on what parametric functions you choose, the RNN can be a vanilla RNN, or LSTM, or GRU. See [here](http://dprogrammer.org/rnn-lstm-gru) for a detailed description. And once you choose the parametric function, we then learn a good parameter through training. So the RNN is a very natural fit to the sequential encoders. 
+Recurrent Neural Network (RNN) is a neural architecture that's well suited for sequential mappings with memory. There is a hidden state h evolving through time. The hidden state keeps information on the current and all the past inputs. The hidden state is updated as a function (f) of previous hidden state and the input at each time. The output then is another function (g) of the hidden state at time k. In RNN, these f and g are parametric functions. Depending on what parametric functions we choose, the RNN can be a vanilla RNN, or LSTM, or GRU. See [here](http://dprogrammer.org/rnn-lstm-gru) for a detailed description. Once we choose the parametric function, we then learn  good parameters through training. So the RNN is a very natural fit to the sequential encoders. 
 
 <center><img src="https://deepcomm.github.io/images/RNN.png"></center>
 
@@ -73,7 +73,7 @@ Recurrent Neural Network (RNN) is a neural architecture that's well suited for s
 
 ## Convolutional code and Viterbi decoding
 
-Convolutional code and turbo codes are examples of sequential codes. Convolutional code is proposed by ... Turbo code is an extension of convolutional codes ... proposed by ... In this post, we focus on convolutional codes and learning the decoder for them; we will look into turbo codes in the next post. 
+Convolutional code and turbo codes are examples of sequential codes. Convolutional codes are introduced in 1955 by [Peter Elias](https://en.wikipedia.org/wiki/Peter_Elias). Turbo code is an extension of convolutional codes ... proposed by ... In this post, we focus on convolutional codes and learning the decoder for them; we will look into turbo codes in the next post. 
 
 ### Convolutional coding
 
@@ -87,15 +87,47 @@ An example for a rate 1/2 convolutional code is shown below. This code maps  b<s
 
 ### Viterbi decoding
 
-Well-known decoders exist for these codes. For convolutional codes, maximum likelihood decoder on AWGN channels is Viterbi decoder, which is a dynamic programming. Viterbi decoder is propsoed by Andrew Viterbi in 19xx yy years after convolutional codes are proposed.  Hence, learning a decoder for convolutional codes poses the challenge in *learning an algorithm.*
+Around a decade after convolutional codes were introduced, in 1967, Andrew Viterbi came up with Viterbi algorithm, which is a dynamic programming algorithm for finding the most likely sequence of hidden states given an observed sequence in hidden Markov Models (HMM)s. 
+
+Convolutional codes can be seen as a finite state machine. The state diagram of the rate 1/2 convolutional code introduced above is as follows. 
+
+ 
+
+
+
+ 
+
+State - four possible options - evolve through time. 
+
+State to state transition is occured by new input bk. 
+
+Each transition is assigned the specific transmitted codeword: ck is a function of (bk,sk)
+
+Cost is assigned to each transition (sk, bk, sk+1). 
+
+Cost is how likely to observe the received coded bits ck + nk 
+
+
+
+for k = 1,2, ... 
+
+For sk = 00,01,10,11
+
+Record minimum accumulated cost and the path that ends at each state sk
+
+* backpointers 
+
+
 
 
 
 will add1: Three-line summary of viterbi decoding - dynamic programming 
 
-will add2: Reference to a good tutorial on Viterbi decoding 
+will add2: [very nice tutorial](https://web.stanford.edu/~jurafsky/slp3/A.pdf)
 
-Can we learn an optimal decoder for this convolutional code on AWGN channels? We will now walk you through with example codes. Full code can be accessed [here](https://github.com/deepcomm/RNNViterbi). 
+
+
+Can we learn Viterbi decoder? We will now walk you through with example codes. Full code can be accessed [here](https://github.com/deepcomm/RNNViterbi). 
 
 
 
