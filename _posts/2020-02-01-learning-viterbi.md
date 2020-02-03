@@ -89,23 +89,43 @@ An example for a rate 1/2 convolutional code is shown below. This code maps  b<s
 
 Around a decade after convolutional codes were introduced, in 1967, Andrew Viterbi came up with Viterbi algorithm, which is a dynamic programming algorithm for finding the most likely sequence of hidden states given an observed sequence in hidden Markov Models (HMM)s. 
 
-Convolutional codes can be seen as a finite state machine. The state diagram of the rate 1/2 convolutional code introduced above is as follows. 
+Convolutional codes can be seen as a state-transition diagram. The state diagram of the rate 1/2 convolutional code introduced above is as follows ([figure credit](https://www.researchgate.net/publication/31595950_Asynchronous_Viterbi_Decoder_in_Action_Systems)). States are depicted as nodes. An arrow with (bk/ck) from sk to sk+1 represents a transition caused by bk on sk; coded bits ck are generated and next state is sk+1. 
+
+<center><img src="https://deepcomm.github.io/images/State-diagram.jpg" width=400/></center>
+
+
+
+
+
+<!---State - four possible options - evolve through time.  State to state transition is occured by new input bk. Each transition is assigned the specific transmitted codeword: ck is a function of (bk,sk) Cost is assigned to each transition (sk, bk, sk+1). Cost is how likely to observe the received coded bits ck + nk --->
+
+Trellis diagram unrolls the transition across time. 
+
+<center><img src="https://deepcomm.github.io/images/Trellis-diagram.jpg" width=400/></center>
+
+
+
+Viterbi algorithm works in two steps. 
+
+In the trellis diagram, for each transition, likelihood Lk is defined as how likely we observe yk given the ground truth codeword is ck (e.g., 00,01,10,11). We aim to find a path that maximizes sum of Lk for k=1 to K. A path captures all information (e.g., input bit sequence). 
+
+<!---For t=1,2,3, ... we compute the best accumulated likelihood we can get conditioned on that we are at state sk at time k. --->
+
+The high-level idea is as follows. Suppose we know the most likely path to get to state sk (0,1,2,3) at time k and the the corresponding sum of Lk for k = 1 to K that gets to sk. Given this, we can compute the most likely path to get to state sk+1 (0,1,2,3) at time k+1 as follows. We take max{s0,s1,s2,s3} (Accumulated likelihood at sk at time t + additional likelihood due to the transition from sk to sk+1). We record the path (input) as well as the updated likelihood sum. After going through this process until k reaches K, we find max of sK and the path ... 
 
  
 
 
 
- 
 
-State - four possible options - evolve through time. 
 
-State to state transition is occured by new input bk. 
 
-Each transition is assigned the specific transmitted codeword: ck is a function of (bk,sk)
 
-Cost is assigned to each transition (sk, bk, sk+1). 
 
-Cost is how likely to observe the received coded bits ck + nk 
+
+
+
+In the first step, we compute the likelihood of  the the maximum likelihood sequence 
 
 
 
@@ -123,7 +143,7 @@ Record minimum accumulated cost and the path that ends at each state sk
 
 will add1: Three-line summary of viterbi decoding - dynamic programming 
 
-will add2: [very nice tutorial](https://web.stanford.edu/~jurafsky/slp3/A.pdf)
+will add2: [very nice tutorial](https://web.stanford.edu/~jurafsky/slp3/A.pdf) and another [nice tutorial](https://www.researchgate.net/publication/31595950_Asynchronous_Viterbi_Decoder_in_Action_Systems)
 
 
 
