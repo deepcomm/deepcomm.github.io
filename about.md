@@ -14,6 +14,5 @@ Creators:
 * [Sewoong Oh](https://homes.cs.washington.edu/~sewoong/)
 * [Pramod Viswanath](http://pramodv.ece.illinois.edu/)
 
-List of contributors:
 
 - Please [reach us](https://hyejikim1.github.io/contact) to contribute a post on our website. 
