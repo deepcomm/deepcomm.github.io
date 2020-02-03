@@ -73,7 +73,7 @@ Recurrent Neural Network (RNN) is a neural architecture that's well suited for s
 
 ## Convolutional code and Viterbi decoding
 
-Convolutional code and turbo codes are examples of sequential codes. Convolutional codes are introduced in 1955 by [Peter Elias](https://en.wikipedia.org/wiki/Peter_Elias). Turbo code is an extension of convolutional codes ... proposed by ... In this post, we focus on convolutional codes and learning the decoder for them; we will look into turbo codes in the next post. 
+Convolutional code and turbo codes are examples of sequential codes. Convolutional codes are introduced in 1955 by [Peter Elias](https://en.wikipedia.org/wiki/Peter_Elias). Turbo code is an extension of convolutional codes developed in 1991 by [Claude Berrou](https://en.wikipedia.org/wiki/Claude_Berrou). In this post, we focus on decoding of convolutional codes; we will look into turbo codes in the next post. 
 
 ### Convolutional coding
 
@@ -87,7 +87,7 @@ An example for a rate 1/2 convolutional code is shown below. This code maps  b<s
 
 ### Viterbi decoding
 
-Around a decade after convolutional codes were introduced, in 1967, Andrew Viterbi came up with Viterbi algorithm, which is a dynamic programming algorithm for finding the most likely sequence of hidden states given an observed sequence in hidden Markov Models (HMM)s. 
+Around a decade after convolutional codes were introduced, in 1967, Andrew Viterbi came up with Viterbi algorithm, which is a dynamic programming algorithm for finding the most likely sequence of hidden states given an observed sequence in hidden Markov Models (HMM)s. Viterbi algorithm does maximum likelihood decoding of convolutional codes in a computationally efficient manner. We give an overview of Viterbi decoding. For a detailed walkthrough, nice tutorials can be found [here](https://web.stanford.edu/~jurafsky/slp3/A.pdf) and [here](https://www.researchgate.net/publication/31595950_Asynchronous_Viterbi_Decoder_in_Action_Systems). 
 
 Convolutional codes can be seen as a state-transition diagram. The state diagram of the rate 1/2 convolutional code introduced above is as follows ([figure credit](https://www.researchgate.net/publication/31595950_Asynchronous_Viterbi_Decoder_in_Action_Systems)). States are depicted as nodes. An arrow with (bk/ck) from sk to sk+1 represents a transition caused by bk on sk; coded bits ck are generated and next state is sk+1. 
 
@@ -111,7 +111,7 @@ In the trellis diagram, for each transition, likelihood Lk is defined as how lik
 
 <!---For t=1,2,3, ... we compute the best accumulated likelihood we can get conditioned on that we are at state sk at time k. --->
 
-The high-level idea is as follows. Suppose we know the most likely path to get to state sk (0,1,2,3) at time k and the the corresponding sum of Lk for k = 1 to K that gets to sk. Given this, we can compute the most likely path to get to state sk+1 (0,1,2,3) at time k+1 as follows. We take max{s0,s1,s2,s3} (Accumulated likelihood at sk at time t + additional likelihood due to the transition from sk to sk+1). We record the path (input) as well as the updated likelihood sum. After going through this process until k reaches K, we find max of sK and the path ... 
+The high-level idea is as follows. Suppose we know the most likely path to get to state sk (0,1,2,3) at time k and the the corresponding sum of Lk for k = 1 to K. Given this, we can compute the most likely path to get to state sk+1 (0,1,2,3) at time k+1 as follows. We take max{sk in s0,s1,s2,s3} (Accumulated likelihood at sk at time t + likelihood due to the transition from sk to sk+1). We record the path (input) as well as the updated likelihood sum. After going through this process until k reaches K, we find max of sK and the path ... 
 
  
 
@@ -121,51 +121,32 @@ The high-level idea is as follows. Suppose we know the most likely path to get t
 
 
 
-
-
-
-
-In the first step, we compute the likelihood of  the the maximum likelihood sequence 
-
-
-
-for k = 1,2, ... 
-
-For sk = 00,01,10,11
-
-Record minimum accumulated cost and the path that ends at each state sk
-
-* backpointers 
-
-
-
-
-
-will add1: Three-line summary of viterbi decoding - dynamic programming 
-
-will add2: [very nice tutorial](https://web.stanford.edu/~jurafsky/slp3/A.pdf) and another [nice tutorial](https://www.researchgate.net/publication/31595950_Asynchronous_Viterbi_Decoder_in_Action_Systems)
-
-
-
 Can we learn Viterbi decoder? We will now walk you through with example codes. Full code can be accessed [here](https://github.com/deepcomm/RNNViterbi). 
 
 
 
 ## Learning an RNN decoder for convolutional codes
 
-### Defining an RNN decoder
+Learning a neural network model is very simple. It is done in four steps. 
 
-The first thing to do is to model the decoder as a neural network. We model the decoder as a Bi-directional RNN that has a forward pass and a backward pass. This is because we would like the decoder to estimate each bit based on the whole received sequence. In particular, we use GRU; empirically, we see GRU and LSTM have similar performance. The input to each 1st layer GRU cell is received coded bits, i.e., noise sequence **n<sub>k</sub>**  added to the k-th coded bits **c<sub>k</sub>**. The output of each 2nd layer GRU cell is the estimate of b<sub>k</sub>. 
+* Create a neural network model 
+* Choose an optimizer, a loss function, and an evaluation metric
+* Generate training examples and train the model 
+* Test the trained model on various test examples 
+
+
+
+### Step 1. Modelling the decoder as an RNN
+
+The first thing to do is to model the decoder as a neural network. We model the decoder as a Bi-directional RNN that has a forward pass and a backward pass. This is because we would like the decoder to estimate each bit based on the whole received sequence. In particular, we use GRU; empirically, we see GRU and LSTM have similar performance. We also use two layers of Bi-GRU because The input to each 1st layer GRU cell is received coded bits, i.e., noise sequence **n<sub>k</sub>**  added to the k-th coded bits **c<sub>k</sub>**. The output of each 2nd layer GRU cell is the estimate of b<sub>k</sub>. 
 
 
 
 <center><img src="https://hyejikim1.github.io/images/twolayerbiGRUDec.png"></center>
 
-Here is an excerpt of python code that defines the decoder neural network. In this post, we introduce codes built on Keras library, which is arguably one of the easiest deep learning libraries, as a gentle introduction to deep learning programming for channel coding. 
+Here is an excerpt of python code that defines the decoder neural network. In this post, we introduce codes built on Keras library, which is arguably one of the easiest deep learning libraries, as a gentle introduction to deep learning programming for channel coding.  The complete code and installation guides can be found [here](https://github.com/deepcomm/RNNViterbi). 
 
 
-
-For installation, do this and that. 
 
 
 
@@ -177,17 +158,17 @@ import tensorflow as tf
 
 from keras.layers import LSTM, GRU, SimpleRNN
 
-
-
-block_length = 100 # Length of input message sequence  
+block_length = 200 # Length of input message sequence  
 
 code_rate = 2 # Two coded bits per one message bit
 
-num_rx_layer = 2
+num_rx_layer = 2 # Two layers of GRU 
 
-num_hunit_rnn_rx = 50
+num_hunit_rnn_rx = 50 # Each GRU has 50 hidden units
 
-noisy_codeword = Input(shape=(step_of_history, code_rate)) # size is (100, 2) 
+
+
+noisy_codeword = Input(shape=(block_length, code_rate)) 
 
 x = noisy_codeword
 
@@ -211,21 +192,26 @@ model = Model(inputs=noisy_codeword, outputs=predictions)
 
 
 
-### Defining optimizer, loss, and evaluation metrics 
+### Step 2. Supervised training -  optimizer, loss, and evaluation metrics 
 
-Will do 5: add more descriptions 
+So now we have an RNN based decoder model, which is nothing but a parametric function. We learn the parameters in a supervised matter, with examples of (noisy codeword **y**, message **b**), via backpropagation. The goal of training is to learn a set of hyperparameters that generates an estimate of **b** from y that is closest to the ground truth **b**.  Before we do the training, we have to choose [optimizer](https://keras.io/optimizers/) , [loss function](https://keras.io/losses/), and [evaluation metrics](https://keras.io/metrics/). Once we choose them, training a model is very simple! Summary of a model will show you how many parameters are in the decoder.
+
+<!--- Training requires two step. 
+
+* Step 1: choose [optimizer](https://keras.io/optimizers/) , [loss function](https://keras.io/losses/), and [evaluation metrics](https://keras.io/metrics/). Once we choose them, training a model is very simple! 
+* Step 2: train the model with --->
 
 {% highlight python %}
 
 optimizer= keras.optimizers.adam(lr=learning_rate,clipnorm=1.)
 
-
+# custom evaluation metric: BER 
 
 def errors(y_true, y_pred):
 
-​    myOtherTensor = K.not_equal(K.round(y_true), K.round(y_pred))
+​    ErrorTensor = K.not_equal(K.round(y_true), K.round(y_pred))
 
-​    return K.mean(tf.cast(myOtherTensor, tf.float32))
+​    return K.mean(tf.cast(ErrorTensor, tf.float32))
 
 
 
@@ -237,15 +223,23 @@ print(model.summary())
 
 
 
-### Training 
+### Step 3. Supervised training 
 
 {% highlight python %}
 
-model.fit(x=train_tx, y=X_train, batch_size=train_batch_size,
+# Generate pairs of (noisy codwords, true message sequence)
 
-​          callbacks=[change_lr]
+noisy_codewords, true_messages, _ = generate_examples(k_test=k, step_of_history=200, SNR=0, code_rate = 2) 
 
-​          epochs=num_epoch, validation_split=0.1)  # starts training
+
+
+# Train using the pre-defined optimizer and loss function 
+
+model.fit(x=noisy_codewords, y=true_messages, batch_size=train_batch_size,
+
+​                callbacks=[change_lr],
+
+​                epochs=num_epoch, validation_split=0.1)
 
 {% endhighlight %}
 
