@@ -47,7 +47,7 @@ When we fix the encoder, among many standard codes, we choose sequential codes s
   
 * The recurrent nature of sequential encoding aligns very well with the Recurrent Neural Network (RNN) structure. 
   
-* Well-known decoders exist for these codes. For convolutional codes, maximum likelihood decoder on AWGN channels is Viterbi decoder, which is a dynamic programming. For turbo codes, a belief propagation decoder on AWGN channels works extremely well. Hence, learning a decoder for sequential codes poses the challenge in *learning an algorithm.*
+* Well-known decoders exist for these codes. For convolutional codes, maximum likelihood decoder on AWGN channels is Viterbi decoder, which is a dynamic programming. For turbo codes, a belief propagation decoder on AWGN channels achieve performance close to the theoretical (Shannon) limit. Hence, learning a decoder for sequential codes poses the challenge of *learning an algorithm.*
 
 
 
@@ -87,52 +87,61 @@ An example for a rate 1/2 convolutional code is shown below. This code maps  b<s
 
 ### Viterbi decoding
 
-Around a decade after convolutional codes were introduced, in 1967, Andrew Viterbi came up with Viterbi algorithm, which is a dynamic programming algorithm for finding the most likely sequence of hidden states given an observed sequence in hidden Markov Models (HMM)s. Viterbi algorithm does maximum likelihood decoding of convolutional codes in a computationally efficient manner. We give an overview of Viterbi decoding. For a detailed walkthrough, nice tutorials can be found [here](https://web.stanford.edu/~jurafsky/slp3/A.pdf) and [here](https://www.researchgate.net/publication/31595950_Asynchronous_Viterbi_Decoder_in_Action_Systems). 
+Around a decade after convolutional codes were introduced, in 1967, Andrew Viterbi came up with Viterbi algorithm, which is a dynamic programming algorithm for finding the most likely sequence of hidden states given an observed sequence in hidden Markov Models (HMM)s. Viterbi algorithm can find maximum likelihood message bit sequence **b**  given the received signal **y** = **c** + **n**,  in a computationally efficient manner. We give an overview of Viterbi decoding. For a detailed walkthrough, nice tutorials can be found [here](https://web.stanford.edu/~jurafsky/slp3/A.pdf) and [here](https://www.researchgate.net/publication/31595950_Asynchronous_Viterbi_Decoder_in_Action_Systems). 
 
 Convolutional codes can be seen as a state-transition diagram. The state diagram of the rate 1/2 convolutional code introduced above is as follows ([figure credit](https://www.researchgate.net/publication/31595950_Asynchronous_Viterbi_Decoder_in_Action_Systems)). States are depicted as nodes. An arrow with (bk/ck) from sk to sk+1 represents a transition caused by bk on sk; coded bits ck are generated and next state is sk+1. 
 
-<center><img src="https://deepcomm.github.io/images/State-diagram.jpg" width=400/></center>
 
 
+
+
+<center><img src="https://www.researchgate.net/profile/Juha_Plosila/publication/31595950/figure/fig3/AS:654072529039362@1532954451991/State-diagram-for-rate-1-2-K3-convolutional-code_W640.jpg"></center>
 
 
 
 <!---State - four possible options - evolve through time.  State to state transition is occured by new input bk. Each transition is assigned the specific transmitted codeword: ck is a function of (bk,sk) Cost is assigned to each transition (sk, bk, sk+1). Cost is how likely to observe the received coded bits ck + nk --->
 
-Trellis diagram unrolls the transition across time. 
+<br />
 
-<center><img src="https://deepcomm.github.io/images/Trellis-diagram.jpg" width=400/></center>
+Trellis diagram unrolls the transition across time. Let s<sub>0</sub>, s<sub>1</sub>, s<sub>2</sub>, s<sub>3</sub> denote the state (00),(01),(10),(11). All possible transitions rare marked with arrows, where solid line implies input b<sub>k</sub> is 0, and dashed line implies input b<sub>k</sub> is 1.  Coded bits b<sub>k</sub> are accompanied with each arrow. 
+
+<br /> 
+
+<center><img src="https://www.researchgate.net/profile/Juha_Plosila/publication/31595950/figure/fig4/AS:654072533221376@1532954452005/Trellis-diagram-for-rate-1-2-K3-convolutional-code_W640.jpg"></center>
 
 
 
-Viterbi algorithm works in two steps. 
 
-In the trellis diagram, for each transition, likelihood Lk is defined as how likely we observe yk given the ground truth codeword is ck (e.g., 00,01,10,11). We aim to find a path that maximizes sum of Lk for k=1 to K. A path captures all information (e.g., input bit sequence). 
+
+<br /> 
+
+In the trellis diagram, for each transition, let L<sub>k</sub> denote the likelihood, defined as how likely we observe ***y<sub>k</sub>*** given the ground truth codeword is ***c<sub>k</sub>*** (e.g., 00,01,10,11). We aim to find a path (sequence of arrows) that maximizes sum of L<sub>k</sub> for k=1 to K. 
 
 <!---For t=1,2,3, ... we compute the best accumulated likelihood we can get conditioned on that we are at state sk at time k. --->
 
-The high-level idea is as follows. Suppose we know the most likely path to get to state sk (0,1,2,3) at time k and the the corresponding sum of Lk for k = 1 to K. Given this, we can compute the most likely path to get to state sk+1 (0,1,2,3) at time k+1 as follows. We take max{sk in s0,s1,s2,s3} (Accumulated likelihood at sk at time t + likelihood due to the transition from sk to sk+1). We record the path (input) as well as the updated likelihood sum. After going through this process until k reaches K, we find max of sK and the path ... 
-
- 
+The high-level idea is as follows. Suppose we know the most likely path to get to state s<sub>k</sub> (0,1,2,3) at time k and the the corresponding sum of  L<sub>k</sub> for k = 1 to K. Given this, we can compute the most likely path to get to state s<sub>k+1</sub> (0,1,2,3) at time k+1 as follows: we take max<sub>s<sub>k</sub> in {0,1,2,3} </sub> (Accumulated likelihood at  s<sub>k</sub> at time k + likelihood due to the transition from s<sub>k</sub> to s<sub>k +1</sub>). We record the path (input) as well as the updated likelihood sum. After going through this process until k reaches K, we find s<sub>K</sub> thas has maximum accumulatd likelihood. The saved path to s<sub>k</sub> is enough to find the most likely input sequence ***b***.   
 
 
 
+### Viterbi decoding as a neural network 
 
+It is also well known that recurrent neural networks can in principle implement any algorithm [Siegelmann and Sontag, 1992](https://ieeexplore.ieee.org/document/531522). Indeed, in 1996, [Wang and Wicker](https://ieeexplore.ieee.org/document/531522) has shown that artificial neural networks with hand-picked operations can emulate Viterbi decoder.
 
-
-
-Can we learn Viterbi decoder? We will now walk you through with example codes. Full code can be accessed [here](https://github.com/deepcomm/RNNViterbi). 
+What is not clear and challenging is whether we can *learn* this decoder in a data-driven manner without utilizing the knowledge on how convolutional code works at all? It took more than one decade for Viterbi decoder to be discovered since convolutional codes were introduced. The answer is, surprisingly, yes!  We will walk you through how to learn a neural network based decoder for convolutional codes. We will see that its reliability matches with Viterbi performance across various SNRs and code lengths. Full code can be accessed [here](https://github.com/deepcomm/RNNViterbi). 
 
 
 
 ## Learning an RNN decoder for convolutional codes
 
-Learning a neural network model is very simple. It is done in four steps. 
+Learning a decoder is very simple. It is done in four steps. 
 
-* Create a neural network model 
-* Choose an optimizer, a loss function, and an evaluation metric
-* Generate training examples and train the model 
-* Test the trained model on various test examples 
+* Step 1. Create a neural network model 
+  
+* Step 2. Choose an optimizer, a loss function, and an evaluation metric
+  
+* Step 3. Generate training examples and train the model 
+  
+* Step 4. Test the trained model on various test examples 
 
 
 
@@ -158,7 +167,7 @@ import tensorflow as tf
 
 from keras.layers import LSTM, GRU, SimpleRNN
 
-block_length = 200 # Length of input message sequence  
+step_of_history = 200 # Length of input message sequence  
 
 code_rate = 2 # Two coded bits per one message bit
 
@@ -168,7 +177,7 @@ num_hunit_rnn_rx = 50 # Each GRU has 50 hidden units
 
 
 
-noisy_codeword = Input(shape=(block_length, code_rate)) 
+noisy_codeword = Input(shape=(step_of_history, code_rate)) 
 
 x = noisy_codeword
 
@@ -184,7 +193,7 @@ for layer in range(num_rx_layer):
 
 x = TimeDistributed(Dense(1, activation='sigmoid'))(x)
 
-Predictions = x
+predictions = x
 
 model = Model(inputs=noisy_codeword, outputs=predictions)
 
@@ -194,7 +203,7 @@ model = Model(inputs=noisy_codeword, outputs=predictions)
 
 ### Step 2. Supervised training -  optimizer, loss, and evaluation metrics 
 
-So now we have an RNN based decoder model, which is nothing but a parametric function. We learn the parameters in a supervised matter, with examples of (noisy codeword **y**, message **b**), via backpropagation. The goal of training is to learn a set of hyperparameters that generates an estimate of **b** from y that is closest to the ground truth **b**.  Before we do the training, we have to choose [optimizer](https://keras.io/optimizers/) , [loss function](https://keras.io/losses/), and [evaluation metrics](https://keras.io/metrics/). Once we choose them, training a model is very simple! Summary of a model will show you how many parameters are in the decoder.
+So now we have an RNN based decoder model, which is nothing but a parametric function. We learn the parameters in a supervised matter, with examples of (noisy codeword **y**, message **b**), via backpropagation. The goal of training is to learn a set of hyperparameters so that the decoder model generates an estimate of **b** from **y** that is closest to the ground truth **b**.  Before we do the training, we have to choose [optimizer](https://keras.io/optimizers/) , [loss function](https://keras.io/losses/), and [evaluation metrics](https://keras.io/metrics/). Once we choose them, training a model is very simple. Summary of a model will show you how many parameters are in the decoder.
 
 <!--- Training requires two step. 
 
@@ -225,13 +234,25 @@ print(model.summary())
 
 ### Step 3. Supervised training 
 
+For training, we generate training examples, pairs of (noisy codeword, true message). To generate each example, we (i) generate a random bit sequence (of length *step_of_history*), (ii) generate convolutional coded bits using  [commpy](https://github.com/veeresht/CommPy), an open source, and (iii) add random noise of Signal-to-Noise Ratio *SNR*. Choosing the right parameters for *step_of_history* and *SNR* is critical in learning a reliable decoder. The variable k_test refers to how many bits in total will be generated. 
+
+
+
 {% highlight python %}
 
 # Generate pairs of (noisy codwords, true message sequence)
 
-noisy_codewords, true_messages, _ = generate_examples(k_test=k, step_of_history=200, SNR=0, code_rate = 2) 
+noisy_codewords, true_messages, _ = generate_examples(k_test=k, step_of_history=200, SNR=0) 
+
+{% endhighlight %}
 
 
+
+The actual training is done with one line of code. 
+
+
+
+{% highlight python %}
 
 # Train using the pre-defined optimizer and loss function 
 
@@ -245,13 +266,46 @@ model.fit(x=noisy_codewords, y=true_messages, batch_size=train_batch_size,
 
 
 
-### Results 
+### Step 4. Test on various SNRs
+
+We test the decoder on various SNRs, from 0 to 6dB. 
 
 
 
-Will do 6: GRAPH 
+{% highlight python %}
+
+TestSNRS = np.linspace(0, 6, 7, dtype = 'float32')
+
+for idx in range(0,SNR_points):
+
+​    TestSNR = TestSNRS[idx] 
+
+​    noisy_codewords, true_messages, target = generate_examples(k_test=k_test,step_of_history=step_of_history,SNR=TestSNR) 
+
+​    estimated_message_bits = np.round(model.predict(noisy_codewords, batch_size=test_batch_size))
+
+​    ber = 1- sum(sum(estimated_message_bits == target))*\
+
+​           1.0/(target.shape[0] * target.shape[1] *target.shape[2]) # target: true messages reshaped 
+
+​    print(ber)
 
 
+
+
+
+{% endhighlight %}
+
+
+
+We provide a [MATLAB code](https://github.com/deepcomm/RNNViterbi/blob/master/viterbi_comparison.m) that implements Viterbi decoding for convolutional codes for readers interested. 
+
+
+
+Results figure 
+
+- Run Viterbi on MATLAB 
+- Plot two curves (traindModel & MATLAB results)
 
 ### References 
 
