@@ -27,16 +27,6 @@ Consider communicating a message over a noisy channel.  This communication syste
 
 <center><img src="https://deepcomm.github.io/images/commsystem.png" width="750"/></center>
 
-
-<!-- The design of channel codes is directly related to the reliability of communication systems; a practical value of reliable codes is enormous. The design of codes is also theoretically challenging and interesting; it has been a major area of study in information theory and coding theory for several decades since Shannon's 1948 seminal paper. 
--->
-
-
-As a first step towards revolutionizing channel coding via deep learning (e.g., learning a novel pair of encoder-decoder), we ask the very first natural question: **Can we learn an optimal decoder for a fixed encoder from data?**  To answer this question, we fix the encoder as one of the standard encoders, model the decoder as a neural network, and train the decoder in a supervised manner.
-
-
-<center><img src="https://deepcomm.github.io/images/learndec.png" width="750"/></center>
-
 ## Sequential code
 
 When we fix the encoder, among many standard codes, we choose sequential codes such as *convolutional codes* and *turbo codes* for the following reasons:
@@ -48,26 +38,6 @@ When we fix the encoder, among many standard codes, we choose sequential codes s
 * The recurrent nature of sequential encoding aligns very well with the Recurrent Neural Network (RNN) structure. 
   
 * Well-known decoders exist for these codes. For convolutional codes, maximum likelihood decoder on AWGN channels is Viterbi decoder, which is a dynamic programming. For turbo codes, a belief propagation decoder on AWGN channels achieve performance close to the theoretical (Shannon) limit. Hence, learning a decoder for sequential codes poses the challenge of *learning an algorithm.*
-
-
-
-## Connection between sequential codes and RNNs
-
-Below is an illustration of a *sequential* code that maps a message bit sequence **b** of length K to a codeword sequence **c**. The encoder first takes the first bit b<sub>1</sub>, update the state s<sub>1</sub>, and the generate coded bits **c<sub>1</sub>** based on the state s<sub>1</sub>. The encoder then takes the second bit b<sub>2</sub>, generate state s<sub>2</sub> based on (s<sub>1</sub>, b<sub>2</sub>), and then generate coded bits **c<sub>2</sub>**. These mappings occur recurrently until the last coded bits **c<sub>k</sub>** are generated. Each coded bits **c<sub>k</sub>** (k=1, ... K) is of length r when code rate is 1/r. For example, for code rate 1/2, **c<sub>1</sub>** is of length 2. 
-
-
-
-<center><img src="https://deepcomm.github.io/images/seqcode.png"></center>
-
-
-
-
-
-
-
-Recurrent Neural Network (RNN) is a neural architecture that's well suited for sequential mappings with memory. There is a hidden state h evolving through time. The hidden state keeps information on the current and all the past inputs. The hidden state is updated as a function (f) of previous hidden state and the input at each time. The output then is another function (g) of the hidden state at time k. In RNN, these f and g are parametric functions. Depending on what parametric functions we choose, the RNN can be a vanilla RNN, or LSTM, or GRU. See [here](http://dprogrammer.org/rnn-lstm-gru) for a detailed description. Once we choose the parametric function, we then learn  good parameters through training. So the RNN is a very natural fit to the sequential encoders. 
-
-<center><img src="https://deepcomm.github.io/images/RNN.png"></center>
 
 
 
@@ -128,6 +98,44 @@ The high-level idea is as follows. Suppose we know the most likely path to get t
 It is also well known that recurrent neural networks can in principle implement any algorithm [Siegelmann and Sontag, 1992](https://ieeexplore.ieee.org/document/531522). Indeed, in 1996, [Wang and Wicker](https://ieeexplore.ieee.org/document/531522) has shown that artificial neural networks with hand-picked operations can emulate Viterbi decoder.
 
 What is not clear and challenging is whether we can *learn* this decoder in a data-driven manner without utilizing the knowledge on how convolutional code works at all? It took more than one decade for Viterbi decoder to be discovered since convolutional codes were introduced. The answer is, surprisingly, yes!  We will walk you through how to learn a neural network based decoder for convolutional codes. We will see that its reliability matches with Viterbi performance across various SNRs and code lengths. Full code can be accessed [here](https://github.com/deepcomm/RNNViterbi). 
+
+
+
+
+
+
+<!-- The design of channel codes is directly related to the reliability of communication systems; a practical value of reliable codes is enormous. The design of codes is also theoretically challenging and interesting; it has been a major area of study in information theory and coding theory for several decades since Shannon's 1948 seminal paper. 
+-->
+
+
+As a first step towards revolutionizing channel coding via deep learning (e.g., learning a novel pair of encoder-decoder), we ask the very first natural question: **Can we learn an optimal decoder for a fixed encoder from data?**  To answer this question, we fix the encoder as one of the standard encoders, model the decoder as a neural network, and train the decoder in a supervised manner.
+
+
+<center><img src="https://deepcomm.github.io/images/learndec.png" width="750"/></center>
+
+
+
+
+
+## Connection between sequential codes and RNNs
+
+Below is an illustration of a *sequential* code that maps a message bit sequence **b** of length K to a codeword sequence **c**. The encoder first takes the first bit b<sub>1</sub>, update the state s<sub>1</sub>, and the generate coded bits **c<sub>1</sub>** based on the state s<sub>1</sub>. The encoder then takes the second bit b<sub>2</sub>, generate state s<sub>2</sub> based on (s<sub>1</sub>, b<sub>2</sub>), and then generate coded bits **c<sub>2</sub>**. These mappings occur recurrently until the last coded bits **c<sub>k</sub>** are generated. Each coded bits **c<sub>k</sub>** (k=1, ... K) is of length r when code rate is 1/r. For example, for code rate 1/2, **c<sub>1</sub>** is of length 2. 
+
+
+
+<center><img src="https://deepcomm.github.io/images/seqcode.png"></center>
+
+
+
+
+
+
+
+Recurrent Neural Network (RNN) is a neural architecture that's well suited for sequential mappings with memory. There is a hidden state h evolving through time. The hidden state keeps information on the current and all the past inputs. The hidden state is updated as a function (f) of previous hidden state and the input at each time. The output then is another function (g) of the hidden state at time k. In RNN, these f and g are parametric functions. Depending on what parametric functions we choose, the RNN can be a vanilla RNN, or LSTM, or GRU. See [here](http://dprogrammer.org/rnn-lstm-gru) for a detailed description. Once we choose the parametric function, we then learn  good parameters through training. So the RNN is a very natural fit to the sequential encoders. 
+
+<center><img src="https://deepcomm.github.io/images/RNN.png"></center>
+
+
 
 
 
