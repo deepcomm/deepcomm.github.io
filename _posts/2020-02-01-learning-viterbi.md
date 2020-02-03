@@ -12,7 +12,7 @@ Viterbi algorithm exactly computes the Maximum Likelihood (ML) estimate of the t
 by efficiently running a dynamic programming. 
 Although statistically this cannot be improved upon, 
 we train a deep neural network to re-discover a Viterbi-like *algorithm* that matches the ML performance. 
-Here the emphasis is on algorithm; we are only interested in an outcome of the machine learning process 
+Here the emphasis is on "algorithm"; we are only interested in an outcome of the machine learning process 
 that can be readily applied as is to any block lengths, beyond what it was trained on. 
 The purpose of this exercise is two fold. 
 First, our eventural goal is the discovery of new codes (encoder and decoder). 
