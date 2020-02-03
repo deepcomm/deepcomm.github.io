@@ -177,13 +177,13 @@ We explain a simple four step process for training a decoder.
 
 ### Step 1. Modelling the decoder as a RNN
 
-We model the decoder as a Bi-directional RNN that has a forward pass and a backward pass. this allows the decoder to estimate each bit based on the whole received sequence, instead of just the past ones. In particular, we use GRU; empirically, we see GRU and LSTM have similar performance. We also use two layers of Bi-GRU because The input to each 1st layer GRU cell is received coded bits, i.e., noise sequence **n<sub>k</sub>**  added to the k-th coded bits **c<sub>k</sub>**. The output of each 2nd layer GRU cell is the estimate of b<sub>k</sub>. 
+We model the decoder as a Bi-directional RNN that has a forward pass and a backward pass. this allows the decoder to estimate each bit based on the whole received sequence, instead of just the past ones. In particular, we use GRU; empirically, we see GRU and LSTM have similar performance. We also use two layers of Bi-GRU because the input to each 1st layer GRU cell is received coded bits, i.e., noise sequence **n<sub>k</sub>**  added to the k-th coded bits **c<sub>k</sub>**. The output of each 2nd layer GRU cell is the estimate of b<sub>k</sub>. 
 
 
 
 <center><img src="https://hyejikim1.github.io/images/twolayerbiGRUDec.png"></center>
 
-Here is an excerpt of python code that defines the decoder neural network. In this post, we introduce codes built on Keras library, which is arguably one of the easiest deep learning libraries, as a gentle introduction to deep learning programming for channel coding.  The complete code and installation guides can be found [here](https://github.com/deepcomm/RNNViterbi). 
+Here is an excerpt of python code that defines the decoder neural network. In this post, we introduce codes built on Keras library, for its simplicity, as a gentle introduction to deep learning programming for channel coding.  The complete code and installation guides can be found [here](https://github.com/deepcomm/RNNViterbi). 
 
 
 
