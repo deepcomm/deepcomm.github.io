@@ -139,7 +139,7 @@ As a first step towards revolutionizing channel coding via deep learning (e.g., 
 
 
 
-## Connection between sequential codes and RNNs
+### Connection between sequential codes and RNNs
 
 Below is an illustration of a *sequential* code that maps a message bit sequence **b** of length K to a codeword sequence **c**. The encoder first takes the first bit b<sub>1</sub>, update the state s<sub>1</sub>, and the generate coded bits **c<sub>1</sub>** based on the state s<sub>1</sub>. The encoder then takes the second bit b<sub>2</sub>, generate state s<sub>2</sub> based on (s<sub>1</sub>, b<sub>2</sub>), and then generate coded bits **c<sub>2</sub>**. These mappings occur recurrently until the last coded bits **c<sub>k</sub>** are generated. Each coded bits **c<sub>k</sub>** (k=1, ... K) is of length r when code rate is 1/r. For example, for code rate 1/2, **c<sub>1</sub>** is of length 2. 
 
@@ -161,7 +161,7 @@ Recurrent Neural Network (RNN) is a neural architecture that's well suited for s
 
 
 
-## Learning an RNN decoder for convolutional codes
+### Learning an RNN decoder for convolutional codes
 
 Learning a decoder is very simple. It is done in four steps. 
 
@@ -175,7 +175,7 @@ Learning a decoder is very simple. It is done in four steps.
 
 
 
-### Step 1. Modelling the decoder as an RNN
+#### Step 1. Modelling the decoder as an RNN
 
 The first thing to do is to model the decoder as a neural network. We model the decoder as a Bi-directional RNN that has a forward pass and a backward pass. This is because we would like the decoder to estimate each bit based on the whole received sequence. In particular, we use GRU; empirically, we see GRU and LSTM have similar performance. We also use two layers of Bi-GRU because The input to each 1st layer GRU cell is received coded bits, i.e., noise sequence **n<sub>k</sub>**  added to the k-th coded bits **c<sub>k</sub>**. The output of each 2nd layer GRU cell is the estimate of b<sub>k</sub>. 
 
@@ -231,7 +231,7 @@ model = Model(inputs=noisy_codeword, outputs=predictions)
 
 
 
-### Step 2. Supervised training -  optimizer, loss, and evaluation metrics 
+#### Step 2. Supervised training -  optimizer, loss, and evaluation metrics 
 
 So now we have an RNN based decoder model, which is nothing but a parametric function. We learn the parameters in a supervised matter, with examples of (noisy codeword **y**, message **b**), via backpropagation. The goal of training is to learn a set of hyperparameters so that the decoder model generates an estimate of **b** from **y** that is closest to the ground truth **b**.  Before we do the training, we have to choose [optimizer](https://keras.io/optimizers/) , [loss function](https://keras.io/losses/), and [evaluation metrics](https://keras.io/metrics/). Once we choose them, training a model is very simple. Summary of a model will show you how many parameters are in the decoder.
 
@@ -244,7 +244,7 @@ So now we have an RNN based decoder model, which is nothing but a parametric fun
 
 optimizer= keras.optimizers.adam(lr=learning_rate,clipnorm=1.)
 
-# custom evaluation metric: BER 
+#### custom evaluation metric: BER 
 
 def errors(y_true, y_pred):
 
@@ -262,7 +262,7 @@ print(model.summary())
 
 
 
-### Step 3. Supervised training 
+#### Step 3. Supervised training 
 
 For training, we generate training examples, pairs of (noisy codeword, true message). To generate each example, we (i) generate a random bit sequence (of length *step_of_history*), (ii) generate convolutional coded bits using  [commpy](https://github.com/veeresht/CommPy), an open source, and (iii) add random noise of Signal-to-Noise Ratio *SNR*. Choosing the right parameters for *step_of_history* and *SNR* is critical in learning a reliable decoder. The variable k_test refers to how many bits in total will be generated. 
 
