@@ -9,34 +9,33 @@ comments:   true
 
 --[*Hyeji Kim*](http://sites.utexas.edu/hkim/) and [*Sewoong Oh*](https://homes.cs.washington.edu/~sewoong/)
 
-Viterbi algorithm exactly computes the Maximum Likelihood (ML) estimate of the transmitted codeword, 
-by efficiently running a dynamic programming. 
+The Viterbi algorithm exactly computes the Maximum Likelihood (ML) estimate of the transmitted convlutional codeword over an AWGN (additive white Gaussian noise) channel. The algorithm is an early instance of dynamic programming. 
 Although statistically this cannot be improved upon, 
 we train a deep neural network to re-discover a Viterbi-like *algorithm* that matches the ML performance. 
 Here the emphasis is on "algorithm"; we want to learn a decoder 
-that can be readily applied as is to any block lengths, beyond what it was trained on. 
+that can be readily applied "as is",   beyond  block lengths  it was trained on. 
 In particular, a trained decoder is not considered an algorithm, if it only works for a fixed block length.
 
 The purpose of this exercise is twofold. 
 First, our ultimate goal is the discovery of new codes (encoders and decoders). 
-Demonstrating that deep learning can reproduce the optimal decoder for existing codes is a necessary intermediate step. 
-Next, we might want to impose additional constraints on the decoder, such as low latency. 
-Deep learning provides such flexibility  which Viterbi algorithm is not equipped with. 
+Demonstrating that deep learning can reproduce an important class of  decoders (for existing codes) is a necessary intermediate step. 
+Next, we might want to adapt the decoder to handle deviations from the AWGN channel model or handle additional constraints on the decoder, such as low latency. 
+Deep learning could provide the needed flexibility  which Viterbi algorithm is not equipped with. 
 
 Consider communicating a message over a noisy channel.  This communication system has an encoder that maps messages (e.g., bit sequences) to codewords, typically of longer lengths, and a decoder that maps noisy codewords to the estimate of messages. This is illustrated below. 
 
 <center><img src="https://deepcomm.github.io/images/commsystem.png" width="750"/></center>
 
-Among the variety of existing codes, we choose a simple family of codes 
+Among the variety of existing codes, we start with a simple family of codes 
 known as covolutional codes. Several properties make them ideal for our experiement. 
 
-* These codes are practical. They are used for mobile communications (e.g., 4G LTE) and satellite communications. 
+* These codes are practical (used in satellite communication) and form the building block of Turbo codes which are used for cellular communications. 
   
-* These codes achieve performance close to the fundamental limit.
+* With sufficient memory, the codes achieve performance close to the fundamental limit.
   
-* The recurrent nature of sequential encoding aligns very well with the Recurrent Neural Network (RNN) structure. 
+* The recurrent nature of sequential encoding aligns very well with a class of deep learning architectures known as Recurrent Neural Networks (RNN). 
   
-* Well-known decoders exist for these codes. For convolutional codes, maximum likelihood decoder on AWGN channels is Viterbi decoder, which is a dynamic programming. 
+* Well-known decoders exist for these codes. For convolutional codes, maximum likelihood decoder on AWGN channels is the Viterbi decoder, which is an instance of dynamic programming. 
 <!--For turbo codes, a belief propagation decoder on AWGN channels achieve performance close to the theoretical (Shannon) limit. Hence, learning a decoder for sequential codes poses the challenge of *learning an algorithm.*
 -->
 
@@ -62,8 +61,8 @@ When we fix the encoder, among many standard codes, we choose sequential codes s
 
 ### Convolutional codes
 
-Convolutional codes are introduced in 1955 by [Peter Elias](https://en.wikipedia.org/wiki/Peter_Elias). 
-It uses a short memory and connvolution operators to sequentially create coded bits. 
+Convolutional codes were introduced in 1955 by [Peter Elias](https://en.wikipedia.org/wiki/Peter_Elias). 
+It uses  short memory and connvolution operators to sequentially create coded bits. 
 An example for a rate 1/2 convolutional code is shown below. This code maps  b<sub>k</sub> to  (c<sub>k1</sub>, c<sub>k2</sub>), where the state is  (b<sub>k</sub>,  b<sub>k-1</sub>,  b<sub>k-2</sub>), and coded bits (c<sub>k1</sub>, c<sub>k2</sub>) are convolution (i.e., mod 2 sum) of the state bits.  
 
 <center><img src="https://hyejikim1.github.io/images/convcode.png"></center>
@@ -74,9 +73,9 @@ An example for a rate 1/2 convolutional code is shown below. This code maps  b<s
 
 ### Viterbi decoding
 
-Around a decade after convolutional codes were introduced, in 1967, Andrew Viterbi came up with Viterbi algorithm, which is a dynamic programming algorithm for finding the most likely sequence of hidden states given an observed sequence in hidden Markov Models (HMM)s. Viterbi algorithm can find the maximum likelihood message bit sequence **b**  given the received signal **y** = **c** + **n**,  in a computationally efficient manner. We give an overview of Viterbi decoding. For a detailed walkthrough, nice tutorials can be found [here](https://web.stanford.edu/~jurafsky/slp3/A.pdf) and [here](https://www.researchgate.net/publication/31595950_Asynchronous_Viterbi_Decoder_in_Action_Systems). 
+Around a decade after convolutional codes were introduced, in 1967, Andrew Viterbi discovered the so-called  "Viterbi decoder", which is a dynamic programming algorithm for finding the most likely sequence of hidden states given an observed sequence sampled from a hidden Markov model (HMM). Viterbi decoder can find the maximum likelihood message bit sequence **b**  given the received signal **y** = **c** + **n**,  in a computationally efficient manner. An overview of Viterbi decoding is below; a detailed walkthrough can be found [here](https://web.stanford.edu/~jurafsky/slp3/A.pdf) and [here](https://www.researchgate.net/publication/31595950_Asynchronous_Viterbi_Decoder_in_Action_Systems). 
 
-Convolutional codes can be seen as a state-transition diagram. The state diagram of the rate 1/2 convolutional code introduced above is as follows ([figure credit](https://www.researchgate.net/publication/31595950_Asynchronous_Viterbi_Decoder_in_Action_Systems)). States are depicted as nodes. An arrow with (b<sub>k</sub>/c<sub>k</sub>) from s<sub>k</sub> to s<sub>k+1</sub> represents a transition caused by b<sub>k</sub> on s<sub>k</sub>; coded bits ck are generated and next state is s<sub>k+1</sub>. 
+Convolutional codes are best illustrated via  a state-transition diagram. The state diagram of the rate 1/2 convolutional code introduced above is as follows ([figure credit](https://www.researchgate.net/publication/31595950_Asynchronous_Viterbi_Decoder_in_Action_Systems)). States are depicted as nodes. An arrow with (b<sub>k</sub>/c<sub>k</sub>) from s<sub>k</sub> to s<sub>k+1</sub> represents a transition caused by b<sub>k</sub> on s<sub>k</sub>; coded bits ck are generated and next state is s<sub>k+1</sub>. 
 
 
 
@@ -114,12 +113,12 @@ The high-level idea is as follows. Suppose we know the most likely path to get t
 
 <center><img src="https://deepcomm.github.io/images/learndec.png" width="750"/></center>
 
-It is also well known that recurrent neural networks can in principle implement any algorithm [Siegelmann and Sontag, 1992](https://ieeexplore.ieee.org/document/531522). Indeed, in 1996, [Wang and Wicker](https://ieeexplore.ieee.org/document/531522) has shown that artificial neural networks with hand-picked operations can emulate Viterbi decoder.
+It is  known that recurrent neural networks can "in principle" implement any algorithm [Siegelmann and Sontag, 1992](https://ieeexplore.ieee.org/document/531522). Indeed, in 1996, [Wang and Wicker](https://ieeexplore.ieee.org/document/531522) has shown that artificial neural networks with hand-picked coefficients can emulate the Viterbi decoder.
 
 <!-- It took more than one decade for Viterbi decoder to be discovered since convolutional codes were introduced. The answer is, surprisingly, yes!  
 -->
 
-What is not clear and challenging is whether we can *learn* this decoder in a data-driven manner. We explain in this note how to learn a neural network based decoder for convolutional codes. We will see that its reliability matches that of Viterbi algorithm, across various SNRs and code lengths. Full code can be accessed [here](https://github.com/deepcomm/RNNViterbi). 
+What is not clear,m and challenging, is whether we can *learn* this decoder in a data-driven manner. We explain in this note how to learn a neural network based decoder for convolutional codes. We will see that its reliability matches that of Viterbi algorithm, across various SNRs and code lengths. Full code can be accessed [here](https://github.com/deepcomm/RNNViterbi). 
 
 
 
