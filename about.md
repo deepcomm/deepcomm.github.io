@@ -11,6 +11,10 @@ tags: about
 * [Sewoong Oh](https://homes.cs.washington.edu/~sewoong/)
 * [Pramod Viswanath](http://pramodv.ece.illinois.edu/)
 
+
+contributors
+* [Rashmi Vinayak](http://www.cs.cmu.edu/~rvinayak/)
+
 - Please [reach us](https://hyejikim1.github.io/contact) to contribute a post. 
 
 
