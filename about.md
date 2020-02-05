@@ -12,9 +12,9 @@ tags: about
 * [Pramod Viswanath](http://pramodv.ece.illinois.edu/)
 
 
-contributors
+Contributors
 * [Rashmi Vinayak](http://www.cs.cmu.edu/~rvinayak/)
 
-- Please [reach us](https://hyejikim1.github.io/contact) to contribute a post. 
+Please [reach us](https://hyejikim1.github.io/contact) to contribute a post. 
 
 
