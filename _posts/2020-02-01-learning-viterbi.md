@@ -118,7 +118,7 @@ It is  known that recurrent neural networks can "in principle" implement any alg
 <!-- It took more than one decade for Viterbi decoder to be discovered since convolutional codes were introduced. The answer is, surprisingly, yes!  
 -->
 
-What is not clear,m and challenging, is whether we can *learn* this decoder in a data-driven manner. We explain in this note how to learn a neural network based decoder for convolutional codes. We will see that its reliability matches that of Viterbi algorithm, across various SNRs and code lengths. Full code can be accessed [here](https://github.com/deepcomm/RNNViterbi). 
+What is not clear, and challenging, is whether we can *learn* this decoder in a data-driven manner. We explain in this note how to train a neural network based decoder for convolutional codes. We will see that its reliability matches that of Viterbi algorithm, across various SNRs and code lengths. Full code can be accessed [here](https://github.com/deepcomm/RNNViterbi). 
 
 
 
@@ -152,7 +152,7 @@ Below is an illustration of a *sequential* code that maps a message bit sequence
 
 
 
-Recurrent Neural Network (RNN) is a neural architecture that's well suited for sequential mappings with memory. There is a hidden state h evolving through time. The hidden state keeps information on the current and all the past inputs. The hidden state is updated as a function (f) of previous hidden state and the input at each time. The output then is another function (g) of the hidden state at time k. In RNN, these f and g are parametric functions. Depending on what parametric functions we choose, the RNN can be a vanilla RNN, or LSTM, or GRU. See [here](http://dprogrammer.org/rnn-lstm-gru) for a detailed description. Once we choose the parametric function, we then learn  good parameters through training. So the RNN is a very natural fit to the sequential encoders. 
+Recurrent Neural Network (RNN) is a neural architecture that's well suited for sequential mappings with memory. There is a hidden state h evolving through time. The hidden state keeps information on the current and all the past inputs. The hidden state is updated as a function (f) of previous hidden state and the input at each time. The output then is another function (g) of the hidden state at time k. In RNN, these f and g are parametric functions. Depending on what parametric functions we choose, the RNN can be a vanilla RNN, or LSTM, or GRU. See [here](http://dprogrammer.org/rnn-lstm-gru) for a detailed description. Once we choose the parametric function, we then learn  good parameters through training. So the RNN is a very natural match to a sequential encoder. 
 
 <center><img src="https://deepcomm.github.io/images/RNN.png"></center>
 
@@ -162,9 +162,9 @@ Recurrent Neural Network (RNN) is a neural architecture that's well suited for s
 
 ## Learning an RNN decoder for convolutional codes
 
-We explain a simple four step process for training a decoder. 
+Training a decoder proceeds in four steps. 
 
-* Step 1. Create a neural network model 
+* Step 1. Design a neural network architecture 
   
 * Step 2. Choose an optimizer, a loss function, and an evaluation metric
   
@@ -232,7 +232,7 @@ model = Model(inputs=noisy_codeword, outputs=predictions)
 
 ### Step 2. Supervised training -  optimizer, loss, and evaluation metrics 
 
-Given a choice of RNN-based decoder model, which is a parametric function. We learn the parameters in a supervised matter, with examples of (noisy codeword **y**, message **b**), via backpropagation. The goal of training is to learn a set of hyperparameters so that the decoder model generates an estimate of **b** from **y** that is closest to the ground truth **b**.  Before we do the training, we choose [optimizer](https://keras.io/optimizers/) , [loss function](https://keras.io/losses/), and [evaluation metrics](https://keras.io/metrics/). Once chosen, training is straightforward. Summary of a model will show you how many parameters are in the decoder.
+We start with an RNN-based decoder model, whose parameters we learn  in a supervised matter, using examples of (noisy codeword **y**, message **b**), via backpropagation. The goal of training is to learn a set of hyperparameters so that the decoder model generates an estimate of **b** from **y** that is closest to the ground truth **b**.  Before we do the training, we choose [optimizer](https://keras.io/optimizers/) , [loss function](https://keras.io/losses/), and [evaluation metrics](https://keras.io/metrics/). Once these are chosen, training is made straightforward by deep learning tool kits. Summary of a model will show you how many parameters are in the decoder.
 
 <!--- Training requires two step. 
 
