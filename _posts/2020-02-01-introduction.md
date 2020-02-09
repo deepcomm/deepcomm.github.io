@@ -3,13 +3,9 @@ layout:     post
 title:      Introduction and Mission Statement  
 date:       2020-02-01 01:21:29
 author:     Pramod Viswanath
-summary:    Introduction and mission statement
 comments:   true
-
+visible:    true
 ---
-
-
---[*Pramod Viswanath*](https://pramodv.ece.illinois.edu)
 
 
 Reliable digital communication, both wireline (ethernet, cable and DSL modems) and wireless (cellular, Wifi, satellite), is a primary workhorse of the modern information age. A critical aspect of reliable communication involves the design of codes that allow transmissions to be robustly (and computationally efficiently) decoded under noisy conditions. This is the discipline of communication theory; over the past century and especially the past 70 years (since the birth of information theory (Shannon, 1948)) much progress has been made in the design of near optimal codes. Landmark codes include convolutional codes, turbo codes, low density parity check (LDPC) codes and polar codes. The impact on humanity is enormous – every cellular phone designed uses one of these codes, which feature in global cellular standards ranging from the 2nd generation to the 5th generation respectively, and are text book material. 

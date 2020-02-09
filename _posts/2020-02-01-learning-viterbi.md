@@ -5,9 +5,10 @@ date:       2020-02-01 12:31:19
 summary:    Learning dynamic programming algorithms
 categories: jekyll pixyll
 comments:   true
+visible:    true
+author:    Hyeji Kim and Sewoong Oh
 ---
 
---[*Hyeji Kim*](http://sites.utexas.edu/hkim/) and [*Sewoong Oh*](https://homes.cs.washington.edu/~sewoong/)
 
 The Viterbi algorithm exactly computes the Maximum Likelihood (ML) estimate of the transmitted convlutional codeword over an AWGN (additive white Gaussian noise) channel. The algorithm is an early instance of dynamic programming. 
 Although statistically this cannot be improved upon, 
