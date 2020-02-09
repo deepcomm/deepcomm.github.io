@@ -10,7 +10,7 @@ author:    Hyeji Kim and Sewoong Oh
 ---
 
 
-The Viterbi algorithm exactly computes the Maximum Likelihood (ML) estimate of the transmitted convlutional codeword over an AWGN (additive white Gaussian noise) channel. The algorithm is an early instance of dynamic programming. 
+The Viterbi algorithm exactly computes the Maximum Likelihood (ML) estimate of the transmitted convolutional codeword over an AWGN (additive white Gaussian noise) channel. The algorithm is an early instance of dynamic programming. 
 Although statistically this cannot be improved upon, 
 we train a deep neural network to re-discover a Viterbi-like *algorithm* that matches the ML performance. 
 Here the emphasis is on "algorithm"; we want to learn a decoder 
