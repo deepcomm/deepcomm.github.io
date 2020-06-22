@@ -20,6 +20,7 @@ by H. Kim, Y. Jiang, R. Rana, S. Kannan, S. Oh, P. Viswanath
 Code: [https://github.com/yihanjiang/Sequential-RNN-Decoder](https://github.com/yihanjiang/Sequential-RNN-Decoder) 
 
 * ["Deepcode: Feedback Codes via Deep Learning"](https://arxiv.org/abs/1807.00801)  
+IEEE Journal on Selected Areas in Information Theory, 2020  
 Conference on Neural Information Processing Systems (NeurIPS), Montreal, December 2018  
 by H. Kim, Y. Jiang, S. Kannan, S. Oh, P. Viswanath  
 Code (Keras): [https://github.com/hyejikim1/Deepcode](https://github.com/hyejikim1/Deepcode)  
