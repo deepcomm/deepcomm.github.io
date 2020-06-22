@@ -42,7 +42,7 @@ The techniques that we develop have the potential for applicability to a broad c
 
 Using machine learning for coded computation leads to the reconstruction of *approximations* of unavailable results of computation. This is appropriate for imparting resilience to inference, as the results of inference are themselves approximate. Furthermore, any inaccuracy incurred due to employing learning only comes into play when a result from inference would otherwise be slow or failed. In this case, many services prefer a slightly less accurate result as compared to a late one.
 
-In the remainder of this post and in the [next post,](http://deepcomm.github.io/jekyll/pixyll/2020/06/21/learned-coded-computation-part2/) we describe the two different paradigms we have developed for leveraging machine learning for designing coded-computation schemes. For a more detailed description comparing the two approaches, we direct the reader to our paper [Learning-Based Coded Computation](https://ieeexplore.ieee.org/document/9047948).
+In the remainder of this post and in the [next post,](http://deepcomm.github.io/jekyll/pixyll/2020/06/22/learned-coded-computation-part2/) we describe the two different paradigms we have developed for leveraging machine learning for designing coded-computation schemes. For a more detailed description comparing the two approaches, we direct the reader to our paper [Learning-Based Coded Computation](https://ieeexplore.ieee.org/document/9047948).
 
 ## Paradigm 1: Learning a code
 We now describe our first approach for learning-based coded computation: learning erasure codes. Recall that the coded-computation setup described above has three components: the given function F, the encoder E, and the decoder D. Under this paradigm, we learn an encoder E and a decoder D that accurately reconstruct unavailable outputs from the given function F. We use neural networks to learn the encoder and the decoder for a given function F due to their recent success in a number of learning tasks.
@@ -150,7 +150,7 @@ potential for *learning-based* approaches to overcome these challenges. We then 
 toward leveraging machine learning for designing coded computation
 schemes: learning encoders and decoders. Along the way, we've illustrated how you can experiment with learned encoders and decoders using our framework [made available on Github](https://github.com/Thesys-lab/parity-models).
 
-In [Part 2](http://deepcomm.github.io/jekyll/pixyll/2020/06/21/learned-coded-computation-part2/) of this blog post, we will explore the second approach to
+In [Part 2](http://deepcomm.github.io/jekyll/pixyll/2020/06/22/learned-coded-computation-part2/) of this blog post, we will explore the second approach to
 learning-based coded computation: employing simple encoders and decoders,
 and instead learning a new computation over parities. We will also describe potential avenues for future exploration in learning-based coded computation, and how one can immediately begin experimenting with them in our framework.
 
