@@ -21,5 +21,5 @@ by H. Kim, Y. Jiang, S. Kannan, S. Oh, P. Viswanath
 Conference on Neural Information Processing Systems (NeurIPS), Vancouver, December 2019  
 by Y. Jiang, H. Kim, H. Asnani, S. Kannan, S. Oh, P. Viswanath
 
-* [https://github.com/yihanjiang/turboae] (https://github.com/yihanjiang/turboae) 
+* [https://github.com/yihanjiang/turboae](https://github.com/yihanjiang/turboae) 
 
