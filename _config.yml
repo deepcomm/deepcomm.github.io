@@ -1,8 +1,8 @@
 # Site settings
-title:       Inventing Communication Algorithms via Machine Learning
+title:       Inventing Codes via Machine Learning
 email:       hkim1505@gmail.com
 author:      Hyeji Kim
-description: "Lectures for Inventing Communication Algorithms via Machine Learning."
+description: "Lectures for Inventing Codes via Machine Learning."
 baseurl:     ""
 url:         "https://deepcomm.github.io"
 date_format: "%b %-d, %Y"
