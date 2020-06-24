@@ -8,8 +8,9 @@ url:         "https://deepcomm.github.io"
 date_format: "%b %-d, %Y"
 header_pages:
  - codebase.md
- - about.md
+ - events.md
  - contact.html
+ - about.md
 
 # Google services
 google_verification:
