@@ -49,7 +49,7 @@ This extrinsic LLR is interleaved and passed to the next block as prior intrinsi
 The BCJR algorithm involves computing the log-sum-exponential (LSE) function, which is computationally intensive. In practice, the max-log-MAP algorithm, an approximation of the MAP algorithm is employed as the SISO decoder. The main idea is to approximate the computationally intensive LSE function by the maximum:
 
 $\begin{align}
-    \text{LSE}(z_1,\ldots, z_n) \define \log (\exp(z_1)+\ldots+\exp(z_n)) \\
+    \text{LSE}(z_1,\ldots, z_n) \triangleq \log (\exp(z_1)+\ldots+\exp(z_n)) \\
     \text{LSE}(z_1,\ldots, z_n) \approx \max(z_1,\ldots, z_n), \quad z_1,\ldots,z_n \in \reals.
 \end{align}$
 
@@ -62,7 +62,7 @@ We desire to develop a decoder which is both efficient and reliable. We ask the 
 1\) Can we design a decoder with complexity comparable to max-log-MAP and reliability like MAP? 2\) Can such a decoder generalize to non-AWGN noise, and across blocklengths and encoding structures?
 
 We answer these questions in the affirmative by proposing TinyTurbo, a model-based ML algorithm learnt in a purely data-driven manner.
-TinyTurbo can be viewed as a weight-augmented version of the max-log-MAP algorithm. We augment the standard max-log-MAP algorithm by adding _three_ learnable weights in the extrinsic information equation: $ in Eq.~\eqref{eq:main_eq}: $$ L_e(u) = \alpha_1 L(u|\by) - \alpha_2 y^s - \alpha_3 L(u)$$
+TinyTurbo can be viewed as a weight-augmented version of the max-log-MAP algorithm. We augment the standard max-log-MAP algorithm by adding _three_ learnable weights in the extrinsic information equation: $ in Eq.~\eqref{eq:main_eq}: $$ L_e(u) = \alpha_1 L(u|y) - \alpha_2 y^s - \alpha_3 L(u)$$
 Similarly, decoder $D_2$ is augmented by three weights $(\beta_1, \beta_2, \beta_3)$. Thus, TinyTurbo decoding with $M$ iterations has only $6M$ parameters, thus maintaining comparable complexity as max-log-MAP.
 
 By learning these parameters from simulation data using SGD, TinyTurbo demonstrates the ability to generalize across various channels, block lengths, and trellises.
@@ -71,7 +71,7 @@ By learning these parameters from simulation data using SGD, TinyTurbo demonstra
 
 ### TinyTurbo codebase
 
-We provide a framework in Python to implement and evaluate different Turbo decoders, and implement model-based ML methods like TinyTurbo. The project repository and running instructions can be found [here](https://github.com/hebbarashwin/tinyturbo). Further, we provide an intuitive interface for interference and training of TinyTurbo in the [deepcommpy](https://github.com/hebbarashwin/deepcommpy) package.
+We provide a framework in Python to implement and evaluate different Turbo decoders, and implement model-based ML methods like TinyTurbo. The project repository and running instructions can be found [here](https://github.com/hebbarashwin/tinyturbo). Further, we provide an intuitive interface for inference and training of TinyTurbo in the [deepcommpy](https://github.com/hebbarashwin/deepcommpy) package.
 
 The code snippet below demonstrates how to use this package for Turbo code decoding inference for Turbo-LTE, block length 40:
 
