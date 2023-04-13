@@ -10,73 +10,112 @@ author:
 ---
 
 
-The unparalleled success of deep learning in various domains has revolutionized the way we approach problem-solving in areas such as computer vision and natural language processing. More recently, there has been significant progress in adapting these techniques to perform channel decoding, achieveing impressive gains in performance and robustness.
-However, these gains come at a cost, with deep learning models often requiring significant computational resources and vast amounts of training data. This limitation becomes particularly challenging for practical deployment of these systems on hardware-limited devices such as mobile phones and IoT systems, which have strict memory, computation, and latency constraints.
+The unparalleled success of deep learning in various domains has revolutionized the way we approach problem-solving in areas such as computer vision and natural language processing. More recently, there has been significant progress in adapting these techniques to perform channel decoding, achieving impressive gains in performance and robustness.
+However, these gains come at a price. Deep learning models often demand significant computational resources and vast amounts of training data, making them challenging to deploy on resource-limited devices like mobile phones and IoT systems. That's where hybrid techniques come into play, combining the benefits of both classical model-based methods and deep learning algorithms.
 
-In recent years, many researchers have developed hybrid techniques that combine the advantages of both classical model-based methods, and deep learning algorithms. This paradigm, model-based machine learning, is a scalable way to use domain knowledge to obtain gains over traditional methods without a significant complexity increase. This blog post illustrates an application of model-based ML for improving the performance of Turbo decoding.
+### Model-based Machine Learning
+Model-based machine learning is a scalable paradigm that leverages domain knowledge to achieve gains over traditional methods without significantly increasing complexity. The key idea is to augment model-based algorithms with learnable parameters, rather than replacing them by a black-box neural network. This blog post illustrates an application of model-based ML for improving the performance of Turbo decoding. But first, let's briefly discuss channel coding and Turbo codes.
 
+## Setup : Channel coding
 Consider communicating a message over a noisy channel.  This communication system has an encoder that maps messages (e.g., bit sequences) to codewords, typically of longer lengths, and a decoder that maps noisy codewords to the estimate of messages. This is illustrated below. 
 
 <center><img src="https://deepcomm.github.io/images/commsystem.png" width="750"/></center>
 
-<!-- Among the variety of existing codes, we start with a simple family of codes 
-known as covolutional codes. Several properties make them ideal for our experiement. 
-
-* These codes are practical (used in satellite communication) and form the building block of Turbo codes which are used for cellular communications. 
-  
-* With sufficient memory, the codes achieve performance close to the fundamental limit.
-  
-* The recurrent nature of sequential encoding aligns very well with a class of deep learning architectures known as Recurrent Neural Networks (RNN). 
-  
-* Well-known decoders exist for these codes. For convolutional codes, maximum likelihood decoder on AWGN channels is the Viterbi decoder, which is an instance of dynamic programming.  -->
-<!--For turbo codes, a belief propagation decoder on AWGN channels achieve performance close to the theoretical (Shannon) limit. Hence, learning a decoder for sequential codes poses the challenge of *learning an algorithm.*
--->
-
-<!--
-## Sequential code
-
-When we fix the encoder, among many standard codes, we choose sequential codes such as *convolutional codes* and *turbo codes* for the following reasons:
-
-* These codes are practical. They are used for mobile communications (e.g., 4G LTE) and satellite communications. 
-  
-* These codes achieve performance close to the fundamental limit.
-  
-* The recurrent nature of sequential encoding aligns very well with the Recurrent Neural Network (RNN) structure. 
-  
-* Well-known decoders exist for these codes. For convolutional codes, maximum likelihood decoder on AWGN channels is Viterbi decoder, which is a dynamic programming. For turbo codes, a belief propagation decoder on AWGN channels achieve performance close to the theoretical (Shannon) limit. Hence, learning a decoder for sequential codes poses the challenge of *learning an algorithm.*
--->
-
-
-
-
-<!--Turbo code is an extension of convolutional codes developed in 1991 by [Claude Berrou](https://en.wikipedia.org/wiki/Claude_Berrou). In this post, we focus on decoding of convolutional codes; we will look into turbo codes in the next post. 
--->
-
 ### Turbo codes
 
-Convolutional codes were introduced in 1955 by [Peter Elias](https://en.wikipedia.org/wiki/Peter_Elias). 
-It uses  short memory and connvolution operators to sequentially create coded bits. 
-An example for a rate 1/2 convolutional code is shown below. This code maps  b<sub>k</sub> to  (c<sub>k1</sub>, c<sub>k2</sub>), where the state is  (b<sub>k</sub>,  b<sub>k-1</sub>,  b<sub>k-2</sub>), and coded bits (c<sub>k1</sub>, c<sub>k2</sub>) are convolution (i.e., mod 2 sum) of the state bits.  
+Turbo codes are a notable class of channel codes, developed in 1991 by [Claude Berrou](https://en.wikipedia.org/wiki/Claude_Berrou). The belief-propagation-based Turbo decoder achieves performance close to the theoretical (Shannon) limit, leading to the adoption of these codes in various communication standards, including cellular systems. 
 
-<center><img src="https://hyejikim1.github.io/images/convcode.png"></center>
-
-<Introduce Turbo codes>
+Turbo codes are sequential codes comprising of Recursive Systematic Convolutional (RSC) encoders, and an interleaver $\pi$ as shown below. This code maps input u to $(x^s, x^{1p}, x^{2p})$. The systematic bit sequence $x^s$ is equal to the input $u$, while the parity bit sequences $x^{1p}$ and $x^{2p}$ are generated by the convolutional encoders $E_1$ and $E_2$ from $u$ and the interleaved bit inputs $\tilde{u} = \pi(u)$, respectively.
 
 
-
+<center><img src="https://deepcomm.github.io/images/tinyturbo/turbo_encoder.png" width="750"/></center>
 
 
 ### Turbo decoding
 
-\< Section about Turbo decoding \>
+Convolutional codes can be optimally decoded using a Soft-in-Soft-out (SISO) decoding algorithm, such as the renowned BCJR algorithm. In the case of Turbo codes, the decoding process involves an iterative procedure that leverages the SISO decoders of the constituent convolutional codes, as depicted in the figure below.
+In the following sections, we detail the BCJR and Turbo decoding procedures in detail.
 
-\< Explain BCJR \>
-
-\< In practice, we use max-log-MAP. Can we do better? \>
-
+<center><img src="https://deepcomm.github.io/images/tinyturbo/turbo_decoder.png" width="750"/></center>
 
 
-### References 
+\< TODO: Explain BCJR \>
+$$
+\begin{aligned}
+   \mathbb{P}{s', s, \boldsymbol{y}} &= \mathbb{P}{s', s, \boldsymbol{y}_{1}^{k-1}, y_k, \boldsymbol{y}_{k+1}^K} \\
+     &= \mathbb{P}{s', \boldsymbol{y}_{1}^{k-1}} \mathbb{P}{y_k, s|s'} \mathbb{P}{\boldsymbol{y}_{k+1}^K |s} \\
+     &= \alpha_{k-1}(s') \gamma_k(s',s) \beta_k(s),
+     \end{aligned}
+$$
+
+
+$$
+\begin{equation}
+\begin{aligned}
+   \bar{\gamma}_k(s',s) & = \frac{1}{2}\left(x_k^s y_k^s + x_k^{1p} y_k^{1p}\right) + \frac{1}2 u_k L(u_k), \\
+   \bar{\alpha}_k(s) &=  \text{LSE}_{s' \in S_R} \left(\bar{\alpha}_{k-1}(s') + \bar{\gamma}_k(s',s) \right), \\ 
+   \bar{\beta}_{k-1}(s') &= \text{LSE}_{s \in S_R}\left( \bar{\beta}_k(s) + \bar{\gamma}_k(s',s) \right),\\
+   L(u_k|\boldsymbol{y}) &= \text{LSE}_{(s',s) \in S^1} \left(\bar{\alpha}_{k-1}(s') + \bar{\gamma}_k(s',s) + \bar{\beta}_k(s) \right)
+  \\
+  & \hspace{1em} - \text{LSE}_{(s',s) \in S^0} \left(\bar{\alpha}_{k-1}(s') + \bar{\gamma}_k(s',s) + \bar{\beta}_k(s) \right)
+   \end{aligned}
+\end{equation}
+$$
+<center><img src="https://deepcomm.github.io/images/tinyturbo/turbo_decoder.png" width="750"/></center>
+
+
+During Turbo decoding, two such SISO decoders $D_1$ and $D_2$ work together by exchanging extrinsic information, i.e., additional knowledge extracted by a SISO block in the current iteration of decoding. Notably, decoder $D_1$ processes the systematic bits and parity bit 1, while Decoder $D_2$ processes the interleaved systematic bits and parity bit 2, with each decoder extracting information from distinct parity bit streams to iteratively refine the posterior probability estimations.
+
+The extrinsic LLR $L_e(u_k)$ is obtained as : $$L_e(u_k) = L(u_k | y) - L(y_k^s) - L(u_k) \quad k \in [K]$$
+
+This is interleaved and passed to the next block as prior intrinsic information.
+
+In practice, the max-log-MAP algorithm, an approximation of the MAP algorithm is employed. The main idea is to approximate the computationally intensive LSE function by the maximum:
+
+$\begin{align}
+    \text{LSE}(z_1,\ldots, z_n) \approx \max(z_1,\ldots, z_n), \quad z_1,\ldots,z_n \in \reals.
+\end{align}$
+
+While the max-log-MAP algorithm is more efficient than the MAP, it is less reliable.
+
+
+### TinyTurbo
+<TODO : Brief description, add figures after codebase, how to generate them.>
+
+### TinyTurbo codebase
+
+We provide a framework in Python to implement and evaluate different Turbo decoders, and implement model-based ML methods like TinyTurbo. The project repository and running instructions can be found [here](https://github.com/hebbarashwin/tinyturbo). Further, we provide an intuitive interface for interference and training of TinyTurbo in the [deepcommpy](https://github.com/hebbarashwin/deepcommpy) package.
+
+The code snippet below demonstrates how to use this package for Turbo code decoding inference for Turbo-LTE, block length 40:
+
+
+```
+import deepcommpy
+from deepcommpy.utils import snr_db2sigma
+from deepcommpy.channel import Channel
+
+turbocode = deepcommpy.tinyturbo.TurboCode(code='lte', block_len = 40)
+channel = Channel('awgn')
+
+message_bits = torch.randint(0, 2, (config['test_batch_size'], config['block_len']), dtype=torch.float)
+coded = turbocode.turbo_encode(message_bits)
+
+for snr in [-1.5, -1, -0.5, 0, 0.5, 1, 1.5, 2]:
+    sigma = snr_dbsigma(snr)
+    noisy_coded = channel.corrupt_signal(coded, sigma)
+    received_llrs = 2*noisy_coded/sigma**2
+    _ , decoded_max = turbocode.turbo_decode(received_llrs, number_iterations = 3, method='max_log_MAP')
+    _ , decoded_map = turbocode.turbo_decode(received_llrs, number_iterations = 6, method='MAP')
+    _, decoded_tt = turbocode.tinyturbo_decode(received_llrs, number_iterations = 3)
+
+    ber_max = torch.ne(message_bits, decoded_max).float().mean().item()
+    ber_map = torch.ne(message_bits, decoded_map).float().mean().item()
+    ber_tt = torch.ne(message_bits, decoded_tt).float().mean().item()
+```
+
+### Results
+
+## References 
 
 [TinyTurbo: Efficient Turbo Decoders on Edge](https://arxiv.org/abs/2209.15614), Ashwin Hebbar, Rajesh Mishra, Sravan Kumar Ankireddy, Ashok Makkuva, Hyeji Kim, Pramod Viswanath. ISIT 2022
 
