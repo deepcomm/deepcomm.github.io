@@ -48,16 +48,16 @@ This extrinsic LLR is interleaved and passed to the next block as prior intrinsi
 
 The BCJR algorithm involves computing the log-sum-exponential (LSE) function, which is computationally intensive. In practice, the max-log-MAP algorithm, an approximation of the MAP algorithm is employed as the SISO decoder. The main idea is to approximate the computationally intensive LSE function by the maximum:
 
-$\begin{align}
+$$
     \text{LSE}(z_1,\ldots, z_n) \triangleq \log (\exp(z_1)+\ldots+\exp(z_n)) \\
     \text{LSE}(z_1,\ldots, z_n) \approx \max(z_1,\ldots, z_n), \quad z_1,\ldots,z_n \in \reals.
-\end{align}$
+$$
 
 While the max-log-MAP algorithm is more efficient than the MAP, it is less reliable.
 
 
 ### TinyTurbo
-<TODO>
+\<TODO\>
 We desire to develop a decoder which is both efficient and reliable. We ask the following questions:
 1\) Can we design a decoder with complexity comparable to max-log-MAP and reliability like MAP? 2\) Can such a decoder generalize to non-AWGN noise, and across blocklengths and encoding structures?
 
@@ -117,7 +117,7 @@ for snr in snr_range:
 ```
 
 ### Results
-<TODO>
+\<TODO\>
 
 <center><img src="https://deepcomm.github.io/images/tinyturbo/reliability.png" width="750"/></center>
 
