@@ -1,12 +1,12 @@
 ---
 layout:     post
 title:      Turbo Decoding via Model-based ML
-date:       2023-04-013 14:17:19
+date:       2023-04-13 12:00:00
 summary:    Boosting classical decoders by adding learnable parameters
 categories: jekyll pixyll
 comments:   true
-visible:    false
-author:    
+visible:    true
+author:    Ashwin Hebbar, Hyeji Kim
 ---
 
 
@@ -33,46 +33,23 @@ Turbo codes are sequential codes comprising of Recursive Systematic Convolutiona
 
 ### Turbo decoding
 
-Convolutional codes can be optimally decoded using a Soft-in-Soft-out (SISO) decoding algorithm, such as the renowned BCJR algorithm. In the case of Turbo codes, the decoding process involves an iterative procedure that leverages the SISO decoders of the constituent convolutional codes, as depicted in the figure below.
-In the following sections, we detail the BCJR and Turbo decoding procedures in detail.
+Convolutional codes can be optimally decoded using a Soft-in-Soft-out (SISO) decoding algorithm, such as the renowned BCJR algorithm. In the case of Turbo codes, the decoding process involves an iterative procedure that leverages the SISO decoders of the constituent convolutional codes, as depicted in the figure below. If you're interested in an in-depth explanation of the BCJR algorithm, [this resource](https://paginas.fe.up.pt/~sam/textos/From%20BCJR%20to%20turbo.pdf) provides an excellent description.
 
 <center><img src="https://deepcomm.github.io/images/tinyturbo/turbo_decoder.png" width="750"/></center>
 
 
-\< TODO: Explain BCJR \>
-$$
-\begin{aligned}
-   \mathbb{P}{s', s, \boldsymbol{y}} &= \mathbb{P}{s', s, \boldsymbol{y}_{1}^{k-1}, y_k, \boldsymbol{y}_{k+1}^K} \\
-     &= \mathbb{P}{s', \boldsymbol{y}_{1}^{k-1}} \mathbb{P}{y_k, s|s'} \mathbb{P}{\boldsymbol{y}_{k+1}^K |s} \\
-     &= \alpha_{k-1}(s') \gamma_k(s',s) \beta_k(s),
-     \end{aligned}
-$$
-
-
-$$
-\begin{equation}
-\begin{aligned}
-   \bar{\gamma}_k(s',s) & = \frac{1}{2}\left(x_k^s y_k^s + x_k^{1p} y_k^{1p}\right) + \frac{1}2 u_k L(u_k), \\
-   \bar{\alpha}_k(s) &=  \text{LSE}_{s' \in S_R} \left(\bar{\alpha}_{k-1}(s') + \bar{\gamma}_k(s',s) \right), \\ 
-   \bar{\beta}_{k-1}(s') &= \text{LSE}_{s \in S_R}\left( \bar{\beta}_k(s) + \bar{\gamma}_k(s',s) \right),\\
-   L(u_k|\boldsymbol{y}) &= \text{LSE}_{(s',s) \in S^1} \left(\bar{\alpha}_{k-1}(s') + \bar{\gamma}_k(s',s) + \bar{\beta}_k(s) \right)
-  \\
-  & \hspace{1em} - \text{LSE}_{(s',s) \in S^0} \left(\bar{\alpha}_{k-1}(s') + \bar{\gamma}_k(s',s) + \bar{\beta}_k(s) \right)
-   \end{aligned}
-\end{equation}
-$$
-<center><img src="https://deepcomm.github.io/images/tinyturbo/turbo_decoder.png" width="750"/></center>
-
-
-During Turbo decoding, two such SISO decoders $D_1$ and $D_2$ work together by exchanging extrinsic information, i.e., additional knowledge extracted by a SISO block in the current iteration of decoding. Notably, decoder $D_1$ processes the systematic bits and parity bit 1, while Decoder $D_2$ processes the interleaved systematic bits and parity bit 2, with each decoder extracting information from distinct parity bit streams to iteratively refine the posterior probability estimations.
+During Turbo decoding, two such SISO decoders $D_1$ and $D_2$ work together by exchanging extrinsic information, i.e., additional knowledge extracted by a SISO block in the current iteration of decoding. Notably, decoder $D_1$ processes the systematic bits and parity bit 1, while Decoder $D_2$ processes the interleaved systematic bits and parity bit 2, with each decoder extracting information from distinct parity bit streams to iteratively refine the posterior probability estimations $L(u_k | y)$.
 
 The extrinsic LLR $L_e(u_k)$ is obtained as : $$L_e(u_k) = L(u_k | y) - L(y_k^s) - L(u_k) \quad k \in [K]$$
 
-This is interleaved and passed to the next block as prior intrinsic information.
+Here, $L(u_k | y)$ is the posterior log-likelihood-ratio (LLR) estimate of the SISO decoding block, $L(y_k^s)$ is the LLR of the received systematic symbols, while $L(u_k)$ is the intrinsic LLR.
 
-In practice, the max-log-MAP algorithm, an approximation of the MAP algorithm is employed. The main idea is to approximate the computationally intensive LSE function by the maximum:
+This extrinsic LLR is interleaved and passed to the next block as prior intrinsic information.
+
+The BCJR algorithm involves computing the log-sum-exponential (LSE) function, which is computationally intensive. In practice, the max-log-MAP algorithm, an approximation of the MAP algorithm is employed as the SISO decoder. The main idea is to approximate the computationally intensive LSE function by the maximum:
 
 $\begin{align}
+    \text{LSE}(z_1,\ldots, z_n) \define \log (\exp(z_1)+\ldots+\exp(z_n)) \\
     \text{LSE}(z_1,\ldots, z_n) \approx \max(z_1,\ldots, z_n), \quad z_1,\ldots,z_n \in \reals.
 \end{align}$
 
@@ -80,7 +57,17 @@ While the max-log-MAP algorithm is more efficient than the MAP, it is less relia
 
 
 ### TinyTurbo
-<TODO : Brief description, add figures after codebase, how to generate them.>
+<TODO>
+We desire to develop a decoder which is both efficient and reliable. We ask the following questions:
+1\) Can we design a decoder with complexity comparable to max-log-MAP and reliability like MAP? 2\) Can such a decoder generalize to non-AWGN noise, and across blocklengths and encoding structures?
+
+We answer these questions in the affirmative by proposing TinyTurbo, a model-based ML algorithm learnt in a purely data-driven manner.
+TinyTurbo can be viewed as a weight-augmented version of the max-log-MAP algorithm. We augment the standard max-log-MAP algorithm by adding _three_ learnable weights in the extrinsic information equation: $ in Eq.~\eqref{eq:main_eq}: $$ L_e(u) = \alpha_1 L(u|\by) - \alpha_2 y^s - \alpha_3 L(u)$$
+Similarly, decoder $D_2$ is augmented by three weights $(\beta_1, \beta_2, \beta_3)$. Thus, TinyTurbo decoding with $M$ iterations has only $6M$ parameters, thus maintaining comparable complexity as max-log-MAP.
+
+By learning these parameters from simulation data using SGD, TinyTurbo demonstrates the ability to generalize across various channels, block lengths, and trellises.
+
+<center><img src="https://deepcomm.github.io/images/tinyturbo/tinyturbo.png" width="750"/></center>
 
 ### TinyTurbo codebase
 
@@ -94,26 +81,46 @@ import deepcommpy
 from deepcommpy.utils import snr_db2sigma
 from deepcommpy.channel import Channel
 
-turbocode = deepcommpy.tinyturbo.TurboCode(code='lte', block_len = 40)
+# Create a Turbo code object : Turbo-LTE, Block_length = 40
+block_len = 40
+turbocode = deepcommpy.tinyturbo.TurboCode(code='lte', block_len = block_len)
+
+# Create an AWGN channel object.
+# Channel supports the following channels: 'awgn', 'fading', 't-dist', 'radar'
+# It also supports 'EPA', 'EVA', 'ETU' with matlab dependency.
 channel = Channel('awgn')
 
-message_bits = torch.randint(0, 2, (config['test_batch_size'], config['block_len']), dtype=torch.float)
-coded = turbocode.turbo_encode(message_bits)
+# Generate random message bits for testing
+message_bits = torch.randint(0, 2, 10000, block_len), dtype=torch.float)
+# Turbo encoding
+coded = turbocode.encode(message_bits)
 
-for snr in [-1.5, -1, -0.5, 0, 0.5, 1, 1.5, 2]:
+# Simulate over range of SNRs
+snr_range = [-1.5, -1, -0.5, 0, 0.5, 1, 1.5, 2]
+for snr in snr_range:
     sigma = snr_dbsigma(snr)
+    # add noise
     noisy_coded = channel.corrupt_signal(coded, sigma)
     received_llrs = 2*noisy_coded/sigma**2
+
+    # Max-Log-MAP Turbo decoding with 3 iterations
     _ , decoded_max = turbocode.turbo_decode(received_llrs, number_iterations = 3, method='max_log_MAP')
+    # MAP Turbo decoding with 6 iterations
     _ , decoded_map = turbocode.turbo_decode(received_llrs, number_iterations = 6, method='MAP')
+    # TinyTurbo decoding with 3 iterations
     _, decoded_tt = turbocode.tinyturbo_decode(received_llrs, number_iterations = 3)
 
+    # Compute the bit error rates
     ber_max = torch.ne(message_bits, decoded_max).float().mean().item()
     ber_map = torch.ne(message_bits, decoded_map).float().mean().item()
     ber_tt = torch.ne(message_bits, decoded_tt).float().mean().item()
 ```
 
 ### Results
+<TODO>
+
+<center><img src="https://deepcomm.github.io/images/tinyturbo/reliability.png" width="750"/></center>
+
 
 ## References 
 
