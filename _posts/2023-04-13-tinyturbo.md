@@ -49,8 +49,9 @@ This extrinsic LLR is interleaved and passed to the next block as prior intrinsi
 The BCJR algorithm involves computing the log-sum-exponential (LSE) function, which is computationally intensive. In practice, the max-log-MAP algorithm, an approximation of the MAP algorithm is employed as the SISO decoder. The main idea is to approximate the computationally intensive LSE function by the maximum:
 
 $$
-    \text{LSE}(z_1,\ldots, z_n) \triangleq \log (\exp(z_1)+\ldots+\exp(z_n)) \\
-    \text{LSE}(z_1,\ldots, z_n) \approx \max(z_1,\ldots, z_n), \quad z_1,\ldots,z_n \in \reals.
+    \text{LSE}(z_1,\ldots, z_n) \triangleq \log (\exp(z_1)+\ldots+\exp(z_n)) $$
+$$
+    \text{LSE}(z_1,\ldots, z_n) \approx \max(z_1,\ldots, z_n), \quad z_1,\ldots,z_n \in \mathbb{R}.
 $$
 
 While the max-log-MAP algorithm is more efficient than the MAP, it is less reliable.
