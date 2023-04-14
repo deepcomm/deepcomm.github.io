@@ -8,7 +8,7 @@ tags: source codes
 * [Interpreting Neural Min-Sum Decoders](https://arxiv.org/abs/2205.10684)  
 International Conference on Communications, 2023    
 by Sravan Kumar Ankireddy and Hyeji Kim.    
-Code repository: [https://github.com/hebbarashwin/tinyturbo](https://github.com/hebbarashwin/tinyturbo) 
+Code repository: [https://github.com/sravan-ankireddy/nams](https://github.com/sravan-ankireddy/nams) 
 
 * [TinyTurbo: Efficient Turbo Decoders on Edge](https://arxiv.org/abs/2209.15614)   
 International Symposium on Information Theory, 2022 
