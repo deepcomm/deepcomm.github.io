@@ -5,12 +5,12 @@ permalink: /codebase/
 tags: source codes
 ---
 
-[Interpreting Neural Min-Sum Decoders](https://arxiv.org/abs/2205.10684)
+* [Interpreting Neural Min-Sum Decoders](https://arxiv.org/abs/2205.10684)
 International Conference on Communications, 2023
 by Sravan Kumar Ankireddy and Hyeji Kim.
 Code repository: [https://github.com/hebbarashwin/tinyturbo](https://github.com/hebbarashwin/tinyturbo)
 
-[TinyTurbo: Efficient Turbo Decoders on Edge](https://arxiv.org/abs/2209.15614)
+* [TinyTurbo: Efficient Turbo Decoders on Edge](https://arxiv.org/abs/2209.15614)
 International Symposium on Information Theory, 2022
 by Ashwin Hebbar, Rajesh Mishra, Sravan Kumar Ankireddy, Ashok Makkuva, Hyeji Kim and Pramod Viswanath.
 Code repository: [https://github.com/hebbarashwin/tinyturbo](https://github.com/hebbarashwin/tinyturbo)
