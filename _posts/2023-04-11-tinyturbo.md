@@ -1,7 +1,7 @@
 ---
 layout:     post
 title:      Turbo Decoding via Model-based ML
-date:       2023-04-12, 18:00:03
+date:       2023-04-11, 18:00:03
 summary:    Boosting classical decoders by adding learnable parameters
 categories: jekyll pixyll
 comments:   true
