@@ -38,11 +38,11 @@ Convolutional codes can be optimally decoded using a Soft-in-Soft-out (SISO) dec
 <center><img src="https://deepcomm.github.io/images/tinyturbo/turbo_decoder.png" width="750"/></center>
 
 
-During Turbo decoding, two such SISO decoders $$D_1$$ and $$D_2$$ work together by exchanging extrinsic information, i.e., additional knowledge extracted by a SISO block in the current iteration of decoding. Notably, decoder $$D_1$$ processes the systematic bits and parity bit 1, while Decoder $$D_2$$ processes the interleaved systematic bits and parity bit 2, with each decoder extracting information from distinct parity bit streams to iteratively refine the posterior probability estimations $$L(u_k | y)$$.
+During Turbo decoding, two such SISO decoders $$D_1$$ and $$D_2$$ work together by exchanging extrinsic information, i.e., additional knowledge extracted by a SISO block in the current iteration of decoding. Notably, decoder $$D_1$$ processes the systematic bits and parity bit 1, while Decoder $$D_2$$ processes the interleaved systematic bits and parity bit 2, with each decoder extracting information from distinct parity bit streams to iteratively refine the posterior probability estimations $$L(u_k \mid y)$$.
 
-The extrinsic LLR $$L_e(u_k)$$ is obtained as : $$L_e(u_k) = L(u_k | y) - L(y_k^s) - L(u_k) \quad k \in [K]$$
+The extrinsic LLR $$L_e(u_k)$$ is obtained as : $$L_e(u_k) = L(u_k \mid y) - L(y_k^s) - L(u_k) \quad k \in [K]$$
 
-Here, $$L(u_k | y)$$ is the posterior log-likelihood-ratio (LLR) estimate of the SISO decoding block, $$L(y_k^s)$$ is the LLR of the received systematic symbols, while $$L(u_k)$$ is the intrinsic LLR.
+Here, $$L(u_k \mid y)$$ is the posterior log-likelihood-ratio (LLR) estimate of the SISO decoding block, $$L(y_k^s)$$ is the LLR of the received systematic symbols, while $$L(u_k)$$ is the intrinsic LLR.
 
 This extrinsic LLR is interleaved and passed to the next block as prior intrinsic information.
 
@@ -63,7 +63,7 @@ We desire to develop a decoder which is both efficient and reliable. We ask the 
 1) Can we design a decoder with complexity comparable to max-log-MAP and reliability like MAP? 2) Can such a decoder generalize to non-AWGN noise, and across blocklengths and encoding structures?
 
 We answer these questions in the affirmative by proposing TinyTurbo, a model-based ML algorithm learnt in a purely data-driven manner.
-TinyTurbo can be viewed as a weight-augmented version of the max-log-MAP algorithm. We augment the standard max-log-MAP algorithm by adding _three_ learnable weights in the extrinsic information equation : $$ L_e(u) = \alpha_1 L(u|y) - \alpha_2 y^s - \alpha_3 L(u)$$
+TinyTurbo can be viewed as a weight-augmented version of the max-log-MAP algorithm. We augment the standard max-log-MAP algorithm by adding _three_ learnable weights in the extrinsic information equation : $$ L_e(u) = \alpha_1 L(u \mid y) - \alpha_2 y^s - \alpha_3 L(u)$$
 Similarly, decoder $$D_2$$ is augmented by three weights $$(\beta_1, \beta_2, \beta_3)$$. Thus, TinyTurbo decoding with $$M$$ iterations has only $$6M$$ parameters, thus maintaining comparable complexity as max-log-MAP.
 
 By learning these parameters from simulation data using SGD, TinyTurbo demonstrates the ability to generalize across various channels, block lengths, and trellises.
