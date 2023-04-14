@@ -12,7 +12,7 @@ Code repository: [https://github.com/sravan-ankireddy/nams](https://github.com/s
 
 * [TinyTurbo: Efficient Turbo Decoders on Edge](https://arxiv.org/abs/2209.15614)   
 International Symposium on Information Theory, 2022 
-by Ashwin Hebbar, Rajesh Mishra, Sravan Kumar Ankireddy, Ashok Makkuva, Hyeji Kim and Pramod Viswanath. 
+by Ashwin Hebbar, Rajesh Mishra, Sravan Kumar Ankireddy, Ashok Makkuva, Hyeji Kim and Pramod Viswanath.     
 Code repository: [https://github.com/hebbarashwin/tinyturbo](https://github.com/hebbarashwin/tinyturbo) 
 
 * [Learning-Based Coded Computation](https://ieeexplore.ieee.org/document/9047948)  
