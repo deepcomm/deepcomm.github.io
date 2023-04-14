@@ -6,7 +6,7 @@ summary:    Boosting classical decoders by adding learnable parameters
 categories: jekyll pixyll
 comments:   true
 visible:    true
-author:    Ashwin Hebbar, Hyeji Kim
+author:    Ashwin Hebbar, Hyeji Kim and Pramod Viswanath
 ---
 
 
@@ -58,15 +58,16 @@ While the max-log-MAP algorithm is more efficient than the MAP, it is less relia
 
 
 ### TinyTurbo
-\<TODO\>
-We desire to develop a decoder which is both efficient and reliable. We ask the following questions:
-1) Can we design a decoder with complexity comparable to max-log-MAP and reliability like MAP? 2) Can such a decoder generalize to non-AWGN noise, and across blocklengths and encoding structures?
+In our pursuit to develop a decoder that is both efficient and reliable, we pose two crucial questions:
 
-We answer these questions in the affirmative by proposing TinyTurbo, a model-based ML algorithm learnt in a purely data-driven manner.
-TinyTurbo can be viewed as a weight-augmented version of the max-log-MAP algorithm. We augment the standard max-log-MAP algorithm by adding _three_ learnable weights in the extrinsic information equation : $$ L_e(u) = \alpha_1 L(u \vert y) - \alpha_2 y^s - \alpha_3 L(u)$$
-Similarly, decoder $$D_2$$ is augmented by three weights $$(\beta_1, \beta_2, \beta_3)$$. Thus, TinyTurbo decoding with $$M$$ iterations has only $$6M$$ parameters, thus maintaining comparable complexity as max-log-MAP.
+1) Is it feasible to design a decoder with complexity similar to max-log-MAP while maintaining the reliability of the MAP algorithm?
+2) Can such a decoder generalize to non-AWGN noise and perform consistently across various blocklengths and encoding structures?
+We answer these questions in the affirmative with the introduction of TinyTurbo, a model-based machine learning algorithm developed using a purely data-driven approach.
 
-By learning these parameters from simulation data using SGD, TinyTurbo demonstrates the ability to generalize across various channels, block lengths, and trellises.
+TinyTurbo is an adaptation of the max-log-MAP algorithm, incorporating _three_ learnable weights within the extrinsic information equation of each SISO block. For instance, the extrinsic information of decoder $$D_1$$ is obtained as $$ L_e(u) = \alpha_1 L(u \vert y) - \alpha_2 y^s - \alpha_3 L(u)$$
+Similarly, decoder $$D_2$$ is augmented by three weights $$(\beta_1, \beta_2, \beta_3)$$. As a result, TinyTurbo decoding with $$M$$ iterations requires only $$6M$$ parameters, maintaining comparable complexity as max-log-MAP.
+
+We train these parameters to minimize the binary cross-entropy loss between message bits and their decoded estimates (a surrogate for the BER) using variants of stochastic gradient descent (SGD). This data-driven approach enables TinyTurbo to generalize across different channels, block lengths, and trellises.
 
 <center><img src="https://deepcomm.github.io/images/tinyturbo/tinyturbo.png" width="750"/></center>
 
@@ -119,9 +120,39 @@ for snr in snr_range:
 ```
 
 ### Results
-\<TODO\>
 
-<center><img src="https://deepcomm.github.io/images/tinyturbo/reliability.png" width="750"/></center>
+We evaluate the performance of TinyTurbo, running for three decoding iterations, by comparing it against two baselines: the efficient max-log-MAP decoder with three decoding iterations, and the MAP decoder with six iterations, which is near-optimal for the codes considered.
+
+<center><img src="https://deepcomm.github.io/images/tinyturbo/reliability.png" width="375"/></center>
+
+We observe that TinyTurbo achieves a performance close to that of the MAP decoder while maintaining a decoding complexity comparable to the suboptimal max-log-MAP decoder. This highlights the effectiveness of our proposed algorithm.
+
+Moreover, TinyTurbo demonstrates remarkable generalization capabilities. For example, as demonstrated below, when trained on Turbo-LTE of block length 40, it successfully generalizes to a block length of 200, as well as to the Turbo-757 code. This showcases the flexibility of the TinyTurbo approach across different code structures and lengths.
+
+<center>
+    <table>
+        <tr>
+            <td><img src="https://deepcomm.github.io/images/tinyturbo/generalize_blocklength.png" width="375"/></td>
+            <td><img src="https://deepcomm.github.io/images/tinyturbo/generalize_trellis.png" width="375"/></td>
+        </tr>
+    </table>
+</center>
+
+
+Notably, like other data-driven decoders, TinyTurbo exhibits robustness against deviations from AWGN noise. In tests on a channel with bursty noise, TinyTurbo outperforms both of the baselines considered, emphasizing its ability to handle varying noise conditions. Similar gains can be seen on the multi-path fading EVA channel.
+
+<center>
+    <table>
+        <tr>
+            <td><img src="https://deepcomm.github.io/images/tinyturbo/generalize_bursty.png" width="375"/></td>
+            <td><img src="https://deepcomm.github.io/images/tinyturbo/generalize_epa.png" width="375"/></td>
+        </tr>
+    </table>
+</center>
+
+For a more comprehensive analysis and additional details, we invite you to read our research paper.
+
+
 
 
 ## References 
