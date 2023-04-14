@@ -61,10 +61,12 @@ While the max-log-MAP algorithm is more efficient than the MAP, it is less relia
 In our pursuit to develop a decoder that is both efficient and reliable, we pose two crucial questions:
 
 1) Is it feasible to design a decoder with complexity similar to max-log-MAP while maintaining the reliability of the MAP algorithm?
+
 2) Can such a decoder generalize to non-AWGN noise and perform consistently across various blocklengths and encoding structures?
+
 We answer these questions in the affirmative with the introduction of TinyTurbo, a model-based machine learning algorithm developed using a purely data-driven approach.
 
-TinyTurbo is an adaptation of the max-log-MAP algorithm, incorporating _three_ learnable weights within the extrinsic information equation of each SISO block. For instance, the extrinsic information of decoder $$D_1$$ is obtained as $$ L_e(u) = \alpha_1 L(u \vert y) - \alpha_2 y^s - \alpha_3 L(u)$$
+TinyTurbo is an adaptation of the max-log-MAP algorithm, incorporating _three_ learnable weights within the extrinsic information equation of each SISO block. For instance, the extrinsic information of decoder $$D_1$$ is obtained as $$ L_e(u) = \alpha_1 L(u \vert y) - \alpha_2 y^s - \alpha_3 L(u)$$. 
 Similarly, decoder $$D_2$$ is augmented by three weights $$(\beta_1, \beta_2, \beta_3)$$. As a result, TinyTurbo decoding with $$M$$ iterations requires only $$6M$$ parameters, maintaining comparable complexity as max-log-MAP.
 
 We train these parameters to minimize the binary cross-entropy loss between message bits and their decoded estimates (a surrogate for the BER) using variants of stochastic gradient descent (SGD). This data-driven approach enables TinyTurbo to generalize across different channels, block lengths, and trellises.
@@ -139,7 +141,7 @@ Moreover, TinyTurbo demonstrates remarkable generalization capabilities. For exa
 </center>
 
 
-Notably, like other data-driven decoders, TinyTurbo exhibits robustness against deviations from AWGN noise. In tests on a channel with bursty noise, TinyTurbo outperforms both of the baselines considered, emphasizing its ability to handle varying noise conditions. Similar gains can be seen on the multi-path fading EVA channel.
+Notably, like other data-driven decoders, TinyTurbo exhibits robustness against deviations from AWGN noise. In tests on a channel with bursty noise, TinyTurbo outperforms both of the baselines considered, emphasizing its ability to handle varying noise conditions. Additionally, TinyTurbo also exhibits substantial gains when tested on the multi-path fading EPA (Extended Pedestrian A) channel, further emphasizing its adaptability and effectiveness in various scenarios.
 
 <center>
     <table>
