@@ -5,6 +5,11 @@ permalink: /codebase/
 tags: source codes
 ---
 
+* [Neural Distributed Source Coding](https://arxiv.org/abs/2106.02797)  
+Preprint.  
+by Jay Whang, Alliot Nagle, Anish Acharya, Hyeji Kim, and Alexandros G. Dimakis.  
+Code repository: [https://github.com/acnagle/neural-dsc](https://github.com/acnagle/neural-dsc) 
+
 * [Interpreting Neural Min-Sum Decoders](https://arxiv.org/abs/2205.10684)  
 International Conference on Communications, 2023    
 by Sravan Kumar Ankireddy and Hyeji Kim.    
