@@ -4,9 +4,7 @@ title: Source codes
 permalink: /codebase/
 tags: source codes
 ---
-* [DeepIC+: Learning Codes for Interference Channels](https://ieeexplore.ieee.org/document/10215318)
-IEEE Transactions on Wireless Communications, 2023  
-by Karl Chahine, Yihan Jiang, Joonyoung Cho, and Hyeji Kim  
+
 
 * [Neural Distributed Source Coding](https://arxiv.org/abs/2106.02797)  
 Preprint.  
@@ -16,7 +14,12 @@ Code repository: [https://github.com/acnagle/neural-dsc](https://github.com/acna
 * [Interpreting Neural Min-Sum Decoders](https://arxiv.org/abs/2205.10684)  
 International Conference on Communications, 2023    
 by Sravan Kumar Ankireddy and Hyeji Kim.    
-Code repository: [https://github.com/sravan-ankireddy/nams](https://github.com/sravan-ankireddy/nams) 
+Code repository: [https://github.com/sravan-ankireddy/nams](https://github.com/sravan-ankireddy/nams)
+
+* [DeepIC+: Learning Codes for Interference Channels](https://ieeexplore.ieee.org/document/10215318)  
+IEEE Transactions on Wireless Communications, 2023    
+by Karl Chahine, Yihan Jiang, Joonyoung Cho, and Hyeji Kim.    
+Code repository: In progress
 
 * [TinyTurbo: Efficient Turbo Decoders on Edge](https://arxiv.org/abs/2209.15614)   
 International Symposium on Information Theory, 2022 
