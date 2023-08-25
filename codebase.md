@@ -4,6 +4,9 @@ title: Source codes
 permalink: /codebase/
 tags: source codes
 ---
+* [DeepIC+: Learning Codes for Interference Channels](10.1109/TWC.2023.3302617)  
+IEEE Transactions on Wireless Communications, 2023  
+by Karl Chahine, Yihan Jiang, Joonyoung Cho, and Hyeji Kim  
 
 * [Neural Distributed Source Coding](https://arxiv.org/abs/2106.02797)  
 Preprint.  
