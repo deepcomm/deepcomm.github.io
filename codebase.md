@@ -4,7 +4,7 @@ title: Source codes
 permalink: /codebase/
 tags: source codes
 ---
-* [DeepIC+: Learning Codes for Interference Channels]
+* [DeepIC+: Learning Codes for Interference Channels](https://ieeexplore.ieee.org/document/10215318)
 IEEE Transactions on Wireless Communications, 2023  
 by Karl Chahine, Yihan Jiang, Joonyoung Cho, and Hyeji Kim  
 
