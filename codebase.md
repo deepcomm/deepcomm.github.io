@@ -4,7 +4,7 @@ title: Source codes
 permalink: /codebase/
 tags: source codes
 ---
-* [DeepIC+: Learning Codes for Interference Channels]([https://10.1109/TWC.2023.3302617](https://ieeexplore.ieee.org/abstract/document/10215318?casa_token=8ChAlsPMl5kAAAAA:luar86oSBmn2UgjdMjRndKrF7--ZPEWQTsfgGQAHvMREMWWjAURe9nqAqkxaeJxJBbXc9aGwny5U9w))  
+* [DeepIC+: Learning Codes for Interference Channels](https://10.1109/TWC.2023.3302617](https://ieeexplore.ieee.org/abstract/document/10215318?casa_token=8ChAlsPMl5kAAAAA:luar86oSBmn2UgjdMjRndKrF7--ZPEWQTsfgGQAHvMREMWWjAURe9nqAqkxaeJxJBbXc9aGwny5U9w))  
 IEEE Transactions on Wireless Communications, 2023  
 by Karl Chahine, Yihan Jiang, Joonyoung Cho, and Hyeji Kim  
 
