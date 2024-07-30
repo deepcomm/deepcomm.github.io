@@ -9,7 +9,12 @@ tags: source codes
 * [Neural Distributed Source Coding](https://arxiv.org/abs/2106.02797)  
 Preprint.  
 by Jay Whang, Alliot Nagle, Anish Acharya, Hyeji Kim, and Alexandros G. Dimakis.  
-Code repository: [https://github.com/acnagle/neural-dsc](https://github.com/acnagle/neural-dsc) 
+Code repository: [https://github.com/acnagle/neural-dsc](https://github.com/acnagle/neural-dsc)
+
+* [Task-aware Distributed Source Coding under Dynamic Bandwidth](https://proceedings.neurips.cc/paper_files/paper/2023/hash/016c63403370d81c24c1ca0123de6cfa-Abstract-Conference.html)  
+Advances in Neural Information Processing Systems (Neurips), 2023.  
+by Po-han Li*, Sravan Kumar Ankireddy*, Ruihan Zhao, Hossein Nourkhiz Mahjoub, Ehsan Moradi Pari, Ufuk Topcu, Sandeep P. Chinchali, Hyeji Kim.  
+Code repository: [https://github.com/UTAustin-SwarmLab/Task-aware-Distributed-Source-Coding](https://github.com/UTAustin-SwarmLab/Task-aware-Distributed-Source-Coding) 
 
 * [Interpreting Neural Min-Sum Decoders](https://arxiv.org/abs/2205.10684)  
 International Conference on Communications, 2023    
