@@ -31,9 +31,7 @@ $R_{\text{D}}(D)=\text{min}_{q_{U|X}(u|x),f(u,y) :\mathbb{E}[d(Z,\hat{Z})]\le{D}
 
 However, computing this function for real-world data, which often involves complex, high-dimensional distributions, is no small feat. Also, we often do not have a true underlying source distribution (unknown source distribution), and conventional iterative approaches (Blahut-Arimoto type algorithms) face limitations, especially when applied to high-dimensional or continuous sources. 
 
-To address these issues, we propose a neural network-  
-based direct estimation method for the rate-distortion  
-function for computing with side information, along with  
+To address these issues, we propose a neural network-based direct estimation method for the rate-distortion function for computing with side information, along with  
 applicable methodologies.
 
 ### Proposed Algorithm
@@ -64,7 +62,7 @@ The efficient computation of $q_{U|Y }(u|y)$ is critical, as it needs to be exec
 
 
 ### *Solution*
-By using the following lemma in our work,
+By using the following fact,
 
 $\argmin_{\hat{q}_{U|Y} } \mathbb{E}_{X,Y,U} \left[\log \frac{q_{U|X}(U|X; \boldsymbol{\theta}_{\text{po}})}{\hat{q}_{U|Y}(U|Y)}\right] = q_{U|Y;\boldsymbol{\theta}_{\text{po}} }$
 
@@ -102,10 +100,7 @@ Our algorithm consistently estimates the points on $R_{D,C}$ within a small tole
 
 
 ### Practical Applications - CSI Compression
-We can use our algorithm for practical applications where we would like to estimate the rate-distortion function. 
-
-As an application task, we consider the Channel State Information (CSI) compression problem in Frequency  
-Division Duplex (FDD) communications where an User Equipment (UE) is communicating with a Base Station (BS), an area of growing interest in wireless research. 
+We can use our algorithm for practical applications where we would like to estimate the rate-distortion function. As an application task, we consider the Channel State Information (CSI) compression problem in Frequency Division Duplex (FDD) communications where an User Equipment (UE) is communicating with a Base Station (BS), an area of growing interest in wireless research. 
 
 ![alt text](https://github.com/Heasung-Kim/rate-distortion-side-information/blob/main/imgs/DL_CSI_UL_CSI.png?raw=true)
 
