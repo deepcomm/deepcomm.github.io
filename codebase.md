@@ -19,7 +19,7 @@ Code repository: [https://github.com/sravan-ankireddy/nams](https://github.com/s
 * [DeepIC+: Learning Codes for Interference Channels](https://ieeexplore.ieee.org/document/10215318)  
 IEEE Transactions on Wireless Communications, 2023    
 by Karl Chahine, Yihan Jiang, Joonyoung Cho, and Hyeji Kim.    
-Code repository: In progress
+Code repository: [https://github.com/karlchahine/DeepIC](https://github.com/karlchahine/DeepIC)
 
 * [CRISP: Curriculum based Sequential Neural Decoders for Polar Code Family](https://arxiv.org/abs/2210.00313)   
 International Conference on Machine Learning, 2023 
