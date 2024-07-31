@@ -128,12 +128,12 @@ The neural compression algorithm incorporating side information, achieved a rate
 
 
 ### Conclusion
-we propose a new algorithm for estimating the generalized rate-distortion function, with a specific emphasis on the rate-distortion function for computing with side information.  This approach can offer estimated rates for given distortion levels and also enables the formulation of reliable conjectures about the benefits of side information at varying compression rates. Such a methodology is anticipated to be valuable in practical system design, allowing system designers to effectively measure the potential gains from side information against its processing costs through informed estimations.
+We propose a new algorithm for estimating the generalized rate-distortion function, with a specific emphasis on the rate-distortion function for computing with side information.  This approach can offer estimated rates for given distortion levels and also enables the formulation of reliable conjectures about the benefits of side information at varying compression rates. Such a methodology is anticipated to be valuable in practical system design, allowing system designers to effectively measure the potential gains from side information against its processing costs through informed estimations.
 
 
 
-For more details, please the original project page. [Estimation of Rate-Distortion Function for
-Computing with Decoder Side Information.](https://github.com/Heasung-Kim/rate-distortion-side-information)
+For more details, please refer to the original paper [Estimation of Rate-Distortion Function for
+Computing with Decoder Side Information.](https://openreview.net/forum?id=xDa9Dxoww0)
 
 ## References
 
