@@ -11,7 +11,7 @@ author:    Ashwin Hebbar, Hyeji Kim, and Pramod Viswanath
 
 
 ## Setup : Channel coding
-We consider the problem of reliably communicating a binary message over a noisy channel. The effect of noise can be mitigated by adding redundancy to the message. One simple method to achieve this is through repetition coding, where the same bit is sent multiple times; and we can reliably decode the bit through a majority vote. This process is known as channel coding, which involves an encoder that converts messages into higher-dimensional codewords, and a decoder that retrieves the original message from the noisy codewords, as depicted in the figure below. A $$n,k$$ code maps $$k$$ messages to a codeword of size $$n$$. Over the years, numerous codes have been invented, including convolutional codes, turbo codes, LDPC codes, and more recently, polar codes. The impact of these codes has been tremendous; each of these codes have been part of global communication standards, and have powered the information age. At large blocklengths, these schemes operate close to information-theoretic limits. However, there is still room for improvement in the short-to-medium blocklength regime. The invention of codes has been sporadic, and primarily driven by human ingenuity. Recently, deep learning has achieved unparalleled success in a wide range of domains. We explore ways to automate the process of inventing codes using deep learning.
+We consider the problem of reliably communicating a binary message over a noisy channel. The effect of noise can be mitigated by adding redundancy to the message. One simple method to achieve this is through repetition coding, where the same bit is sent multiple times; and we can reliably decode the bit through a majority vote. This process is known as channel coding, which involves an encoder that converts messages into higher-dimensional codewords, and a decoder that retrieves the original message from the noisy codewords, as depicted in the figure below. An $$(n,k)$$ code maps $$k$$ messages to a codeword of size $$n$$. Over the years, numerous codes have been invented, including convolutional codes, turbo codes, LDPC codes, and more recently, polar codes. The impact of these codes has been tremendous; each of these codes have been part of global communication standards, and have powered the information age. At large blocklengths, these schemes operate close to information-theoretic limits. However, there is still room for improvement in the short-to-medium blocklength regime. The invention of codes has been sporadic, and primarily driven by human ingenuity. Recently, deep learning has achieved unparalleled success in a wide range of domains. We explore ways to automate the process of inventing codes using deep learning.
  
 
 <center><img src="https://deepcomm.github.io/images/commsystem.png" width="750"/></center>
@@ -60,7 +60,7 @@ As shown in Figure 3a and 3b, DeepPolar maintains the Polar encoding and decodin
 
 <center><img src="https://deepcomm.github.io/images/deeppolar/deeppolar_decoder.png" width="750"/></center>
 
-<p align="left" style="font-size: smaller;">Figure 3: DeepPolar encoder (top) and decoder (bottom) for $$n=16, k=7, \ell=4$$ </p>
+<p align="left" style="font-size: smaller;">Figure 3: DeepPolar encoder (top) and decoder (bottom) for (<span>$n=16, k=7, \ell=4$</span>) </p>
 
 Notably, DeepPolar codes map binary messages directly to the real field. This can be seen as joint coding + modulation; this approach opens up new avenues to custom-design application-specific communication systems.
 
@@ -81,7 +81,8 @@ Using the same SNR during training and test time is often sub-optimal. Intuitive
 We choose the Bit Error Rate (BER), as our evaluation metric. Figure 4 compares the BER performance of DeepPolar with various schemes. Firstly, we note that a code learned by naive parameterization, eg via a fully connected neural network (FCNN) fails to beat even the simple repetition codes. In contrast, DeepPolar (blue) shows significant gains in BER compared to Polar codes (red) under succesive cancellation decoding.
 
 <center><img src="https://deepcomm.github.io/images/deeppolar/ber_plot.png" width="750"/></center>
-<p align="left" style="font-size: smaller;">Figure 4: BER performance of DeepPolar($$n=256, k=37, \ell=16$$) </p>
+<!-- <p align="left" style="font-size: smaller;">Figure 4: BER performance of DeepPolar($$n=256, k=37, \ell=16$$) </p> -->
+<p align="left" style="font-size: smaller;">Figure 4: BER performance of DeepPolar(<span>$n=256, k=37, \ell=16$</span>)</p>
 
 To interpret the encoder, we examine the distribution of pairwise distances between codewords. Gaussian codebooks achieve capacity and are optimal asymptotically (Shannon, 1948). Remarkably,
 the distribution of DeepPolar codewords closely resembles that of the Gaussian codebook. This is an encouraging sign towards learning codes that approach the finite-length information-theoretic bounds.
