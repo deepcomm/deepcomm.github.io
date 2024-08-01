@@ -131,3 +131,11 @@ exclude:
   - README.md
   - screenshot.png
   - vendor
+
+
+# Custom configurations for cache busting
+defaults:
+  - scope:
+      path: "assets/"
+    values:
+      cachebust: "{{ 'now' | date: '%s%N' }}"
