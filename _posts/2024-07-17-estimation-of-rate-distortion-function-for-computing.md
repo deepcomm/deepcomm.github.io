@@ -1,4 +1,3 @@
-
 ---
 layout:     post
 title:      Estimation of Rate-Distortion Function for Computing with Decoder Side Information
@@ -9,6 +8,7 @@ comments:   true
 visible:    true
 author:     Heasung Kim, Hyeji Kim, and Gustavo de Veciana
 ---
+
 
 In the ever-evolving landscape of data science, the quest for efficient data compression methods remains a critical challenge. Compression not only saves storage space but also enhances data transmission efficiency, crucial for everything from streaming video to cloud storage. But how do we know when a compression method is truly efficient? The answer lies in understanding the *rate-distortion function*, a notion of the trade-off between compression rate and the distortion of the compressed data.
 
@@ -155,20 +155,20 @@ H Kim, H Kim, G De Veciana, "Estimation of Rate-Distortion Function for Computin
 <script>
 
 /**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://hyejikim1-github-io.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 
-* RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
-* LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
-  /*
-  var disqus_config = function () {
-  this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
-  this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
-  };
-  */
-  (function() { // DON'T EDIT BELOW THIS LINE
-  var d = document, s = d.createElement('script');
-  s.src = 'https://hyejikim1-github-io.disqus.com/embed.js';
-  s.setAttribute('data-timestamp', +new Date());
-  (d.head || d.body).appendChild(s);
-  })();
-  </script>
-  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
