@@ -5,6 +5,10 @@ permalink: /codebase/
 tags: source codes
 ---
 
+* [DeepPolar : Inventing Nonlinear Large-Kernel Polar Codes via Deep Learning](https://arxiv.org/abs/2402.08864)  
+International Conference on Machine Learning, 2024
+by Ashwin Hebbar, Sravan Kumar Ankireddy, Hyeji Kim, Sewoong Oh, Pramod Viswanath.  
+Code repository: [https://github.com/hebbarashwin/deeppolar](https://github.com/hebbarashwin/deeppolar)
 
 * [Neural Distributed Source Coding](https://arxiv.org/abs/2106.02797)  
 Preprint.  
