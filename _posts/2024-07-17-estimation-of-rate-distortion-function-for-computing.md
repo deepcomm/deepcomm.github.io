@@ -1,7 +1,7 @@
 ---
 layout:     post
 title:      Estimation of Rate-Distortion Function for Computing with Decoder Side Information
-date:       2024-07-26, 21:00:00
+date:       2024-07-17, 21:00:00
 summary:    An algorithm to estimate rate-distortion function for computing with side information 
 categories: jekyll pixyll
 comments:   true
