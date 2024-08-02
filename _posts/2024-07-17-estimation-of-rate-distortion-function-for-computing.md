@@ -61,7 +61,7 @@ Then we minimize the objective $$(2)$$ by updating the set of parameters $$\bold
 ### *Challenge*
 However, note that the problem (2) involves $$q_{U|Y}(u|y)$$ which can be represented as follows.
 
-$$q_{U|Y}(u|y)=\sum_{x\in\mathcal{X}}p_{X|Y}(x|y)q_{U|X,Y}(u|x,y)\quad\quad(3)$$.
+$$q_{U|Y}(u|y) = \sum_{x\in \mathcal{X}} p_{X|Y}(x|y)q_{U|X,Y}(u|x,y) \quad\quad(3).$$
 
 The efficient computation of $$q_{U|Y}(u|y)$$ is critical, as it needs to be executed for multiple instances to obtain the average of the log probability. However, this computation of presents a substantial challenge due to the unknown nature of the source distribution, computing the sum over $$\mathcal{X}$$ is non-trivial when domain $$\mathcal{X}$$ is a high-dimensional space and the data instances are limited.
 
@@ -70,11 +70,11 @@ The efficient computation of $$q_{U|Y}(u|y)$$ is critical, as it needs to be exe
 ### *Solution*
 By using the following fact,
 
-$$\text{argmin}_{\hat{q}_{U|Y}}\mathbb{E}_{X,Y,U}\left[\log\frac{q_{U|X}(U|X;\boldsymbol{\theta}_{\text{po}})}{\hat{q}_{U|Y}(U|Y)}\right]=q_{U|Y;\boldsymbol{\theta}_{\text{po}}}$$,
+$$\text{argmin}_{\hat{q}_{U|Y}}\mathbb{E}_{X,Y,U} \left[\log\frac{q_{U|X}(U|X; \boldsymbol{\theta}_{\text{po}})}{\hat{q}_{U|Y}(U|Y)}\right] = q_{U|Y;\boldsymbol{\theta}_{\text{po}}},$$
 
 we also parameterize $$q_{U|Y}(U|Y)$$ by using a set of parameters $$\boldsymbol{\theta}_{\text{pr}}$$ as $$q_{U|Y}(U|Y;\boldsymbol{\theta}_{\text{pr}})$$ and solve an equivalent problem 
 
-$$\min_{\boldsymbol{\theta}_{\text{po}}, \boldsymbol{\theta}_{\text{pr}}, \boldsymbol{\theta}_{\text{dec}}} \Big\{\mathbb{E}_{X,Y,U}\Big[\log\frac{q_{U|X}(U|X; \boldsymbol{\theta}_{\text{po}} )}{q_{U|Y}(U|Y; \boldsymbol{\theta}_{\text{pr}})}\Big] - s\mathbb{E}[d(Z, f(U,Y, \boldsymbol{\theta}_{\text{dec}})] \Big\}\quad\quad(4)$$.
+$$\min_{\boldsymbol{\theta}_{\text{po}}, \boldsymbol{\theta}_{\text{pr}}, \boldsymbol{\theta}_{\text{dec}}} \Big\{ \mathbb{E}_{X,Y,U}\Big[\log\frac{q_{U|X}(U|X; \boldsymbol{\theta}_{\text{po}} )}{q_{U|Y}(U|Y; \boldsymbol{\theta}_{\text{pr}})} \Big] - s\mathbb{E}[d(Z, f(U,Y, \boldsymbol{\theta}_{\text{dec}})] \Big\}\quad\quad(4).$$
 
 By incorporating all the main components of the optimization problem as optimization variables, we can perform gradient-based updates. In this process, the weights are updated in the direction that minimizes the objective function $$(4)$$.
 
@@ -173,4 +173,3 @@ s.setAttribute('data-timestamp', +new Date());
 })();
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-
