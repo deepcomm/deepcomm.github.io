@@ -40,11 +40,11 @@ To address these issues, we propose a neural network-based direct estimation met
 ---
 ### Proposed Algorithm
 
-We begin by reformulating the optimization term in $(1)$ as follows by using the convexity property of the rate-distortion function. For a given $s$, we can build a Lagrangian form optimization problem as follows.
+We begin by reformulating the optimization term in $(1)$ as follows by using the convexity property of the rate-distortion function. For a given $s$, we can build a Lagrangian form optimziation problem as follows.
 
-$$\min_{q_{U|X}, f} \Big\{ \mathbb{E}_{X,Y,U}\Big[\log\frac{q_{U|X}(U|X)}{q_{U|Y}(U|Y)} \Big] - s\mathbb{E}[d(Z,\hat{Z})] \Big\} \quad \quad(2)$$
+$$\min_{q_{U|X}, f} \Big\{ \mathbb{E}_{X,Y,U}\Big[\log\frac{q_{U|X}(U|X)}{q_{U|Y}(U|Y)} \Big] - s\mathbb{E}[d(Z,\hat{Z})] \Big\}    ~~~~~~~(2)$$
 
-where $$q_{U|Y}(u|y) = \sum_{x\in \mathcal{X}} p_{X|Y}(x|y) q_{U|X}(u|x)$$ (when $$X$$ is a discrete random variable) and $$\hat{Z} = f(U,Y)$$.
+where $$q_{U|Y}(u|y) = \sum_{x\in \mathcal{X}} p_{X|Y}(x|y) q_{U|X}(u|x)$$ when $$X$$ is a discrete random variable and $$\hat{Z} = f(U,Y)$$.
 
 By solving the Lagrangian form of the optimization problem, the resulting optimization variables (encoder and decoder) correspond to specific points on the true rate-distortion function. This means that if we solve equation $$(2)$$ for various values of the Lagrange multiplier $$s$$, we can obtain multiple points on the rate-distortion curve. By collecting these points, we can ultimately estimate the entire rate-distortion function, providing a comprehensive understanding of the trade-offs between data rate and distortion.
 
@@ -83,7 +83,7 @@ By incorporating all the main components of the optimization problem as optimiza
 
 ### Verifying Algorithm's performance - 2WGN
 
-How do we verify the performance of our algorithm? One approach is to use special cases where the rate-distortion function for computing with side information is known in a **closed-form**. By comparing our algorithm's results with these known rate-distortion functions, we can assess its accuracy.
+How do we verify the performance of our algorithm? One approach is to use special cases where the rate-distortion function for computing with side information is known in a **closed-form**. By comparing our algorithm's results with these known rate-distortion function, we can assess its accuracy.
 
 We adopt a scenario featuring a 2-component White Gaussian Noise (2-WGN$$(P, \rho)$$) source, where $$(X, Y)$$ forms pairs of i.i.d. jointly Gaussian random variables. Each pair in the sequence $$(X_1, Y_1), (X_2, Y_2), \ldots, (X_n, Y_n)$$ is correlated by $$Y=X+W$$ where the distributions of $$X$$ and $$W$$ have zero mean, $$\mathbb{E}[X] = \mathbb{E}[W] = 0$$, and variance $$\mathbb{E}[X^2] = P$$ and $$\mathbb{E}[W^2] = N$$. With a squared error distortion measure $$d$$, the rate-distortion function $$R_{\text{D}}$$ is given as follows.
 
@@ -99,7 +99,7 @@ For the parameterization of the distributions and the decoder, we used 2-layer M
 
 ![alt text](https://github.com/Heasung-Kim/rate-distortion-side-information/blob/main/imgs/rd_plot_2wgn.png?raw=true)
 
-In Fig. 3, we set $$P = 1, n = 100$$, and provide simulation results for various $$\rho$$ values in $$\{0.2, 0.4, 0.6, 0.8\}$$. Each subplot displays the $$R_{D,C}$$ curves, alongside four rate-distortion points estimated by our algorithm for different slopes $$s$$. We also plot $$R_{D,C}$$ curves with $$ρ=0$$. $$y$$-axis has natural units (Nats), and the x-axis represents mean squared error distortion. The dashed lines associated with $$\hat{R}_{D,C}(D)$$ correspond to the learning trajectory, i.e., the achieved (distortion, rate) points during the training process. For each of the subplots in the above figure,
+In Fig. 3, we set $$P = 1, n = 100$$, and provide simulation results for various $$\rho$$ values in $$\{0.2, 0.4, 0.6, 0.8\}$$. Each subplot displays the $$R_{D,C}$$ curves, alongside four rate-distortion points estimated by our algorithm for different slopes $$s$$. We also plot $$R_{D,C}$$ curves with $$ρ=0$$. $$y$$-axis has natural units (Nats) and xaxis represents mean squared error distortion. The dashed lines associated with $$\hat{R}_{D,C}(D)$$ corresponds to the learning trajectory, i.e., the achieved (distortion, rate) points during the training process. For each of the subplots in the above figure,
 
 Our algorithm consistently estimates the points on $$R_{D,C}$$ within a small tolerance! 
 
@@ -111,16 +111,16 @@ Our algorithm can be applied to practical scenarios where estimating the rate-di
 ![alt text](https://github.com/Heasung-Kim/rate-distortion-side-information/blob/main/imgs/DL_CSI_UL_CSI.png?raw=true)
 
 
-In more detail, our main objective is to compress the DL CSI, $$X$$, at the User Equipment (UE) side (DL CSI is depicted on the left-hand side of the above image). The UE then transmits this compressed information, or codeword $$U$$, to the Base Station (BS). The aim is to minimize the Normalized Mean Squared Error (NMSE), defined as $$\mathbb{E}[{\Vert X-\hat{X} \Vert_{2}^{2}}/{\Vert X \Vert_{2}^{2} }]$$, where $$\hat{X}$$ is the decoder output and $$\Vert\cdot\Vert_{2}$$ is elementwise square norm.
+In more detail, our main objective is to compress the DL CSI, $$X$$, at the User Equipment (UE) side (DL CSI is depicted on the left hand side of the above image). The UE then transmits this compressed information, or codeword $$U$$, to the Base Station (BS). The aim is to minimize the Normalized Mean Squared Error (NMSE), defined as $$\mathbb{E}[{\Vert X-\hat{X} \Vert_{2}^{2}}/{\Vert X \Vert_{2}^{2} }]$$, where $$\hat{X}$$ is the decoder output and $$\Vert\cdot\Vert_{2}$$ is elementwise square norm.
 
-To enhance compression efficiency, uplink (UL) CSI can be utilized as side information $Y$ (See right-hand side of the above image). This approach leverages the fact that UL CSI is typically available at the BS side through pilot transmissions from the UE to the BS and is correlated with downlink (DL) CSI due to frequency-invariant characteristics.
+To enhance compression efficiency, uplink (UL) CSI can be utilized as side information $Y$ (See right hand side of the above image). This approach leverages the fact that UL CSI is typically available at the BS side through pilot transmissions from the UE to the BS and is correlated with downlink (DL) CSI due to frequency-invariant characteristics.
 
 We will apply our algorithm to estimate the rate-distortion function with decoder side information in this setting.
 
 #### Results
 
 In the figure below, four distinct curves are presented: the estimated rate-distortion curve with side information, $$\hat{R}_{\text{D,C}}$$, the one without side information, $$\hat{R}_{\text{C}}$$, the rate-distortion curve derived from the constructive compression algorithm with side information (compression with SI), and the curve without side information (compression).
-The four points plotted on $$\hat{R}_{\text{D,C}}$$ and $$\hat{R}_{\text{C}}$$ denote distinct estimated rate-distortion points, with their positions corresponding to specific $$s$$ values: -100, -10, -1, and -0.1, arranged from left to right. $$\hat{R}_{\text{C}}$$, the estimated $${R}_{\text{C}}$$, is obtained by ignoring the side information. By adjusting $$s$$ values, we explore distortion levels from -8dB to approximately -23dB, connecting these points linearly to serve as an upper bound for the estimated rate-distortion curves. We also adopt VQ-VAE-based compression algorithm for the purpose of comparison. The rate-distortion curves from the constructive algorithm with and without side information (light blue/yellow) are generated by varying the compression bit rates as $$l_{\text{cl}}\in \{16, 32, 64, 128\}$$ and connecting the points.
+The four points plotted on $$\hat{R}_{\text{D,C}}$$ and $$\hat{R}_{\text{C}}$$ denote distinct estimated rate-distortion points, with their positions corresponding to specific $$s$$ values: -100, -10, -1, and -0.1, arranged from left to right. $$\hat{R}_{\text{C}}$$, the estimated $${R}_{\text{C}}$$, is obtained by ignoring the side information. By adjusting $$s$$ values, we explore distortion levels from -8dB to approximately -23dB, connecting these points linearly to serve as an upper bound for the estimated rate-distortion curves. We also adopt VQ-VAE-based compression algorithm for purpose of comparison. The rate-distortion curves from the constructive algorithm with and without side information (light blue/yellow) are generated by varying the compression bit rates as $$l_{\text{cl}}\in \{16, 32, 64, 128\}$$ and connecting the points.
 
 
 ![alt text](https://github.com/Heasung-Kim/rate-distortion-side-information/blob/main/imgs/rd_plot_csi.png?raw=true)
@@ -128,7 +128,7 @@ The four points plotted on $$\hat{R}_{\text{D,C}}$$ and $$\hat{R}_{\text{C}}$$ d
 As expected, introducing UL CSI (side information) for DL CSI compression is beneficial as $$\hat{R}_{\text{D,C}} < \hat{R}_{\text{C}}$$, especially at lower CSI feedback rates. For instance, in regions where the rate is below 10 Nats/sample, a gain of over 1 dB is expected from UL side information. This advantage diminishes with increased feedback resources; for example, at 150 Nats/Sample, the gain is observed to be near zero.
 
 
-The neural compression algorithm incorporating side information, achieved a rate-distortion curve that establishes an upper bound of $$\hat{R}_{\text{D,C}}$$, and the discrepancy between $$\hat{R}_{\text{D,C}}$$ and the constructive CSI compression algorithm's performance signals room for improvement. For example, in the case of around 80 Nats/sample, we may anticipate a potential improvement of about 1dB. Notably, this gap is less pronounced in scenarios with lower rates, allowing one to have a conjecture that the actual performance of the CSI compression algorithms is closer to $$\hat{R}_{\text{D,C}}$$. 
+The neural compression algorithm incorporating side information, achieved a rate-distortion curve that establishes an upper bound of $$\hat{R}_{\text{D,C}}$$, and the discrepancy between $$\hat{R}_{\text{D,C}}$$ and the constructive CSI compression algorithm's performance signals room for improvement. For example, in the case of around 80 Nats/sample, we may anticipate a potential improvement about 1dB. Notably, this gap is less pronounced in scenarios with lower rates, allowing one to have a conjecture that the actual performance of the CSI compression algorithms is closer to $$\hat{R}_{\text{D,C}}$$. 
 
 
 ---
