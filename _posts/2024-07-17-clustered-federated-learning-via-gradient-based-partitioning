@@ -1,7 +1,7 @@
 ---
 layout:     post
 title:      Learning Context-Dependent CSI Feedback Autoencoders via Clustered Federated Learning
-date:       2024-07-26, 21:00:00
+date:       2024-07-17, 21:00:00
 summary:  A clustered federated learning algorithm 
 categories: jekyll pixyll
 comments:   true
@@ -52,8 +52,8 @@ To overcome these challenges, we accumulate gradient information over multiple t
 
 <img src="https://github.com/Heasung-Kim/clustered-federated-learning-via-gradient-based-partitioning/blob/main/imgs/poster/cfl-gp-examplestep-1.JPG?raw=true" alt="alt text"/>
 
-1.  **Broadcast Model:** The Central Unit (CU) manages multiple models, and picks one of them in a round-robbin manner and broadcasts the model $\theta^{(t)}$ to all clients.
-2.  **Gradient Transmission:** The clients compute the corresponding gradients $g(\theta^{(t)})$ and send them back to the CU.
+1.  **Broadcast Model:** The Central Unit (CU) manages multiple models, and picks one of them in a round-robbin manner and broadcasts the model $$\theta^{(t)}$$ to all clients.
+2.  **Gradient Transmission:** The clients compute the corresponding gradients $$g(\theta^{(t)})$$ and send them back to the CU.
 3.  **Gradient-Based Clustering:** The CU performs clustering based on the received gradient information. We use spectral clustering for this step, although the specific details are omitted here for simplicity.
 4.  **Cluster driven model update:** Based on the clustering results, the clients in each group cooperate to train a model.
 
@@ -68,7 +68,7 @@ CFL-GP repeats this process at regular intervals during the federated learning p
 
 We consider five different data distributions (channel distributions) using the 3GPP channel model dataset generator, Quadriga ("quadriga-channel-model.de"), corresponding to Distributions 1 to 5.
 
- Configuration |   Distribution 1 ($\mathcal{D}_{1})$    |   Distribution 2 ($\mathcal{D}_{2}$)   |    Distribution 3 ($\mathcal{D}_{3}$)   |    Distribution 4  ($\mathcal{D}_{4}$)  |    Distribution 5 ($\mathcal{D}_{5}$)     
+ Configuration |   Distribution 1 ($$\mathcal{D}_{1}$$)    |   Distribution 2 ($$\mathcal{D}_{2}$$)   |    Distribution 3 ($$\mathcal{D}_{3}$$)   |    Distribution 4  ($$\mathcal{D}_{4}$$)  |    Distribution 5 ($$\mathcal{D}_{5}$$)     
 ---------------|:-------------------:|:-------------------:|:--------------------:|:--------------------:|:---------------------:|     
 Channel model| 3GPP_38.901_UMi_LOS | 3GPP_38.901_UMi_LOS | 3GPP_38.901_UMi_NLOS | 3GPP_38.901_UMi_NLOS | 3GPP_38.901_UMi_NLOS  
 Number of dominant reflection clusters|          5          |          5          |          35          |          40          |          10           
@@ -77,7 +77,7 @@ Number of dominant reflection clusters|          5          |          5        
 All channel distributions are generated at a center frequency of 2.53 GHz. The devices utilize a 3GPP-3D antenna model with dimensions of (1, 32). The number of subcarriers is 256, with a subcarrier spacing of 15000 Hz. Each instance in the antenna-frequency domain undergoes a 2-dimensional Inverse Fast Fourier Transform (IFFT) and is subsequently cropped in the high delay domain, resulting in each data instance being represented by a 32x32 complex matrix. A total of 30,000 data instances are extracted from each distribution, amounting to 150,000 instances in total.
 
 #### Goal
-The goal is to cluster $N=40$ clients (area-BS pairs), each with one of the channel distributions (Distributions 1 to 5), and train $K=5$ models. In summary, the central unit aims to cluster the clients with similar channel distributions without accessing the raw datasets.
+The goal is to cluster $$N=40$$ clients (area-BS pairs), each with one of the channel distributions (Distributions 1 to 5), and train $$K=5$$ models. In summary, the central unit aims to cluster the clients with similar channel distributions without accessing the raw datasets.
 
 
 #### Results
@@ -87,7 +87,7 @@ The figure above shows the compression performance, normalized MSE in dB scale, 
 
 <img src="https://github.com/Heasung-Kim/clustered-federated-learning-via-gradient-based-partitioning/blob/main/imgs/wireless_imgs/fig_16.png?raw=true" alt="alt text"/>
 
-We also plot the client features (the accumulated gradient information, randomly projected into 3D space), at $t=1,160,320$ and $480$. Each marker represents a client feature and is colored based on its underlying distribution. In the initial step, single gradient information may not be sufficient for clustering. However, as more gradient information is accumulated, clear clusters emerge, as seen at $t=480$ case.
+We also plot the client features (the accumulated gradient information, randomly projected into 3D space), at $$t=1,160,320$$ and $$480$$. Each marker represents a client feature and is colored based on its underlying distribution. In the initial step, single gradient information may not be sufficient for clustering. However, as more gradient information is accumulated, clear clusters emerge, as seen at $$t=480$$ case.
 
 
 
