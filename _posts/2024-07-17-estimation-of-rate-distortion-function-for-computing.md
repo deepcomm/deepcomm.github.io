@@ -1,3 +1,4 @@
+
 ---
 layout:     post
 title:      Estimation of Rate-Distortion Function for Computing with Decoder Side Information
@@ -40,11 +41,12 @@ To address these issues, we propose a neural network-based direct estimation met
 ---
 ### Proposed Algorithm
 
-We begin by reformulating the optimization term in $(1)$ as follows by using the convexity property of the rate-distortion function. For a given $s$, we can build a Lagrangian form optimziation problem as follows.
+We begin by reformulating the optimization term in $$(1)$$ as follows by using the convexity property of the rate-distortion function. For a given $$s$$, we can build a Lagrangian form optimziation problem as follows.
 
-$$\min_{q_{U|X}, f} \Big\{ \mathbb{E}_{X,Y,U}\Big[\log\frac{q_{U|X}(U|X)}{q_{U|Y}(U|Y)} \Big] - s\mathbb{E}[d(Z,\hat{Z})] \Big\}    (2)$$
-
-where $$q_{U|Y}(u|y) = \sum_{x\in \mathcal{X}} p_{X|Y}(x|y) q_{U|X}(u|x)$$ when $$X$$ is a discrete random variable and $$\hat{Z} = f(U,Y)$$.
+$$\min_{q_{U|X}, f} \Big\{ \mathbb{E}_{X,Y,U}\Big[\log\frac{q_{U|X}(U|X)}{q_{U|Y}(U|Y)} \Big] - s\mathbb{E}[d(Z,\hat{Z})] \Big\}    (2)$$ 
+where 
+$$q_{U|Y}(u|y) = \sum_{x\in \mathcal{X} } p_{X|Y}(x|y) q_{U|X}(u|x)$$ 
+when $$X$$ is a discrete random variable and $$\hat{Z} = f(U,Y)$$.
 
 By solving the Lagrangian form of the optimization problem, the resulting optimization variables (encoder and decoder) correspond to specific points on the true rate-distortion function. This means that if we solve equation $$(2)$$ for various values of the Lagrange multiplier $$s$$, we can obtain multiple points on the rate-distortion curve. By collecting these points, we can ultimately estimate the entire rate-distortion function, providing a comprehensive understanding of the trade-offs between data rate and distortion.
 
