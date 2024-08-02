@@ -61,7 +61,7 @@ Then we minimize the objective $$(2)$$ by updating the set of parameters $$\bold
 ### *Challenge*
 However, note that the problem (2) involves $$q_{U|Y}(u|y)$$ which can be represented as follows.
 
-$$q_{U|Y }(u|y) = \sum_{x\in \mathcal{X}} p_{X|Y}(x|y)  q_{U|X,Y}(u|x,y) \quad\quad(3)$$.
+$$q_{U|Y}(u|y) = \sum_{x\in \mathcal{X}} p_{X|Y}(x|y)  q_{U|X,Y}(u|x,y)\quad\quad(3)$$.
 
 The efficient computation of $$q_{U|Y}(u|y)$$ is critical, as it needs to be executed for multiple instances to obtain the average of the log probability. However, this computation of presents a substantial challenge due to the unknown nature of the source distribution, computing the sum over $$\mathcal{X}$$ is non-trivial when domain $$\mathcal{X}$$ is a high-dimensional space and the data instances are limited.
 
