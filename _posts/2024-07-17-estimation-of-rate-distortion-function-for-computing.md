@@ -42,7 +42,7 @@ To address these issues, we propose a neural network-based direct estimation met
 
 We begin by reformulating the optimization term in $(1)$ as follows by using the convexity property of the rate-distortion function. For a given $s$, we can build a Lagrangian form optimziation problem as follows.
 
-$$\min_{q_{U|X}, f} \Big\{ \mathbb{E}_{X,Y,U}\Big[\log\frac{q_{U|X}(U|X)}{q_{U|Y}(U|Y)} \Big] - s\mathbb{E}[d(Z,\hat{Z})] \Big\}    ~~~~~~~(2)$$
+$$\min_{q_{U|X}, f} \Big\{ \mathbb{E}_{X,Y,U}\Big[\log\frac{q_{U|X}(U|X)}{q_{U|Y}(U|Y)} \Big] - s\mathbb{E}[d(Z,\hat{Z})] \Big\}    (2)$$
 
 where $$q_{U|Y}(u|y) = \sum_{x\in \mathcal{X}} p_{X|Y}(x|y) q_{U|X}(u|x)$$ when $$X$$ is a discrete random variable and $$\hat{Z} = f(U,Y)$$.
 
