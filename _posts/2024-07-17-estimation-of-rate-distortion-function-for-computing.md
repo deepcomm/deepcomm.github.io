@@ -73,7 +73,7 @@ By using the following fact,
 
 $$\text{argmin}_{\hat{q}_{U|Y}}\mathbb{E}_{X,Y,U} \left[\log\frac{q_{U|X}(U|X; \boldsymbol{\theta}_{\text{po}})}{\hat{q}_{U|Y}(U|Y)}\right] = q_{U|Y;\boldsymbol{\theta}_{\text{po}}},$$
 
-we also parameterize $$q_{U|Y}(U|Y)$$ by using a set of parameters $$\boldsymbol{\theta}_{\text{pr}}$$ as $$q_{U|Y}(U|Y;\boldsymbol{\theta}_{\text{pr}})$$ and we are able to obtain the following equivalent optimization problem.
+we also parameterize $$q_{U\vert Y}(U\vert Y)$$ by using a set of parameters $$\boldsymbol{\theta}_{\text{pr}}$$ as $$q_{U|Y}(U|Y;\boldsymbol{\theta}_{\text{pr}})$$ and we are able to obtain the following equivalent optimization problem.
 
 
 $$\min_{\boldsymbol{\theta}_{\text{po}}, \boldsymbol{\theta}_{\text{pr}}, \boldsymbol{\theta}_{\text{dec}}} \Big\{ \mathbb{E}_{X,Y,U}\Big[\log\frac{q_{U|X}(U|X; \boldsymbol{\theta}_{\text{po}} )}{q_{U|Y}(U|Y; \boldsymbol{\theta}_{\text{pr}})} \Big] - s\mathbb{E}[d(Z, f(U,Y, \boldsymbol{\theta}_{\text{dec}})] \Big\}\quad\quad(4).$$
