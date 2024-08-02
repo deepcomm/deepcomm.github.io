@@ -1,4 +1,3 @@
-
 ---
 layout:     post
 title:      Estimation of Rate-Distortion Function for Computing with Decoder Side Information
