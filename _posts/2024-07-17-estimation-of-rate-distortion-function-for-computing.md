@@ -89,9 +89,9 @@ By incorporating all the main components of the optimization problem as optimiza
 
 How do we verify the performance of our algorithm? One approach is to use special cases where the rate-distortion function for computing with side information is known in a **closed-form**. By comparing our algorithm's results with these known rate-distortion function, we can assess its accuracy.
 
-We adopt a scenario featuring a 2-component White Gaussian Noise (2-WGN$$(P, \rho)$$) source, where $$(X, Y)$$ forms pairs of i.i.d. jointly Gaussian random variables. Each pair in the sequence $$(X_1, Y_1), (X_2, Y_2), \ldots, (X_n, Y_n)$$ is correlated by $$Y=X+W$$ where the distributions of $$X$$ and $$W$$ have zero mean, $$\mathbb{E}[X] = \mathbb{E}[W] = 0$$, and variance $$\mathbb{E}[X^2] = P$$ and $$\mathbb{E}[W^2] = N$$. With a squared error distortion measure $$d$$, the rate-distortion function $$R_{\text{D}}$$ is given as follows.
+We adopt a scenario featuring a 2-component White Gaussian Noise, 2-WGN$$(P, \rho)$$ source, where $$(X, Y)$$ forms pairs of i.i.d. jointly Gaussian random variables. Each pair in the sequence $$(X_1, Y_1), (X_2, Y_2), \ldots, (X_n, Y_n)$$ has zero mean ($$\mathbb{E}[X] = \mathbb{E}[Y] = 0$$), equal variance ($$\mathbb{E}[X^2] = \mathbb{E}[Y^2] = P$$), and a correlation coefficient $$\rho = \mathbb{E}[XY]/P$$. With a squared error distortion measure $d$ and a function $$g(X,Y)=(X+Y)/2$$, $$R_{\text{D,C}}$$ is given by
 
-$$R_{\text{D,C}}(D) = \max\Big\{ \frac{1}{2}\log \Big( \frac{PN}{(P+N)D} \Big), 0\Big\}.$$
+$$R_{\text{D,C}}(D) = \max\Big\{ \frac{1}{2}\log \big( \frac{P(1-\rho^2)}{4D} \big), 0\Big\}.$$
 
 
 Our objective in this section is to apply our algorithm to estimate rate-distortion points and assess its accuracy in obtaining these points on the true rate-distortion curve.
