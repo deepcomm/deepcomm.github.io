@@ -33,7 +33,7 @@ non-linear kernels parameterized by NNs.
 ### Polar codes
 Polar codes, devised by Erdal Arikan in 2009, marked a significant breakthrough as the first class of codes with a deterministic construction proven to achieve channel capacity, via successive cancellation decoding. Further, in conjunction with higher complexity decoders, these codes also demonstrate good finite-length performance while maintaining relatively low encoding and decoding complexity. The impact of Polar codes is evident from their integration into 5G standards within just a decade of their proposal—a remarkably swift timeline (typically, codes take several decades to be adopted into cellular standards).
 
-An alternate, efficient way to view Polar encoding is via the Plotkin transform : $$ \{0,1\}^d \times \{0,1\}^d \to \{0,1\}^{2d} $$, which transforms $$ (u_0, u_1) \to (u_0 \oplus u_1, u_1) $$. This Plotkin transform is applied recursively on a tree to obtain the full Polar transform. This recursive application leads to a fascinating phenomenon called "channel polarization" - where each input bit encounters either a noiseless or highly noisy channel under successive cancellation decoding. This selective reliability allows us to transmit message bits through reliable positions only, while "freezing" less reliable positions with a known value, typically zero.
+An efficient way to view Polar encoding is via the Plotkin transform : $$ \{0,1\}^d \times \{0,1\}^d \to \{0,1\}^{2d} $$, which transforms $$ (u_0, u_1) \to (u_0 \oplus u_1, u_1) $$. This Plotkin transform is applied recursively on a tree to obtain the full Polar transform. This recursive application leads to a fascinating phenomenon called "channel polarization" - where each input bit encounters either a noiseless or highly noisy channel under successive cancellation decoding. This selective reliability allows us to transmit message bits through reliable positions only, while "freezing" less reliable positions with a known value, typically zero.
 
 Polar codes can be decoded efficiently using the Successive Cancellation (SC) decoder. The basic principle behind the SC algorithm is to sequentially decode each message bit $$u_i$$ according to the conditional likelihood given the corrupted codeword $$y$$ and previously decoded bits $$\hat{\mathbf{u}}^{(i-1)}$$. The LLR for the $$i^{\text{th}}$$ bit can be computed as
 \begin{equation}
@@ -42,16 +42,17 @@ Polar codes can be decoded efficiently using the Successive Cancellation (SC) de
 
 A detailed exposition of Polar coding and decoding can be found in [these notes](http://pfister.ee.duke.edu/courses/ecen655/polar.pdf).
 
-<center><img src="https://deepcomm.github.io/images/deeppolar/deeppolar_transform.png" width="750"/></center>
-<p align="left" style="font-size: smaller;">Figure 2: DeepPolar maintains the structure of Polar codes, while generalizing the Plotkin transform</p>
 
 ### DeepPolar codes 
-To *learn* a code, i.e., an encoder-decoder pair, we need to choose an appropriate parameterization. It turns out that off-the-shelf neural architectures perform poorly on this task, primarily due to the curse of dimension. For example, consider a scenario where we must map $$k=37$$ distinct messages into a 256-dimensional codeword space. This involves learning $$2^{37}$$ codewords in a 256-dimensional space. During training, only a tiny fraction of these messages are observed, which without strong inductive biases leads to poor generalization to unseen messages.
+To *learn* a code, i.e., an encoder-decoder pair, we need to choose an appropriate parameterization. It turns out that off-the-shelf neural architectures perform poorly on this task, primarily due to the curse of dimensionality. For example, consider a scenario where we must map $$k=37$$ distinct messages into a 256-dimensional codeword space. This involves learning $$2^{37}$$ codewords in a 256-dimensional space. During training, only a tiny fraction of these messages are observed, which without strong inductive biases leads to poor generalization to unseen messages.
 
 One way to address this problem, is to use structured redundancy by the use of principled coding-theoretic structures to design our neural architecture. DeepPolar codes use a neural architecture that generalizes the encoding and decoding structures of Polar codes. Our major innovations are the following:
 
 1) **Kernel Expansion:** The conventional $$2 \times 2$$ Polar kernel is expanded into a larger $$\ell \times \ell$$ kernel.
 2) **Learning the kernel:** We parameterize each kernel by a learnable function $$g_\phi$$, represented by a small Multilayer Perceptron (MLP). Likewise, we augment the SC decoder with learnable functions $$f_\theta$$. The encoder-decoder pair is trained jointly to minimize the bit error rate (BER).
+
+<center><img src="https://deepcomm.github.io/images/deeppolar/deeppolar_transform.png" width="750"/></center>
+<p align="left" style="font-size: smaller;">Figure 2: DeepPolar maintains the structure of Polar codes, while generalizing the Plotkin transform</p>
 
 The expanded function space afforded by the non-linearity and the increased kernel size allows us to discover more reliable codes within the neural Plotkin code family. Our experiments show that setting kernel size $$\ell = \sqrt{n}$$ yields the best performance. This finding is consistent with the principles of the bias-variance tradeoff; while larger kernel provide expanded function spaces, it is harder to generalize with limited training examples. 
 As shown in Figure 3a and 3b, DeepPolar maintains the Polar encoding and decoding structures; this inductive bias allows effective generalization to the full message sapce.
