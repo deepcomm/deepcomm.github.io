@@ -5,6 +5,11 @@ permalink: /codebase/
 tags: source codes
 ---
 
+* [Fundamental Limits of Prompt Compression: A Rate-Distortion Framework for Black-Box Language Models](https://arxiv.org/abs/2407.15504)  
+Preprint.  
+by Alliot Nagle\*, Adway Girish\*, Marco Bondaschi, Michael Gastpar, Ashok Vardhan Makkuva, Hyeji Kim.  
+Code repository: [https://github.com/acnagle/fundamental-limits](https://github.com/acnagle/fundamental-limits)
+
 * [DeepPolar : Inventing Nonlinear Large-Kernel Polar Codes via Deep Learning](https://arxiv.org/abs/2402.08864)  
 International Conference on Machine Learning, 2024
 by Ashwin Hebbar, Sravan Kumar Ankireddy, Hyeji Kim, Sewoong Oh, Pramod Viswanath.  
