@@ -5,8 +5,13 @@ permalink: /codebase/
 tags: source codes
 ---
 
+* [LightCode: Light Analytical and Neural Codes for Channels with Feedback](https://arxiv.org/pdf/2403.10751)  
+Under Review at IEEE Journal on Selected Areas in Communications, 2024.  
+by Sravan Ankireddy, Krishna Narayanan, Hyeji Kim.  
+Code repository: [https://github.com/sravan-ankireddy/lightcode](https://github.com/sravan-ankireddy/lightcode)
+
 * [Fundamental Limits of Prompt Compression: A Rate-Distortion Framework for Black-Box Language Models](https://arxiv.org/abs/2407.15504)  
-Preprint.  
+Advances in Neural Information Processing Systems (NeurIPS), 2024. 
 by Alliot Nagle\*, Adway Girish\*, Marco Bondaschi, Michael Gastpar, Ashok Vardhan Makkuva, Hyeji Kim.  
 Code repository: [https://github.com/acnagle/fundamental-limits](https://github.com/acnagle/fundamental-limits)
 
@@ -16,8 +21,8 @@ by Ashwin Hebbar, Sravan Kumar Ankireddy, Hyeji Kim, Sewoong Oh, Pramod Viswanat
 Code repository: [https://github.com/hebbarashwin/deeppolar](https://github.com/hebbarashwin/deeppolar)
 
 * [Neural Distributed Source Coding](https://arxiv.org/abs/2106.02797)  
-Preprint.  
-by Jay Whang, Alliot Nagle, Anish Acharya, Hyeji Kim, and Alexandros G. Dimakis.  
+IEEE Journal on Selected Areas in Information Theory, 2024  
+by Jay Whang\*, Alliot Nagle\*, Anish Acharya, Hyeji Kim, and Alexandros G. Dimakis.  
 Code repository: [https://github.com/acnagle/neural-dsc](https://github.com/acnagle/neural-dsc)
 
 * [Task-aware Distributed Source Coding under Dynamic Bandwidth](https://proceedings.neurips.cc/paper_files/paper/2023/hash/016c63403370d81c24c1ca0123de6cfa-Abstract-Conference.html)  
