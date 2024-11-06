@@ -5,6 +5,16 @@ permalink: /codebase/
 tags: source codes
 ---
 
+* [Clustered Federated Learning via Gradient-based Partitioning](https://proceedings.mlr.press/v235/kim24p.html)  
+International Conference on Machine Learning, 2024.  
+by Heasung Kim, Hyeji Kim, Gustavo de Veciana.  
+Code repository: [https://github.com/Heasung-Kim/clustered-federated-learning-via-gradient-based-partitioning](https://github.com/Heasung-Kim/clustered-federated-learning-via-gradient-based-partitioning)
+
+* [Estimation of Rate-Distortion Function for Computing with Decoder Side Information](https://ieeexplore.ieee.org/document/10619642)  
+IEEE  International Symposium on Information Theory, 2024.  
+by Heasung Kim, Hyeji Kim, Gustavo de Veciana.  
+Code repository: [https://github.com/Heasung-Kim/rate-distortion-side-information](https://github.com/Heasung-Kim/rate-distortion-side-information)
+
 * [LightCode: Light Analytical and Neural Codes for Channels with Feedback](https://arxiv.org/pdf/2403.10751)  
 Under Review at IEEE Journal on Selected Areas in Communications, 2024.  
 by Sravan Ankireddy, Krishna Narayanan, Hyeji Kim.  
