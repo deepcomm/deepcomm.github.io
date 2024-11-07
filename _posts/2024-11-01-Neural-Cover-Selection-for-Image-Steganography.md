@@ -13,7 +13,7 @@ author:     Karl Chahine, Hyeji Kim
 This blog post is written as an overview and summary of our recent work [Neural Cover Selection for image Steganography](https://arxiv.org/abs/2410.18216) by Karl Chahine and Hyeji Kim (NeurIPS 2024). Our code can be found [here](https://github.com/karlchahine/Neural-Cover-Selection-for-Image-Steganography).
 
 # Framework summary
-Image steganography embeds secret bit strings within typical cover images, making them imperceptible to the naked eye yet retrievable through specific decoding techniques. The encoder takes as input a cover image $$\mathbf{x}$$ and a secret message $$\mathbf{m}$$, outputting a steganographic image $$\mathbf{s}$$ that appears visually similar to the original $$\mathbf{x}$$. The decoder then estimates the message $$\mathbf{\hat{m}}$$ from $$\mathbf{s}$$. The setup is shown below, where $$H$$ and $$W$$ denote the image dimensions and the payload $$B$$ denotes the number of encoded bits per pixel (bpp).
+Image steganography embeds secret bit strings within typical cover images, making them imperceptible to the naked eye yet retrievable through specific decoding techniques. The encoder takes as input a cover image $$\mathbf{x}$$ and a secret message $$\mathbf{m}$$, outputting a steganographic image $$\mathbf{s}$$ that appears visually similar to the original $$\mathbf{x}$$. The decoder then estimates the message $$\hat{\mathbf{m}}$$ from $$\mathbf{s}$$. The setup is shown below, where $$H$$ and $$W$$ denote the image dimensions and the payload $$B$$ denotes the number of encoded bits per pixel (bpp).
 
 <p style="margin-top: 30px;">
     <img src="https://deepcomm.github.io/images/Stego/steg_setup.png" alt="Model performance" width="600"/>
