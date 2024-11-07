@@ -28,7 +28,7 @@ Code repository: [https://github.com/acnagle/fundamental-limits](https://github.
 * [Generating High Dimensional Wireless Channels using Diffusion Models](https://arxiv.org/abs/2409.03924v1)  
 Under Review at IEEE Transactions on Wireless Communications, 2024.
 by Taekyun Lee, Juseong Park, Hyeji Kim, Jeffrey Andrews.  
-Code repository: [https://github.com/acnagle/fundamental-limits](https://github.com/acnagle/fundamental-limits)
+Code repository: [https://github.com/taekyunl/cDDIM](https://github.com/taekyunl/cDDIM)
 
 * [DeepPolar : Inventing Nonlinear Large-Kernel Polar Codes via Deep Learning](https://arxiv.org/abs/2402.08864)  
 International Conference on Machine Learning, 2024
