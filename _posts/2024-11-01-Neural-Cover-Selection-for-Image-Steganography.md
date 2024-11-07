@@ -25,13 +25,13 @@ Traditional methods for selecting cover images have three key limitations: (i) T
 
 In this work, we introduce a novel, optimization-driven framework that combines pretrained generative models with steganographic encoder-decoder pairs. Our method guides the image generation process by incorporating a message recovery loss, thereby producing cover images that are optimally tailored for specific secret messages. We investigate the workings of the neural encoder and find it hides messages within low variance pixels, akin to the water-filling algorithm in parallel Gaussian channels. Interestingly, we observe that our cover selection framework increases these low variance spots, thus improving message concealment.
 
-The DDIM cover-selection framework is illustrated below: 
+The DDIM cover-selection framework is illustrated below. The initial cover image $$\mathbf{x}_0$$ (where the subscript denotes the diffusion step) goes through the forward diffusion process to get the latent $$\mathbf{x}_T$$ after $$T$$ steps. We optimize $$\mathbf{x}_T$$ to minimize the loss $$||\mathbf{m} - \mathbf{\hat{m}}||$$. Specifically, $$\mathbf{x}_T$$ goes through the backward diffusion process generating cover images that minimize the loss. We evaluate the gradients of the loss with respect to $$\mathbf{x}_T$$ using backpropagation and use standard gradient based optimizers to get the optimal $$\mathbf{x}^*_T$$ after some optimization steps. We use a pretrained DDIM, and a pretrained LISO, the state-of-the-art steganographic encoder and decoder from Chen et al. [2022]. The weights of the DDIM and the steganographic encoder-decoder are fixed throughout $$\mathbf{x}_T$$'s optimization process.
 
 <p style="margin-top: 30px;">
     <img src="https://deepcomm.github.io/images/Stego/DDIM_setup.png" alt="Model performance" width="600"/>
 </p>
 
-The initial cover image $$\mathbf{x}_0$$ (where the subscript denotes the diffusion step) goes through the forward diffusion process to get the latent $$\mathbf{x}_T$$ after $$T$$ steps. We optimize $$\mathbf{x}_T$$ to minimize the loss $$||\mathbf{m} - \mathbf{\hat{m}}||$$. Specifically, $$\mathbf{x}_T$$ goes through the backward diffusion process generating cover images that minimize the loss. We evaluate the gradients of the loss with respect to $$\mathbf{x}_T$$ using backpropagation and use standard gradient based optimizers to get the optimal $$\mathbf{x}^*_T$$ after some optimization steps. We use a pretrained DDIM, and a pretrained LISO, the state-of-the-art steganographic encoder and decoder from Chen et al. [2022]. The weights of the DDIM and the steganographic encoder-decoder are fixed throughout $$\mathbf{x}_T$$'s optimization process.
+
 
 # Performance results
 Below, we present randomly selected cover images alongside their message recovery errors, both before and after optimization. The observed error reduction post-optimization underscores the effectiveness of our framework.
@@ -74,7 +74,7 @@ We calculate $$\{\gamma_i^2\}_{i=1}^{3 \times H \times W}$$ using a batch of ima
 </p>
 
 
-We observe a degree of similarity with the prior figure showing the residuals. To quantitatively assess this resemblance across color channels, we quantize the three matrices by setting values greater than 0.5 to 1 and values less than 0.5 to 0. For each channel, the similarity is calculated using the equation $$\frac{\sum_{i,j} \mathbf{1}(\textbf{W}^{(k)}_{ij} = \mathbf{R}^{(k)}_{ij})}{256 \times 256}$$, where $$\textbf{W}_{ij}^{(k)}$$ and $$\textbf{R}_{ij}^{(k)}$$ are the $$(i,j)$$-th pixels of the quantized waterfilling and residual matrices, respectively, for the channel $k$. The computed similarity scores are 81.8% for red, 65.5% for green, and 74.9% for blue, revealing varying degrees of resemblance with the waterfilling strategy across the color channels. The variation underscores that the waterfilling strategy is implemented more effectively in some channels than in others.
+We observe a degree of similarity with the prior figure showing the residuals. To quantitatively assess this resemblance across color channels, we quantize the three matrices by setting values greater than 0.5 to 1 and values less than 0.5 to 0. For each channel, the similarity is calculated using the equation $$\frac{\sum_{i,j} \mathbf{1}(\textbf{W}^{(k)}_{ij} = \mathbf{R}^{(k)}_{ij})}{256 \times 256}$$, where $$\textbf{W}_{ij}^{(k)}$$ and $$\textbf{R}_{ij}^{(k)}$$ are the $$(i,j)$$-th pixels of the quantized waterfilling and residual matrices, respectively, for the channel $$k$$. The computed similarity scores are 81.8% for red, 65.5% for green, and 74.9% for blue, revealing varying degrees of resemblance with the waterfilling strategy across the color channels. The variation underscores that the waterfilling strategy is implemented more effectively in some channels than in others.
 
 
 ## Impact of cover selection
