@@ -4,6 +4,10 @@ title: Source codes
 permalink: /codebase/
 tags: source codes
 ---
+* [Neural Cover Selection for Image Steganography](https://arxiv.org/pdf/2410.18216)  
+Advances in Neural Information Processing Systems (NeurIPS), 2024.  
+by Karl Chahine, Hyeji Kim.  
+Code repository: [https://github.com/karlchahine/Neural-Cover-Selection-for-Image-Steganography](https://github.com/karlchahine/Neural-Cover-Selection-for-Image-Steganography)
 
 * [Clustered Federated Learning via Gradient-based Partitioning](https://proceedings.mlr.press/v235/kim24p.html)  
 International Conference on Machine Learning, 2024.  
