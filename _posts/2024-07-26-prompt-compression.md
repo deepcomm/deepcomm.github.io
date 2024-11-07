@@ -9,7 +9,7 @@ visible:    true
 author:     Alliot Nagle, Hyeji Kim
 ---
 
-*This blog post is written as an overview and summary of our recent work [Fundamental Limits of Prompt Compression: A Rate-Distortion Framework for Black-Box Language Models](https://arxiv.org/abs/2407.15504)*
+*This blog post is written as an overview and summary of our <b>NeurIPS 2024</b> paper, [Fundamental Limits of Prompt Compression: A Rate-Distortion Framework for Black-Box Language Models](https://arxiv.org/abs/2407.15504)*
 
 ### What is Prompt Compression?
 
