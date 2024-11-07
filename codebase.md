@@ -25,6 +25,11 @@ Advances in Neural Information Processing Systems (NeurIPS), 2024.
 by Alliot Nagle\*, Adway Girish\*, Marco Bondaschi, Michael Gastpar, Ashok Vardhan Makkuva, Hyeji Kim.  
 Code repository: [https://github.com/acnagle/fundamental-limits](https://github.com/acnagle/fundamental-limits)
 
+* [Generating High Dimensional Wireless Channels using Diffusion Models](https://arxiv.org/abs/2409.03924v1)  
+Under Review at IEEE Transactions on Wireless Communications, 2024.
+by Taekyun Lee, Juseong Park, Hyeji Kim, Jeffrey Andrews.  
+Code repository: [https://github.com/acnagle/fundamental-limits](https://github.com/acnagle/fundamental-limits)
+
 * [DeepPolar : Inventing Nonlinear Large-Kernel Polar Codes via Deep Learning](https://arxiv.org/abs/2402.08864)  
 International Conference on Machine Learning, 2024
 by Ashwin Hebbar, Sravan Kumar Ankireddy, Hyeji Kim, Sewoong Oh, Pramod Viswanath.  
