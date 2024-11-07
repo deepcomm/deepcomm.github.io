@@ -20,8 +20,8 @@ by Heasung Kim, Hyeji Kim, Gustavo de Veciana.
 Code repository: [https://github.com/Heasung-Kim/rate-distortion-side-information](https://github.com/Heasung-Kim/rate-distortion-side-information)
 
 * [LightCode: Light Analytical and Neural Codes for Channels with Feedback](https://arxiv.org/pdf/2403.10751)  
-Under Review at IEEE Journal on Selected Areas in Communications, 2024.  
-by Sravan Ankireddy, Krishna Narayanan, Hyeji Kim.  
+IEEE Journal on Selected Areas in Communications, 2024.  
+by Sravan Kumar Ankireddy, Krishna Narayanan, Hyeji Kim.  
 Code repository: [https://github.com/sravan-ankireddy/lightcode](https://github.com/sravan-ankireddy/lightcode)
 
 * [Fundamental Limits of Prompt Compression: A Rate-Distortion Framework for Black-Box Language Models](https://arxiv.org/abs/2407.15504)  
@@ -36,7 +36,7 @@ Code repository: [https://github.com/taekyunl/cDDIM](https://github.com/taekyunl
 
 * [DeepPolar : Inventing Nonlinear Large-Kernel Polar Codes via Deep Learning](https://arxiv.org/abs/2402.08864)  
 International Conference on Machine Learning, 2024
-by Ashwin Hebbar, Sravan Kumar Ankireddy, Hyeji Kim, Sewoong Oh, Pramod Viswanath.  
+by Ashwin Hebbar\*, Sravan Kumar Ankireddy\*, Hyeji Kim, Sewoong Oh, Pramod Viswanath.  
 Code repository: [https://github.com/hebbarashwin/deeppolar](https://github.com/hebbarashwin/deeppolar)
 
 * [Neural Distributed Source Coding](https://arxiv.org/abs/2106.02797)  
