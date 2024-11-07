@@ -16,13 +16,13 @@ This blog post is written as an overview and summary of our recent work [Neural 
 
 
 # Framework summary
-Image steganography embeds secret bit strings within typical cover images, making them imperceptible to the naked eye yet retrievable through specific decoding techniques. The encoder takes as input a cover image ***x*** and a secret message ***m***, outputting a steganographic image ***s*** that appears visually similar to the original ***x***. The decoder then estimates the message ***m̂*** from ***s***. The setup is shown below, where _H_ and _W_ denote the image dimensions and the payload _B_ denotes the number of encoded bits per pixel (bpp).
+Image steganography embeds secret bit strings within typical cover images, making them imperceptible to the naked eye yet retrievable through specific decoding techniques. The encoder takes as input a cover image $$\mathbf{x}$$ and a secret message $$\mathbf{m}$$, outputting a steganographic image $$\mathbf{s}$$ that appears visually similar to the original $$\mathbf{x}$$. The decoder then estimates the message $$\mathbf{\hat{m}}$$ from $$\mathbf{s}$$. The setup is shown below, where $$H$$ and $$W$$ denote the image dimensions and the payload $$B$$ denotes the number of encoded bits per pixel (bpp).
 
 <p style="margin-top: 30px;">
     <img src="https://deepcomm.github.io/images/Stego/steg_setup.png" alt="Model performance" width="600"/>
 </p>
 
-The effectiveness of steganography is significantly influenced by the choice of the cover image x, a process known as cover selection. Different images have varying capacities to conceal data without detectable alterations, making cover selection a critical factor in maintaining the reliability of the steganographic process.
+The effectiveness of steganography is significantly influenced by the choice of the cover image $$\mathbf{x}$$, a process known as cover selection. Different images have varying capacities to conceal data without detectable alterations, making cover selection a critical factor in maintaining the reliability of the steganographic process.
 
 Traditional methods for selecting cover images have three key limitations: (i) They rely on heuristic image metrics that lack a clear connection to steganographic effectiveness, often leading to suboptimal message hiding. (ii) These methods ignore the influence of the encoder-decoder pair on the cover image choice, focusing solely on image quality metrics. (iii) They are restricted to selecting from a fixed set of images, rather than generating one tailored to the steganographic task, limiting their ability to find the most suitable cover.
 
@@ -34,7 +34,7 @@ The DDIM cover-selection framework is illustrated below:
     <img src="https://deepcomm.github.io/images/Stego/DDIM_setup.png" alt="Model performance" width="600"/>
 </p>
 
-The initial cover image $$\mathbf{x}_0$$ (where the subscript denotes the diffusion step) goes through the forward diffusion process to get the latent $$\mathbf{x}_T$$ after _T_ steps. We optimize $$\mathbf{x}_T$$ to minimize the loss ||***m*** - ***m̂***||. Specifically, $$\mathbf{x}_T$$ goes through the backward diffusion process generating cover images that minimize the loss. We evaluate the gradients of the loss with respect to $$\mathbf{x}_T$$ using backpropagation and use standard gradient based optimizers to get the optimal $$\mathbf{x}^*_T$$ after some optimization steps. We use a pretrained DDIM, and a pretrained LISO, the state-of-the-art steganographic encoder and decoder from Chen et al. [2022]. The weights of the DDIM and the steganographic encoder-decoder are fixed throughout $$\mathbf{x}_T$$'s optimization process.
+The initial cover image $$\mathbf{x}_0$$ (where the subscript denotes the diffusion step) goes through the forward diffusion process to get the latent $$\mathbf{x}_T$$ after $$T$$ steps. We optimize $$\mathbf{x}_T$$ to minimize the loss $$||\mathbf{m} - \mathbf{\hat{m}}||$$. Specifically, $$\mathbf{x}_T$$ goes through the backward diffusion process generating cover images that minimize the loss. We evaluate the gradients of the loss with respect to $$\mathbf{x}_T$$ using backpropagation and use standard gradient based optimizers to get the optimal $$\mathbf{x}^*_T$$ after some optimization steps. We use a pretrained DDIM, and a pretrained LISO, the state-of-the-art steganographic encoder and decoder from Chen et al. [2022]. The weights of the DDIM and the steganographic encoder-decoder are fixed throughout $$\mathbf{x}_T$$'s optimization process.
 
 # Performance results
 Below, we present randomly selected cover images alongside their message recovery errors, both before and after optimization. The observed error reduction post-optimization underscores the effectiveness of our framework.
@@ -77,7 +77,7 @@ We calculate $$\{\gamma_i^2\}_{i=1}^{3 \times H \times W}$$ using a batch of ima
 </p>
 
 
-We observe a degree of similarity with the prior figure showing the residuals. To quantitatively assess this resemblance across color channels, we quantize the three matrices by setting values greater than 0.5 to 1 and values less than 0.5 to 0. For each channel, the similarity is calculated using the equation $$\frac{\sum_{i,j} \mathbf{1}(\textbf{W}^{(k)}_{ij} = \mathbf{R}^{(k)}_{ij})}{256 \times 256}$$, where $$\textbf{W}_{ij}^{(k)}$$ and $$\textbf{R}_{ij}^{(k)}$$ are the $(i,j)$-th pixels of the quantized waterfilling and residual matrices, respectively, for the channel $k$. The computed similarity scores are 81.8% for red, 65.5% for green, and 74.9% for blue, revealing varying degrees of resemblance with the waterfilling strategy across the color channels. The variation underscores that the waterfilling strategy is implemented more effectively in some channels than in others.
+We observe a degree of similarity with the prior figure showing the residuals. To quantitatively assess this resemblance across color channels, we quantize the three matrices by setting values greater than 0.5 to 1 and values less than 0.5 to 0. For each channel, the similarity is calculated using the equation $$\frac{\sum_{i,j} \mathbf{1}(\textbf{W}^{(k)}_{ij} = \mathbf{R}^{(k)}_{ij})}{256 \times 256}$$, where $$\textbf{W}_{ij}^{(k)}$$ and $$\textbf{R}_{ij}^{(k)}$$ are the $$(i,j)$$-th pixels of the quantized waterfilling and residual matrices, respectively, for the channel $k$. The computed similarity scores are 81.8% for red, 65.5% for green, and 74.9% for blue, revealing varying degrees of resemblance with the waterfilling strategy across the color channels. The variation underscores that the waterfilling strategy is implemented more effectively in some channels than in others.
 
 
 ## Impact of cover selection
