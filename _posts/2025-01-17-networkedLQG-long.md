@@ -3,7 +3,6 @@ layout:     post
 title:      Lower Bound of Networked Linear Quadratic Gaussian Plant with Two Linear Sensors and One Controller
 date:       2025-01-16, 10:05:00
 summary:    A new novel lower bound for the networked LQG plant and optimality of linear policies.
-categories: jekyll pixyll
 comments:   true
 visible:    true
 author:     Sijie Li, Takashi Tanaka and Hyeji Kim
