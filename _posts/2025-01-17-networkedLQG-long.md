@@ -9,7 +9,7 @@ visible:    true
 author:     Sijie Li, Takashi Tanaka and Hyeji Kim
 ---
 
-This blog post is written as a pointer to the long version of our submission to the ISIT2025 paper [Lower Bound of Networked Linear Quadratic Gaussian Plant with Two Linear Sensors and One Controller](https://drive.google.com/file/d/19ea1_ymdpi91iU53QrwI914UWfbjdIfp/view)*
+This blog post is written as a pointer to the long version of our submission to the ISIT2025 paper [Lower Bound of Networked Linear Quadratic Gaussian Plant with Two Linear Sensors and One Controller](https://drive.google.com/file/d/18p1qhSqHcNKMHpwNGmzRQLNCJyGebVSX/view)*
 
 
 
